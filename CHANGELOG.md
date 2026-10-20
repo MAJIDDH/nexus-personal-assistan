@@ -18,6 +18,8 @@ This changelog records meaningful project milestones and verification evidence. 
 - Added local PostgreSQL Compose configuration and a migration for a content-idea table with constrained objectives and draft/review/approved/archived states.
 - Implemented content-idea list/create/edit and explicit draft-to-review submission, with validation and guarded transitions.
 - Added a task engine with PostgreSQL persistence, validated CRUD/status APIs, project filters, importance/urgency fields, due-date-aware priority scoring, and terminal completed/cancelled states.
+- Added PostgreSQL-triggered audit events for task creation and updates, capturing before/after snapshots transactionally, plus a bounded read-only audit-history endpoint.
+- Extended disposable PostgreSQL integration checks to verify the fourth migration and task audit trigger; current head CI is running.
 - Added API end-to-end and unit coverage for task creation, filtering, invalid fields, and explicit status transitions. Task reminders and external notifications are not enabled.
 - Added an API CI workflow for build, unit tests, and end-to-end tests.
 - Fixed the migration filename matcher so numbered SQL migrations are discovered.
