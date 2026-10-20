@@ -131,6 +131,8 @@ The memory system should distinguish confirmed facts, user preferences, hypothes
 ### 6.2 Sensitive information and consent
 NEXUS must ask for explicit user permission before saving any sensitive information. It must not silently infer permission from the fact that information was shared in conversation.
 
+**User-confirmed memory capture policy:** useful ordinary, non-sensitive information may be saved automatically in the approved memory categories. Sensitive information may be saved only after the user gives explicit permission.
+
 ### 6.3 User control across channels
 The user must be able to inspect, correct, and request deletion of memory at any time through both the web app and Telegram. These interfaces should manage the same shared memory store. The implementation must make clear what can be removed immediately and whether copies or audit records are retained for a legitimate security reason.
 
@@ -187,6 +189,7 @@ The next budget decision should be based on a transparent comparison of options 
 10. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
 11. Budget: use the lowest practical setup cost, accepting manual steps when appropriate; do not set a fixed monthly cap until options and realistic costs are compared. Keep recurring costs visible and controlled.
 12. Memory categories approved by the user: preferences and habits; projects and goals; decisions and rationale; tasks and commitments; business information; and summaries of important conversations. Automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; allow inspection, correction, and deletion requests through both Telegram and web app. When uncertain about retention of older information, ask the user. Retain useful conversation/activity history long-term for project and decision follow-up, with user-requested deletion available.
+23. Memory capture policy: automatically save useful ordinary non-sensitive information in the approved categories; save sensitive information only with explicit user permission.
 13. Routine low-risk work: broader independent execution of reversible tasks within explicit rules, with a report; reporting and analysis may be automatic, while creating or changing records requires defined rules and validation. Ambiguity or material discrepancies must pause the change and trigger clarification.
 14. Autonomy level: proactive execution and follow-up within rules approved in advance; ask for confirmation in ambiguous, out-of-scope, materially changed, or high-consequence cases. Financial actions, security changes, and important actions still require explicit confirmation.
 15. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
