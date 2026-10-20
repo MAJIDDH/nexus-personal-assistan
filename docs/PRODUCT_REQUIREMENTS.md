@@ -41,10 +41,12 @@ These are user-selected outcome areas, not yet quantified targets or claims of g
 ### 2.3 Proactive follow-up and notifications
 
 User-confirmed preferences:
-- NEXUS should be proactive: remind the user about overdue tasks and suggest appropriate follow-up, rather than only responding to direct requests.
+- NEXUS should be proactive and active: suggest a daily plan and follow up on tasks regularly, including reminders for overdue tasks.
 - Telegram should be used for notifications and reminders; the web app should provide detailed views and controls for managing tasks, reports, and follow-up.
+- Outside the defined quiet hours, notifications may be sent for **urgent and important** matters. Routine notifications should respect the quiet-hours setting.
+- The user selected custom quiet hours but has not yet specified the actual start and end times. Do not assume a schedule; ask the user to define it before enabling notifications.
 
-Proactive behavior must remain bounded by the existing permission rules. Suggestions and reminders may be proactive, but external messages, financial commitments, security changes, and other protected actions still require the previously specified authorization. Notification frequency, quiet hours, and escalation rules remain open for discovery.
+Proactive behavior must remain bounded by the existing permission rules. Suggestions and reminders may be proactive, but external messages, financial commitments, security changes, and other protected actions still require the previously specified authorization. Notification escalation details remain open for discovery.
 
 ## 3. Access channels and interaction
 
@@ -134,7 +136,7 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 ## 9. Open questions
 
 - Minimum viable management workflow and measurable baselines/targets for the first three months.
-- Notification frequency, quiet hours, and escalation rules.
+- Exact custom quiet hours and any notification escalation rules.
 - Memory categories, retention periods, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
 - Feasibility, permissions, and technical approach for Instagram data access and rule-bounded automatic publishing.
@@ -148,15 +150,16 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
 3. First operational workflow: general-purpose management assistant for tasks, reminders, reports, decision support, and follow-up; exact minimum scope remains open.
 4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
-5. NEXUS should proactively remind about overdue tasks and suggest follow-up; Telegram is for notifications, while the web app is for detail and management.
-6. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
-7. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
-8. Web-app sign-in: both Telegram-based sign-in and email/password.
-9. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
-10. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
-11. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
-12. Routine low-risk work: automatic execution with a report.
-13. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
-14. Financial actions or commitments: explicit confirmation every time.
-15. Important deletion and security changes: confirmation required.
-16. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
+5. Proactive follow-up: active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. The user wants custom quiet hours, but has not supplied the times yet.
+6. Telegram is for notifications, while the web app is for detail and management.
+7. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
+8. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
+9. Web-app sign-in: both Telegram-based sign-in and email/password.
+10. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
+11. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
+12. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
+13. Routine low-risk work: automatic execution with a report.
+14. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
+15. Financial actions or commitments: explicit confirmation every time.
+16. Important deletion and security changes: confirmation required.
+17. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
