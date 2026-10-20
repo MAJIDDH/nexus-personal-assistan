@@ -99,24 +99,33 @@ The user must be able to inspect, correct, and request deletion of memory throug
 ### 6.4 Learning and improvement
 NEXUS should improve through explicit user feedback, measured outcomes, and reviewable changes to workflows or preferences. It should not silently treat guesses as facts, change high-impact rules without authorization, or learn sensitive details without appropriate controls. Detailed retention periods, memory categories, and technical deletion behavior remain open decisions.
 
-## 7. Delivery approach
+## 7. Budget and technology priorities
+
+User-confirmed preferences:
+- Initial setup should be free wherever practical, paying only unavoidable costs.
+- Recurring costs for hosting, AI models, and essential services should be low and controlled.
+- Technology choices should balance cost, quality, security, and extensibility rather than optimizing only one dimension.
+
+Architecture and provider decisions should make recurring costs visible, avoid unnecessary paid dependencies, and permit replaceable providers where practical. The exact currency-denominated budget ceiling and acceptable service-level trade-offs remain open; no specific price cap has yet been set.
+
+## 8. Delivery approach
 
 - Build incrementally, prioritizing measurable impact against implementation and running cost.
 - Keep the shared personal-assistant core separate from business-specific capabilities.
 - Do not begin application implementation until product discovery is sufficiently complete and material technical/security/autonomy decisions have accepted ADRs.
 - Do not claim integrations or capabilities are operational until implemented and tested.
 
-## 8. Open questions
+## 9. Open questions
 
 - Minimum viable management workflow and its success criteria.
 - Notification frequency, quiet hours, and escalation rules.
 - Memory categories, retention periods, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
 - Integration feasibility and approved automation rules for Instagram.
-- Budget ceiling and acceptable recurring infrastructure/model costs.
+- Exact currency-denominated setup and monthly budget ceilings.
 - Technical choices and corresponding ADRs.
 
-## 9. User-confirmed decisions to date
+## 10. User-confirmed decisions to date
 
 1. NEXUS is a general-purpose personal assistant; the gallery is the current priority, not its exclusive scope.
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
@@ -126,9 +135,10 @@ NEXUS should improve through explicit user feedback, measured outcomes, and revi
 6. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
 7. Web-app sign-in: both Telegram-based sign-in and email/password.
 8. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
-9. Routine low-risk work: automatic execution with a report.
-10. Publishing and external communication: automatic only within rules explicitly approved in advance.
-11. Financial actions or commitments: explicit confirmation every time.
-12. Important deletion and security changes: confirmation required.
-13. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
-14. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
+9. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
+10. Routine low-risk work: automatic execution with a report.
+11. Publishing and external communication: automatic only within rules explicitly approved in advance.
+12. Financial actions or commitments: explicit confirmation every time.
+13. Important deletion and security changes: confirmation required.
+14. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
+15. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
