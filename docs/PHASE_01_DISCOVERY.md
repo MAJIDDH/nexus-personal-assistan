@@ -69,6 +69,10 @@ The first desk-research note is available in [Discovery Options 01](DISCOVERY_OP
 
 The second note, [Discovery Options 02 — Costs](DISCOVERY_OPTIONS_02_COSTS.md), provides a preliminary hosting/model/voice/Telegram cost baseline and staged deployment recommendation. It is not a purchase authorization; provider access, billing, and account permissions remain untested.
 
+The proposed [Content Operations Workflow](CONTENT_OPERATIONS_WORKFLOW.md) defines source evidence, idea states, approval boundaries, publication verification, and outcome measurement. It is a specification, not an implemented feature.
+
+The next handoff is [Claude Phase 1 Handoff](CLAUDE_HANDOFF_PHASE1.md). Claude should review the current repository and recommend the smallest remaining decisions and ADRs, without implementing the application or marking discovery complete prematurely.
+
 ## 5. Completion reporting
 
 For each work item, report what was inspected or changed, evidence and links, limitations, and what remains. Do not present recommendations as confirmed decisions or drafts as published content.
