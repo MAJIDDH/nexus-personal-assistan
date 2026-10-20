@@ -26,6 +26,8 @@ The user selected **Instagram content operations for Galeri Tala Yousefi** as th
 
 **User-confirmed initial content focus:** begin with research into successful competitor content in the gold and jewelry niche, then turn verified observations into original ideas tailored to Galeri Tala Yousefi. Claims about content performance must be evidence-based; do not fabricate links, metrics, or success claims. Clearly distinguish observed facts, interpretations, and hypotheses.
 
+**User-confirmed research-source policy:** use publicly accessible sources and authorized tools/APIs only, after evaluating access, cost, and security. Never assume private or unauthorized access. Explicitly disclose observation limits, unavailable metrics, and whether figures are verified, estimated, or unavailable.
+
 The exact minimum viable workflow, measurable success criteria, and first integrations remain to be defined during discovery. Do not treat this selection as authorization to build an unbounded feature set; delivery should still be incremental and cost-aware.
 
 ### 2.2 First three-month success criteria
@@ -186,6 +188,7 @@ The next budget decision should be based on a transparent comparison of options 
 1. NEXUS is a general-purpose personal assistant; the gallery is the current priority, not its exclusive scope.
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
 3. First-version priority: Instagram content operations for Galeri Tala Yousefi, initially focused on evidence-based research of successful competitor content in gold and jewelry and converting findings into original tailored ideas. No fabricated links, metrics, or success claims. Keep the core general-purpose; broader task-management and reporting workflows may be staged later.
+4. Competitor-research sources: public sources and authorized tools/APIs only, conditional on checking access, cost, and security. Do not assume private or unauthorized access; state observation limits and unavailable or unverified metrics explicitly.
 4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
 5. Proactive follow-up: prioritize tasks by combined importance, urgency, deadline, and consequences of non-completion;
 22. Automatic reporting: support task/commitment, daily summary, weekly, business performance, decision/opportunity, and personal-planning reports; notify or deliver a report only when an important matter arises. The importance threshold and triggers remain open. adapt follow-up spacing to importance and urgency; active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`. Reminder frequency and spacing should adapt to importance, deadline, and urgency without repeated nuisance notifications; the user can pause or change follow-up. Send the next day's plan at night and a short review in the morning.
