@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from './database.service';
 
 describe('DatabaseService', () => {
-  it('uses parameterized queries and closes the pool on shutdown', async () => {
+  it('closes an unused pool cleanly without opening a connection', async () => {
     const service = new DatabaseService({
       getOrThrow: jest.fn().mockReturnValue(
         'postgresql://nexus:nexus_local_only@127.0.0.1:5432/nexus_dev',
