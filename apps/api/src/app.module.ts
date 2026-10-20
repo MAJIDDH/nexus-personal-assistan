@@ -6,6 +6,7 @@ import { environmentSchema } from './config/env.validation';
 import { HealthController } from './health/health.controller';
 import { ToolPolicyService } from './security/tool-policy.service';
 import { DatabaseModule } from './database/database.module';
+import { ContentIdeasModule } from './content-ideas/content-ideas.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { DatabaseModule } from './database/database.module';
       },
     }),
     DatabaseModule,
+    ContentIdeasModule,
   ],
   controllers: [AppController, HealthController],
   providers: [ToolPolicyService, MockModelProvider],
