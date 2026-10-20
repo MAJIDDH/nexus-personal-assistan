@@ -5,10 +5,12 @@ import { AppModule } from '../src/app.module';
 import { DatabaseService } from '../src/database/database.service';
 import { ContentIdeasService } from '../src/content-ideas/content-ideas.service';
 import { TasksService } from '../src/tasks/tasks.service';
+import { AuditService } from '../src/audit/audit.service';
 
 describe('NEXUS API (e2e)', () => {
   let app: INestApplication;
   const database = { ping: jest.fn() };
+  const audit = { list: jest.fn() };
   const tasks = { list: jest.fn(), create: jest.fn(), update: jest.fn(), transition: jest.fn() };
   const ideas = {
     list: jest.fn(),
@@ -27,6 +29,8 @@ describe('NEXUS API (e2e)', () => {
       .useValue(ideas)
       .overrideProvider(TasksService)
       .useValue(tasks)
+      .overrideProvider(AuditService)
+      .useValue(audit)
       .compile();
 
     app = moduleRef.createNestApplication();
@@ -41,6 +45,7 @@ describe('NEXUS API (e2e)', () => {
     ideas.updateDraft.mockReset();
     ideas.submitForReview.mockReset();
     tasks.list.mockReset(); tasks.create.mockReset(); tasks.update.mockReset(); tasks.transition.mockReset();
+    audit.list.mockReset();
   });
 
   afterAll(async () => {
@@ -86,6 +91,18 @@ describe('NEXUS API (e2e)', () => {
         service: 'nexus-api',
         dependencies: { database: 'unavailable' },
       });
+  });
+
+  it('/api/audit-events (GET) lists bounded task history', () => {
+    const fixture = [{ id: '1', entity_type: 'task', action: 'created' }];
+    audit.list.mockResolvedValue(fixture);
+    return request(app.getHttpServer()).get('/api/audit-events?entity_type=task&limit=20')
+      .expect(200).expect(fixture).then(() => expect(audit.list).toHaveBeenCalledWith('task', undefined, 20));
+  });
+
+  it('/api/audit-events (GET) rejects invalid limits and entity types', async () => {
+    await request(app.getHttpServer()).get('/api/audit-events?limit=999').expect(400);
+    await request(app.getHttpServer()).get('/api/audit-events?entity_type=customer').expect(400);
   });
 
   it('/api/tasks (GET) lists tasks with optional project and status filters', () => {
