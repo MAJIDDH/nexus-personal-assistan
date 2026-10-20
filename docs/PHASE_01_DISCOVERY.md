@@ -71,7 +71,7 @@ The second note, [Discovery Options 02 — Costs](DISCOVERY_OPTIONS_02_COSTS.md)
 
 The proposed [Content Operations Workflow](CONTENT_OPERATIONS_WORKFLOW.md) defines source evidence, idea states, approval boundaries, publication verification, and outcome measurement. It is a specification, not an implemented feature.
 
-The local API scaffold has been started on a feature branch, but its build and tests remain unverified. ADR 0006 proposes the PostgreSQL access layer (`pg` plus versioned SQL migrations); this decision remains unaccepted and persistence implementation must not begin until the user explicitly accepts it or chooses another option.
+The local API scaffold and a minimal PostgreSQL pool/migration runner are present on a feature branch. Build, unit tests, and migration execution remain unverified. ADR 0006 (the `pg` access layer with parameterized SQL and versioned migrations) is accepted for the local synthetic-data prototype.
 
 ## 5. Completion reporting
 
@@ -85,6 +85,7 @@ The following bounded decisions have been accepted by the user on 2026-10-20 for
 - [ADR 0003 — Replaceable model provider and spend controls](adr/0003-model-provider-and-spend-controls.md)
 - [ADR 0004 — Agent tool permissions and approval gates](adr/0004-agent-tool-permissions-and-approvals.md)
 - [ADR 0005 — Concrete local prototype stack](adr/0005-local-prototype-stack.md)
+- [ADR 0006 — PostgreSQL access layer](adr/0006-postgres-access-layer.md)
 
 Next: verify the scaffold and PostgreSQL layer in an actual Node environment and record test/build results. ADR 0006 is accepted; database integration is implemented as a minimal pool boundary and SQL migration runner, but runtime behavior remains unverified. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
 
