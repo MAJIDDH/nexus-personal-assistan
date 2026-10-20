@@ -35,7 +35,7 @@ From the repository root:
 docker compose up -d postgres
 ```
 
-Database credentials in the compose file are disposable local-development placeholders. Do not reuse them outside the local synthetic-data environment. No database integration is wired into the API yet.
+Database credentials in the compose file are disposable local-development placeholders. Do not reuse them outside the local synthetic-data environment. The API now has a small PostgreSQL pool boundary; creating the pool does not prove the database is reachable. Database queries should use parameterized values (for example, `$1`) and must not interpolate untrusted input into SQL.\n\nAfter starting PostgreSQL and setting `DATABASE_URL` in the API environment, run migrations from this directory:\n\n```sh\nnpm run migrate\n```\n\nThe migration runner creates a `schema_migrations` ledger, applies ordered SQL files once, and wraps each migration in a transaction. Current migration only establishes the ledger table; no business tables or real data are created. The runner expects `DATABASE_URL` to be present in the process environment.
 
 ## Safety limits
 
@@ -49,4 +49,4 @@ Database credentials in the compose file are disposable local-development placeh
 
 ## Verification status
 
-Unit and e2e test definitions are present, but neither the test suite nor the build has been executed in the available environment. Run the commands above on a machine with the required tooling and record the actual results before describing the prototype as runnable.
+Unit and e2e test definitions are present, but neither the test suite nor the build or database migration has been executed in the available environment. Run the commands above on a machine with the required tooling and record the actual results before describing the prototype as runnable.
