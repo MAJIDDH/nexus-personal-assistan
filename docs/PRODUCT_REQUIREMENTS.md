@@ -22,7 +22,7 @@ Prioritization must not turn the gallery into the only supported domain or preve
 
 ### 2.1 First operational workflow
 
-The user selected a **general-purpose management assistant** as the first operational workflow. The initial experience should help organize tasks and reminders, prepare reports, support decisions, and coordinate follow-up across personal and professional domains. Gallery-specific workflows, including Instagram growth and content production, can be added as capabilities rather than defining the entire product.
+The user selected **Instagram content operations for Galeri Tala Yousefi** as the first-version priority: ideation, Reel/post scenarios, captions, a content calendar, and assessment of whether rule-bounded automatic publishing is officially and securely feasible. The initial version should prioritize practical content planning and production workflows, while keeping NEXUS's underlying architecture general-purpose rather than Instagram-only. Publishing must follow the approved-rules policy and must not be treated as enabled until official API access, account permissions, platform restrictions, security, auditability, and cost have been assessed. Tasks, reminders, reporting, and broader management workflows remain part of the wider product direction and may be staged after the initial Instagram workflow.
 
 The exact minimum viable workflow, measurable success criteria, and first integrations remain to be defined during discovery. Do not treat this selection as authorization to build an unbounded feature set; delivery should still be incremental and cost-aware.
 
@@ -181,7 +181,7 @@ The next budget decision should be based on a transparent comparison of options 
 
 1. NEXUS is a general-purpose personal assistant; the gallery is the current priority, not its exclusive scope.
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
-3. First operational workflow: general-purpose management assistant for tasks, reminders, reports, decision support, and follow-up; exact minimum scope remains open.
+3. First-version priority: Instagram content operations for Galeri Tala Yousefi—ideas, scenarios, captions, content calendar, and assessment of official, secure, rule-bounded automatic publishing. Keep the core general-purpose; broader task-management and reporting workflows may be staged later.
 4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
 5. Proactive follow-up: prioritize tasks by combined importance, urgency, deadline, and consequences of non-completion;
 22. Automatic reporting: support task/commitment, daily summary, weekly, business performance, decision/opportunity, and personal-planning reports; notify or deliver a report only when an important matter arises. The importance threshold and triggers remain open. adapt follow-up spacing to importance and urgency; active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`. Reminder frequency and spacing should adapt to importance, deadline, and urgency without repeated nuisance notifications; the user can pause or change follow-up. Send the next day's plan at night and a short review in the morning.
