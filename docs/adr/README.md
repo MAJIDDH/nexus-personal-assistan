@@ -44,11 +44,11 @@ Create an ADR for decisions that are cross-cutting, expensive to reverse, securi
 ## Verification and follow-up
 ```
 
-## Current proposed decisions
+## Current decisions
 
 - [ADR 0001 — Local-first modular monolith](0001-local-first-modular-monolith.md): build and test locally before any server purchase.
 - [ADR 0002 — Private data and memory boundaries](0002-private-data-and-memory.md): structured, scoped memory with correction/export/deletion controls.
 - [ADR 0003 — Replaceable model provider and spend controls](0003-model-provider-and-spend-controls.md): mock provider first; compare live providers before paid use.
 - [ADR 0004 — Agent tool permissions and approval gates](0004-agent-tool-permissions-and-approvals.md): server-side authorization and explicit approval for high-impact actions.
 
-All four are **Proposed**, not accepted. They do not authorize paid services, real-data storage, external integrations, or production deployment.
+ADRs 0001–0004 are **Accepted within the local synthetic-data prototype scope**. They do not authorize paid services, server purchase, real-data storage, external integrations, or production deployment. The concrete application stack remains a separate decision.
