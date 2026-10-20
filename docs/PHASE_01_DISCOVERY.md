@@ -1,6 +1,6 @@
 # Phase 1 — Discovery and Recommended Defaults
 
-**Status:** In progress — governance baseline accepted; stack selection remains open  
+**Status:** Prototype scaffold in progress — ADRs 0001–0005 accepted within local synthetic-data scope  
 **Purpose:** Continue discovery without burdening the user with repeated preference questions. Use existing confirmed requirements and reversible, low-risk defaults. Ask the user only when a decision is consequential, costly, security-sensitive, difficult to reverse, or genuinely blocks progress.
 
 ## 1. Working principles
@@ -84,6 +84,7 @@ The following bounded decisions have been accepted by the user on 2026-10-20 for
 - [ADR 0002 — Private data and memory boundaries](adr/0002-private-data-and-memory.md)
 - [ADR 0003 — Replaceable model provider and spend controls](adr/0003-model-provider-and-spend-controls.md)
 - [ADR 0004 — Agent tool permissions and approval gates](adr/0004-agent-tool-permissions-and-approvals.md)
+- [ADR 0005 — Concrete local prototype stack](adr/0005-local-prototype-stack.md)
 
 Next: select and accept the concrete app stack, then implement only a local, synthetic-data foundation with a mock model provider and no real external side effects. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
 
