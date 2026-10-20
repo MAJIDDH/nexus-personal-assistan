@@ -84,6 +84,7 @@ User-confirmed requirements:
 - The design should allow employees or other users with differentiated permissions to be added later without requiring a fundamental redesign.
 
 Security design must still assess account recovery, secure session handling, protection of credentials, safe linking and unlinking of Telegram and email identities, and recovery if one linked method becomes unavailable. Multi-user support is a future extensibility requirement, not a requirement to enable employee accounts in the first release.
+- **User-confirmed account recovery policy:** support recovery through either the verified email identity or the linked Telegram identity, so losing one method does not automatically lock the user out. Recovery must verify control of the surviving identity and protect against account takeover. If both methods are unavailable, a secure fallback process must be designed; recovery must not rely only on knowing an email address or Telegram identifier.
 
 ## 4. Current business context, data sources, and integrations
 
@@ -202,3 +203,4 @@ The next budget decision should be based on a transparent comparison of options 
 21. Preliminary method decision: compare feasible options and recommend the lowest-cost practical recordkeeping method for gallery sales, expenses, and inventory; defer tool selection until that comparison is presented.
 19. Instagram setup: the user confirms that `golddyousefi` is a professional account connected to a Facebook Page; current permissions and API access remain to be verified.
 22. Decision-making process: recommend a default option with reasons; require approval for sensitive, costly, or hard-to-reverse decisions; independently execute low-risk reversible changes within approved rules. Financial, security/access-control, and important-deletion confirmations remain mandatory.
+23. Account recovery: support recovery through either the verified email identity or the linked Telegram identity, allowing recovery when one method is lost. Verify control of the surviving identity and design a secure fallback for loss of both methods to prevent account takeover.
