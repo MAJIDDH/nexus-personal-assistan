@@ -19,7 +19,7 @@ This changelog records meaningful project milestones and verification evidence. 
 - Implemented content-idea list/create/edit and explicit draft-to-review submission, with validation and guarded transitions.
 - Added a task engine with PostgreSQL persistence, validated CRUD/status APIs, project filters, importance/urgency fields, due-date-aware priority scoring, and terminal completed/cancelled states.
 - Added PostgreSQL-triggered audit events for task creation and updates, capturing before/after snapshots transactionally, plus a bounded read-only audit-history endpoint.
-- Extended disposable PostgreSQL integration checks to verify the fourth migration and task audit trigger; current head CI is running.
+- Extended disposable PostgreSQL integration checks to verify task audit events and structured feedback persistence; fresh CI is required for the latest feedback migration.
 - Added API end-to-end and unit coverage for task creation, filtering, invalid fields, and explicit status transitions. Task reminders and external notifications are not enabled.
 - Added an API CI workflow for build, unit tests, and end-to-end tests.
 - Fixed the migration filename matcher so numbered SQL migrations are discovered.
@@ -28,7 +28,7 @@ This changelog records meaningful project milestones and verification evidence. 
 
 ## Verification status
 
-- Latest known review-workflow CI runs #53 (API CI) and #21 (disposable PostgreSQL integration) passed before task-engine commits; the task-engine head must be verified by fresh CI before claiming it passes.
+- Latest verified commit `5e59f6689672385f5cab9323b2cedc3c325f20a2`: API CI and disposable PostgreSQL integration both passed. The subsequent structured-feedback feature is awaiting fresh CI.
 - PostgreSQL integration uses a disposable database and synthetic records only.
 - Work remains on `feat/local-prototype-foundation`; PR #1 is open, draft, and unmerged.
 - No production database, real gallery/customer data, paid API, public server, or external integration was added.
