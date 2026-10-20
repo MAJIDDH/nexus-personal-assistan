@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, ParseUUIDPipe, Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { AuditService } from './audit.service';
 
 @Controller('audit-events')
