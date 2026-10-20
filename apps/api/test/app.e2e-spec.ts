@@ -73,12 +73,9 @@ describe('NEXUS API (e2e)', () => {
       .get('/api/health/ready')
       .expect(503)
       .expect({
-        statusCode: 503,
-        message: {
-          status: 'not_ready',
-          service: 'nexus-api',
-          dependencies: { database: 'unavailable' },
-        },
+        status: 'not_ready',
+        service: 'nexus-api',
+        dependencies: { database: 'unavailable' },
       });
   });
 
