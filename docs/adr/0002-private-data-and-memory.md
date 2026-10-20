@@ -1,6 +1,6 @@
 # ADR 0002: Private Data and Memory Boundaries
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-20
 - Decision owner: User
 
@@ -38,6 +38,10 @@ Use migrations and export formats that permit moving to another database. Provid
 
 ## Verification and follow-up
 Tests must cover wrong-scope access, correction, deletion, export, provenance, retention, and backup behavior before production data is enabled.
+
+## Acceptance record
+
+Accepted by the user in ChatGPT on 2026-10-20, within the bounded scope of a local prototype using synthetic data. This acceptance does not authorize server purchase, paid API activation, real business/customer data storage, external integrations, or production deployment.
 
 ## Approval required
 User approval is required before persistent memory or real business data is implemented.
