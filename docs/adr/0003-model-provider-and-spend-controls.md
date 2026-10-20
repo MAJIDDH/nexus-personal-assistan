@@ -1,6 +1,6 @@
 # ADR 0003: Replaceable Model Provider and Spend Controls
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-20
 - Decision owner: User
 
@@ -38,6 +38,10 @@ Provider-specific requests and responses stay inside adapters. Keep a mock provi
 
 ## Verification and follow-up
 Test timeout, provider failure, usage limit, cost limit, malformed output, and cancellation. Verify a provider's current official pricing, access, data terms, and billing route before activation.
+
+## Acceptance record
+
+Accepted by the user in ChatGPT on 2026-10-20, within the bounded scope of a local prototype using synthetic data. This acceptance does not authorize server purchase, paid API activation, real business/customer data storage, external integrations, or production deployment.
 
 ## Approval required
 User approval is required before selecting or activating a paid provider.
