@@ -56,6 +56,31 @@ describe('ContentIdeasService', () => {
     );
   });
 
+  it('submits only drafts for review using a guarded status transition', async () => {
+    const row = {
+      id: '00000000-0000-4000-8000-000000000005',
+      title: 'Review this idea',
+      concept: 'Synthetic review concept',
+      objective: 'grow_followers',
+      status: 'in_review',
+      created_at: new Date('2026-10-20T00:00:00.000Z'),
+      updated_at: new Date('2026-10-20T00:05:00.000Z'),
+    };
+    query.mockResolvedValue({ rows: [row], rowCount: 1 });
+
+    await expect(service.submitForReview(row.id)).resolves.toEqual(row);
+    expect(query.mock.calls[0][0]).toContain("SET status = 'in_review'");
+    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND status = 'draft'");
+    expect(query.mock.calls[0][1]).toEqual([row.id]);
+  });
+
+  it('does not submit missing or non-draft ideas for review', async () => {
+    query.mockResolvedValue({ rows: [], rowCount: 0 });
+    await expect(service.submitForReview(
+      '00000000-0000-4000-8000-000000000006',
+    )).rejects.toThrow('Draft content idea not found.');
+  });
+
   it('only updates drafts and passes all values as SQL parameters', async () => {
     const row = {
       id: '00000000-0000-4000-8000-000000000003',
