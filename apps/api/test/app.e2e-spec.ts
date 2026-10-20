@@ -11,6 +11,7 @@ describe('NEXUS API (e2e)', () => {
   const ideas = {
     list: jest.fn(),
     create: jest.fn(),
+    updateDraft: jest.fn(),
   };
 
   beforeAll(async () => {
@@ -32,6 +33,7 @@ describe('NEXUS API (e2e)', () => {
     database.ping.mockReset();
     ideas.list.mockReset();
     ideas.create.mockReset();
+    ideas.updateDraft.mockReset();
   });
 
   afterAll(async () => {
@@ -118,6 +120,41 @@ describe('NEXUS API (e2e)', () => {
           objective: 'grow_followers',
         });
       });
+  });
+
+  it('/api/content-ideas (PATCH) updates a draft by UUID', () => {
+    const id = '00000000-0000-4000-8000-000000000003';
+    const fixture = {
+      id,
+      title: 'Updated title',
+      concept: 'Updated concept',
+      objective: 'educate',
+      status: 'draft',
+    };
+    ideas.updateDraft.mockResolvedValue(fixture);
+    return request(app.getHttpServer())
+      .patch(`/api/content-ideas/${id}`)
+      .send({ title: ' Updated title ', objective: 'educate' })
+      .expect(200)
+      .expect(fixture)
+      .then(() => {
+        expect(ideas.updateDraft).toHaveBeenCalledWith(id, {
+          title: 'Updated title',
+          objective: 'educate',
+        });
+      });
+  });
+
+  it('/api/content-ideas (PATCH) rejects invalid IDs and unsupported fields', async () => {
+    await request(app.getHttpServer())
+      .patch('/api/content-ideas/not-a-uuid')
+      .send({ title: 'Draft' })
+      .expect(400);
+
+    await request(app.getHttpServer())
+      .patch('/api/content-ideas/00000000-0000-4000-8000-000000000003')
+      .send({ status: 'approved' })
+      .expect(400);
   });
 
   it('/api/content-ideas (POST) rejects unsupported fields', () => {
