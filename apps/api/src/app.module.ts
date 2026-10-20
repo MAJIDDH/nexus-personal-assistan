@@ -9,7 +9,6 @@ import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: environmentSchema,
@@ -18,6 +17,7 @@ import { DatabaseModule } from './database/database.module';
         allowUnknown: true,
       },
     }),
+    DatabaseModule,
   ],
   controllers: [AppController, HealthController],
   providers: [ToolPolicyService, MockModelProvider],
