@@ -4,10 +4,12 @@ import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { DatabaseService } from '../src/database/database.service';
 import { ContentIdeasService } from '../src/content-ideas/content-ideas.service';
+import { TasksService } from '../src/tasks/tasks.service';
 
 describe('NEXUS API (e2e)', () => {
   let app: INestApplication;
   const database = { ping: jest.fn() };
+  const tasks = { list: jest.fn(), create: jest.fn(), update: jest.fn(), transition: jest.fn() };
   const ideas = {
     list: jest.fn(),
     create: jest.fn(),
@@ -23,6 +25,8 @@ describe('NEXUS API (e2e)', () => {
       .useValue(database)
       .overrideProvider(ContentIdeasService)
       .useValue(ideas)
+      .overrideProvider(TasksService)
+      .useValue(tasks)
       .compile();
 
     app = moduleRef.createNestApplication();
@@ -36,6 +40,7 @@ describe('NEXUS API (e2e)', () => {
     ideas.create.mockReset();
     ideas.updateDraft.mockReset();
     ideas.submitForReview.mockReset();
+    tasks.list.mockReset(); tasks.create.mockReset(); tasks.update.mockReset(); tasks.transition.mockReset();
   });
 
   afterAll(async () => {
@@ -81,6 +86,44 @@ describe('NEXUS API (e2e)', () => {
         service: 'nexus-api',
         dependencies: { database: 'unavailable' },
       });
+  });
+
+  it('/api/tasks (GET) lists tasks with optional project and status filters', () => {
+    const fixture = [{ id: '00000000-0000-4000-8000-000000000009', title: 'Prepare content', status: 'open' }];
+    tasks.list.mockResolvedValue(fixture);
+    return request(app.getHttpServer()).get('/api/tasks?project=golddyousefi&status=open')
+      .expect(200).expect(fixture).then(() => {
+        expect(tasks.list).toHaveBeenCalledWith('golddyousefi', 'open');
+      });
+  });
+
+  it('/api/tasks (POST) creates a task with safe defaults', () => {
+    const fixture = { id: '00000000-0000-4000-8000-000000000010', title: 'Prepare content', description: '', project_key: 'personal', importance: 3, urgency: 3, due_at: null, status: 'open' };
+    tasks.create.mockResolvedValue(fixture);
+    return request(app.getHttpServer()).post('/api/tasks')
+      .send({ title: ' Prepare content ' }).expect(201).expect(fixture)
+      .then(() => expect(tasks.create).toHaveBeenCalledWith({
+        title: 'Prepare content', description: '', project_key: 'personal',
+        importance: 3, urgency: 3, due_at: null,
+      }));
+  });
+
+  it('/api/tasks (POST) rejects unsupported fields and invalid priority', async () => {
+    await request(app.getHttpServer()).post('/api/tasks').send({ title: 'Task', runNow: true }).expect(400);
+    await request(app.getHttpServer()).post('/api/tasks').send({ title: 'Task', importance: 9 }).expect(400);
+  });
+
+  it('/api/tasks/:id/status transitions a task using an explicit status action', () => {
+    const id = '00000000-0000-4000-8000-000000000011';
+    const fixture = { id, title: 'Task', status: 'in_progress' };
+    tasks.transition.mockResolvedValue(fixture);
+    return request(app.getHttpServer()).post(`/api/tasks/${id}/status`)
+      .send({ status: 'in_progress' }).expect(201).expect(fixture)
+      .then(() => expect(tasks.transition).toHaveBeenCalledWith(id, 'in_progress'));
+  });
+
+  it('/api/tasks (GET) returns 400 for unsupported status filters', () => {
+    return request(app.getHttpServer()).get('/api/tasks?status=publish').expect(400);
   });
 
   it('/api/content-ideas (GET) returns stored ideas', () => {
