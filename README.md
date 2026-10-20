@@ -23,7 +23,11 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 - [Risk Register](docs/RISK_REGISTER.md) — open risks and evidence needed to reduce them.
 - [Changelog](CHANGELOG.md) — meaningful milestones and verification notes.
 - [Phase 0 Governance](docs/PHASE_00_GOVERNANCE.md) — current governance phase.
-- [Architecture Decision Records](docs/adr/README.md) — material decision process.
+- [Architecture Decision Records](docs/adr/README.md) — material decision process and four proposed ADRs.
+- [Local-first ADR 0001](docs/adr/0001-local-first-modular-monolith.md)
+- [Private data and memory ADR 0002](docs/adr/0002-private-data-and-memory.md)
+- [Model provider and spend controls ADR 0003](docs/adr/0003-model-provider-and-spend-controls.md)
+- [Tool permissions and approval gates ADR 0004](docs/adr/0004-agent-tool-permissions-and-approvals.md)
 
 ## Principles
 
