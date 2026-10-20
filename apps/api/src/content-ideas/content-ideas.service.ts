@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 
 export const CONTENT_OBJECTIVES = [
@@ -26,6 +26,8 @@ export type CreateContentIdea = {
   objective: ContentObjective;
 };
 
+export type UpdateContentIdea = Partial<CreateContentIdea>;
+
 @Injectable()
 export class ContentIdeasService {
   constructor(private readonly database: DatabaseService) {}
@@ -48,6 +50,24 @@ export class ContentIdeasService {
        RETURNING id, title, concept, objective, status, created_at, updated_at`,
       [input.title.trim(), input.concept.trim(), input.objective],
     );
+    return result.rows[0];
+  }
+
+  async updateDraft(id: string, input: UpdateContentIdea): Promise<ContentIdea> {
+    const result = await this.database.query<ContentIdea>(
+      `UPDATE content_ideas
+       SET title = COALESCE($2, title),
+           concept = COALESCE($3, concept),
+           objective = COALESCE($4, objective),
+           updated_at = now()
+       WHERE id = $1 AND status = 'draft'
+       RETURNING id, title, concept, objective, status, created_at, updated_at`,
+      [id, input.title ?? null, input.concept ?? null, input.objective ?? null],
+    );
+
+    if (!result.rows[0]) {
+      throw new NotFoundException('Draft content idea not found.');
+    }
     return result.rows[0];
   }
 }
