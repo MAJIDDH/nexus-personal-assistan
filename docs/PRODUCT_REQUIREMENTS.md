@@ -55,9 +55,19 @@ Important deletion, access-control changes, and security-sensitive changes requi
 ### 5.5 Truthful execution reporting
 NEXUS must distinguish recommendations, drafts, attempted actions, successful actions, and failed or unverified actions. It must never claim that an action succeeded without evidence.
 
-## 6. Learning and improvement
+## 6. Memory, privacy, and improvement
 
-NEXUS should be designed to improve through explicit user feedback, measured outcomes, and reviewable changes to workflows or preferences. It should not silently treat guesses as facts, change high-impact rules without authorization, or learn sensitive details without appropriate controls. The memory model, user review/correction, retention, and deletion mechanisms are still open discovery questions.
+### 6.1 Useful information
+NEXUS should identify useful information to remember across personal and professional domains, such as preferences, goals, projects, decisions, and recurring workflows. It should preserve the distinction between confirmed facts, user preferences, hypotheses, and outdated information.
+
+### 6.2 Sensitive information and consent
+NEXUS must ask for explicit user permission before saving any sensitive information. It must not silently infer permission from the fact that information was shared in conversation. When uncertain whether an item is sensitive, it should ask rather than save it automatically.
+
+### 6.3 User control across channels
+The user must be able to inspect, correct, and request deletion of memory through both the web app and Telegram. These interfaces should manage the same shared memory store. The implementation must make clear what can be removed immediately and whether copies or audit records are retained for a legitimate security reason.
+
+### 6.4 Learning and improvement
+NEXUS should improve through explicit user feedback, measured outcomes, and reviewable changes to workflows or preferences. It should not silently treat guesses as facts, change high-impact rules without authorization, or learn sensitive details without appropriate controls. Detailed retention periods, memory categories, and technical deletion behavior remain open decisions.
 
 ## 7. Delivery approach
 
@@ -68,7 +78,7 @@ NEXUS should be designed to improve through explicit user feedback, measured out
 
 ## 8. Open questions
 
-- Memory categories, persistence, review/correction, retention, and deletion.
+- Memory categories, retention periods, and detailed deletion behavior.
 - Voice input/output expectations and acceptable latency/cost.
 - Initial user authentication and secure access from Telegram and web.
 - Exact first measurable business workflow and success metrics.
@@ -85,3 +95,5 @@ NEXUS should be designed to improve through explicit user feedback, measured out
 5. Publishing and external communication: automatic only within rules explicitly approved in advance.
 6. Financial actions or commitments: explicit confirmation every time.
 7. Important deletion and security changes: confirmation required.
+8. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
+9. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
