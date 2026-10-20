@@ -1,0 +1,45 @@
+name: API CI
+
+on:
+  pull_request:
+    paths:
+      - "apps/api/**"
+      - ".github/workflows/api-ci.yml"
+  push:
+    branches:
+      - main
+      - "feat/**"
+    paths:
+      - "apps/api/**"
+      - ".github/workflows/api-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: api-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Build, unit and API e2e tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build API
+        run: npm run build
+      - name: Run unit tests
+        run: npm test -- --runInBand
+      - name: Run API end-to-end tests
+        run: npm run test:e2e -- --runInBand

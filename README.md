@@ -4,7 +4,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 
 ## Current status
 
-**Phase 1 — Discovery in progress.** The repository currently contains planning and governance documents; do not assume application capabilities are implemented. Features are complete only after implementation and recorded verification evidence.
+**Phase 1 — Local prototype scaffold in progress.** A first API scaffold is being prepared on a feature branch. It has not been runtime-verified and is not production-ready.
 
 ## Start here
 
@@ -23,7 +23,8 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 - [Risk Register](docs/RISK_REGISTER.md) — open risks and evidence needed to reduce them.
 - [Changelog](CHANGELOG.md) — meaningful milestones and verification notes.
 - [Phase 0 Governance](docs/PHASE_00_GOVERNANCE.md) — current governance phase.
-- [Architecture Decision Records](docs/adr/README.md) — material decision process and four proposed ADRs.
+- [Architecture Decision Records](docs/adr/README.md) — material decision process and accepted prototype ADRs.
+- [NEXUS API prototype](apps/api/README.md) — local setup, routes, tests, and safety limits.
 - [Local-first ADR 0001](docs/adr/0001-local-first-modular-monolith.md)
 - [Private data and memory ADR 0002](docs/adr/0002-private-data-and-memory.md)
 - [Model provider and spend controls ADR 0003](docs/adr/0003-model-provider-and-spend-controls.md)

@@ -1,6 +1,6 @@
 # Phase 1 — Discovery and Recommended Defaults
 
-**Status:** In progress — governance baseline accepted; stack selection remains open  
+**Status:** Local API scaffold in progress — ADRs 0001–0006 accepted within local synthetic-data scope  
 **Purpose:** Continue discovery without burdening the user with repeated preference questions. Use existing confirmed requirements and reversible, low-risk defaults. Ask the user only when a decision is consequential, costly, security-sensitive, difficult to reverse, or genuinely blocks progress.
 
 ## 1. Working principles
@@ -71,7 +71,7 @@ The second note, [Discovery Options 02 — Costs](DISCOVERY_OPTIONS_02_COSTS.md)
 
 The proposed [Content Operations Workflow](CONTENT_OPERATIONS_WORKFLOW.md) defines source evidence, idea states, approval boundaries, publication verification, and outcome measurement. It is a specification, not an implemented feature.
 
-The next handoff is [Claude Phase 1 Handoff](CLAUDE_HANDOFF_PHASE1.md). Claude should review the current repository and recommend the smallest remaining decisions and ADRs, without implementing the application or marking discovery complete prematurely.
+The local API scaffold and a minimal PostgreSQL pool/migration runner are present on a feature branch. Build, unit tests, and migration execution remain unverified. ADR 0006 (the `pg` access layer with parameterized SQL and versioned migrations) is accepted for the local synthetic-data prototype.
 
 ## 5. Completion reporting
 
@@ -84,8 +84,10 @@ The following bounded decisions have been accepted by the user on 2026-10-20 for
 - [ADR 0002 — Private data and memory boundaries](adr/0002-private-data-and-memory.md)
 - [ADR 0003 — Replaceable model provider and spend controls](adr/0003-model-provider-and-spend-controls.md)
 - [ADR 0004 — Agent tool permissions and approval gates](adr/0004-agent-tool-permissions-and-approvals.md)
+- [ADR 0005 — Concrete local prototype stack](adr/0005-local-prototype-stack.md)
+- [ADR 0006 — PostgreSQL access layer](adr/0006-postgres-access-layer.md)
 
-Next: select and accept the concrete app stack, then implement only a local, synthetic-data foundation with a mock model provider and no real external side effects. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
+Next: verify the scaffold and PostgreSQL layer in an actual Node environment and record test/build results. ADR 0006 is accepted; database integration is implemented as a minimal pool boundary and SQL migration runner, but runtime behavior remains unverified. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
 
 ### Proposed local prototype acceptance criteria
 
