@@ -53,6 +53,21 @@ export class ContentIdeasService {
     return result.rows[0];
   }
 
+  async submitForReview(id: string): Promise<ContentIdea> {
+    const result = await this.database.query<ContentIdea>(
+      `UPDATE content_ideas
+       SET status = 'in_review', updated_at = now()
+       WHERE id = $1 AND status = 'draft'
+       RETURNING id, title, concept, objective, status, created_at, updated_at`,
+      [id],
+    );
+
+    if (!result.rows[0]) {
+      throw new NotFoundException('Draft content idea not found.');
+    }
+    return result.rows[0];
+  }
+
   async updateDraft(id: string, input: UpdateContentIdea): Promise<ContentIdea> {
     const result = await this.database.query<ContentIdea>(
       `UPDATE content_ideas
