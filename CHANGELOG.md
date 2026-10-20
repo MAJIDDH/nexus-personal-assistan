@@ -30,3 +30,12 @@ This changelog records meaningful project milestones and verified deliveries. It
 
 - Recorded user acceptance of ADRs 0001–0004 for a local synthetic-data prototype only; no server purchase, paid API use, real business data, external integration, or production deployment is authorized.
 - Concrete application framework/database/container stack remains a separate material decision and must be accepted before framework-specific implementation.
+
+
+## 2026-10-20 — Local prototype scaffold (feature branch)
+
+- Recorded user acceptance of ADR 0005 for Node.js LTS, TypeScript, NestJS, PostgreSQL, and local Docker Compose, limited to synthetic-data development.
+- Added an initial NestJS API scaffold with environment validation, a minimal health route, a deterministic mock model provider, and a default-deny tool policy.
+- Added unit and e2e test definitions, a local-only PostgreSQL Compose service, and setup/safety documentation.
+- Work is on `feat/local-prototype-foundation`; it has not been merged into `main`.
+- Tests/build have not been executed in this environment; implementation is not yet verified as runnable.
