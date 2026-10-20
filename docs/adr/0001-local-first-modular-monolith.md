@@ -1,6 +1,6 @@
 # ADR 0001: Local-First Modular Monolith Baseline
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-20
 - Decision owner: User
 
@@ -38,6 +38,10 @@ Because this is local-first, no data migration is needed. Keep Docker and config
 
 ## Verification and follow-up
 Before implementation, verify the repository tree and local tooling assumptions. Before production deployment, create and accept a separate hosting/backup ADR and test restore procedures.
+
+## Acceptance record
+
+Accepted by the user in ChatGPT on 2026-10-20, within the bounded scope of a local prototype using synthetic data. This acceptance does not authorize server purchase, paid API activation, real business/customer data storage, external integrations, or production deployment.
 
 ## Approval required
 User approval is required before treating this proposal as the binding initial development/deployment direction.
