@@ -20,6 +20,12 @@ The first version should address all of the following, prioritizing by expected 
 
 Prioritization must not turn the gallery into the only supported domain or prevent the user from using general assistant capabilities.
 
+### 2.1 First operational workflow
+
+The user selected a **general-purpose management assistant** as the first operational workflow. The initial experience should help organize tasks and reminders, prepare reports, support decisions, and coordinate follow-up across personal and professional domains. Gallery-specific workflows, including Instagram growth and content production, can be added as capabilities rather than defining the entire product.
+
+The exact minimum viable workflow, measurable success criteria, and first integrations remain to be defined during discovery. Do not treat this selection as authorization to build an unbounded feature set; delivery should still be incremental and cost-aware.
+
 ## 3. Access channels and interaction
 
 User-selected requirements:
@@ -94,9 +100,9 @@ NEXUS should improve through explicit user feedback, measured outcomes, and revi
 
 ## 8. Open questions
 
+- Minimum viable management workflow and its success criteria.
 - Memory categories, retention periods, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
-- Exact first measurable business workflow and success metrics.
 - Integration feasibility and approved automation rules for Instagram.
 - Budget ceiling and acceptable recurring infrastructure/model costs.
 - Technical choices and corresponding ADRs.
@@ -105,13 +111,14 @@ NEXUS should improve through explicit user feedback, measured outcomes, and revi
 
 1. NEXUS is a general-purpose personal assistant; the gallery is the current priority, not its exclusive scope.
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
-3. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
-4. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
-5. Web-app sign-in: both Telegram-based sign-in and email/password.
-6. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
-7. Routine low-risk work: automatic execution with a report.
-8. Publishing and external communication: automatic only within rules explicitly approved in advance.
-9. Financial actions or commitments: explicit confirmation every time.
-10. Important deletion and security changes: confirmation required.
-11. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
-12. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
+3. First operational workflow: general-purpose management assistant for tasks, reminders, reports, decision support, and follow-up; exact minimum scope remains open.
+4. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
+5. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
+6. Web-app sign-in: both Telegram-based sign-in and email/password.
+7. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
+8. Routine low-risk work: automatic execution with a report.
+9. Publishing and external communication: automatic only within rules explicitly approved in advance.
+10. Financial actions or commitments: explicit confirmation every time.
+11. Important deletion and security changes: confirmation required.
+12. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
+13. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
