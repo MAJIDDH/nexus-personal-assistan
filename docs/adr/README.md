@@ -53,4 +53,4 @@ Create an ADR for decisions that are cross-cutting, expensive to reverse, securi
 - [ADR 0005 — Concrete local prototype stack](0005-local-prototype-stack.md): Node.js LTS, TypeScript, NestJS, PostgreSQL, and local Docker Compose.
 - [ADR 0006 — PostgreSQL access layer](0006-postgres-access-layer.md): accepted `pg` plus parameterized SQL and versioned migrations for the local prototype.
 
-ADRs 0001–0005 are **Accepted within the local synthetic-data prototype scope**. ADR 0006 remains **Proposed** and does not authorize persistence implementation until the user explicitly accepts it. No ADR authorizes paid services, server purchase, real-data storage, external integrations, or production deployment.
+ADRs 0001–0006 are **Accepted within the local synthetic-data prototype scope**. No ADR authorizes paid services, server purchase, real-data storage, external integrations, or production deployment.
