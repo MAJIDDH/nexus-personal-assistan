@@ -7,6 +7,7 @@ import { HealthController } from './health/health.controller';
 import { ToolPolicyService } from './security/tool-policy.service';
 import { DatabaseModule } from './database/database.module';
 import { ContentIdeasModule } from './content-ideas/content-ideas.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ContentIdeasModule } from './content-ideas/content-ideas.module';
     }),
     DatabaseModule,
     ContentIdeasModule,
+    TasksModule,
   ],
   controllers: [AppController, HealthController],
   providers: [ToolPolicyService, MockModelProvider],
