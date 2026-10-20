@@ -6,11 +6,13 @@ import { DatabaseService } from '../src/database/database.service';
 import { ContentIdeasService } from '../src/content-ideas/content-ideas.service';
 import { TasksService } from '../src/tasks/tasks.service';
 import { AuditService } from '../src/audit/audit.service';
+import { FeedbackService } from '../src/feedback/feedback.service';
 
 describe('NEXUS API (e2e)', () => {
   let app: INestApplication;
   const database = { ping: jest.fn() };
   const audit = { list: jest.fn() };
+  const feedback = { list: jest.fn(), create: jest.fn() };
   const tasks = { list: jest.fn(), create: jest.fn(), update: jest.fn(), transition: jest.fn() };
   const ideas = {
     list: jest.fn(),
@@ -31,6 +33,8 @@ describe('NEXUS API (e2e)', () => {
       .useValue(tasks)
       .overrideProvider(AuditService)
       .useValue(audit)
+      .overrideProvider(FeedbackService)
+      .useValue(feedback)
       .compile();
 
     app = moduleRef.createNestApplication();
@@ -46,6 +50,7 @@ describe('NEXUS API (e2e)', () => {
     ideas.submitForReview.mockReset();
     tasks.list.mockReset(); tasks.create.mockReset(); tasks.update.mockReset(); tasks.transition.mockReset();
     audit.list.mockReset();
+    feedback.list.mockReset(); feedback.create.mockReset();
   });
 
   afterAll(async () => {
@@ -103,6 +108,23 @@ describe('NEXUS API (e2e)', () => {
   it('/api/audit-events (GET) rejects invalid limits and entity types', async () => {
     await request(app.getHttpServer()).get('/api/audit-events?limit=999').expect(400);
     await request(app.getHttpServer()).get('/api/audit-events?entity_type=customer').expect(400);
+  });
+
+  it('/api/feedback (GET) lists feedback with bounded filters', () => {
+    const fixture = [{ id: 'fb-1', rating: 'useful', note: 'Good' }];
+    feedback.list.mockResolvedValue(fixture);
+    return request(app.getHttpServer()).get('/api/feedback?limit=15')
+      .expect(200).expect(fixture).then(() => expect(feedback.list).toHaveBeenCalledWith(undefined, 15));
+  });
+
+  it('/api/feedback (POST) validates and records user feedback', async () => {
+    const taskId = '00000000-0000-4000-8000-000000000021';
+    const fixture = { id: 'fb-2', task_id: taskId, rating: 'useful', note: 'Helpful', created_at: '2026-10-20T10:00:00.000Z' };
+    feedback.create.mockResolvedValue(fixture);
+    await request(app.getHttpServer()).post('/api/feedback').send({ task_id: taskId, rating: 'useful', note: 'Helpful' }).expect(201).expect(fixture);
+    expect(feedback.create).toHaveBeenCalledWith({ task_id: taskId, rating: 'useful', note: 'Helpful' });
+    await request(app.getHttpServer()).post('/api/feedback').send({ task_id: taskId, rating: 'publish' }).expect(400);
+    await request(app.getHttpServer()).post('/api/feedback').send({ task_id: taskId, rating: 'useful', admin: true }).expect(400);
   });
 
   it('/api/tasks (GET) lists tasks with optional project and status filters', () => {
