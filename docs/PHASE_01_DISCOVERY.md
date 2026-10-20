@@ -67,6 +67,8 @@ Before choosing paid services or binding the core to a provider, compare realist
 
 The first desk-research note is available in [Discovery Options 01](DISCOVERY_OPTIONS_01.md). It compares the two documented Instagram API routes, initial product-reference options, and a minimal gallery recordkeeping approach. It is explicitly preliminary: no account permissions were tested, no live integration was enabled, and no product-data format was selected.
 
+The second note, [Discovery Options 02 — Costs](DISCOVERY_OPTIONS_02_COSTS.md), provides a preliminary hosting/model/voice/Telegram cost baseline and staged deployment recommendation. It is not a purchase authorization; provider access, billing, and account permissions remain untested.
+
 ## 5. Completion reporting
 
 For each work item, report what was inspected or changed, evidence and links, limitations, and what remains. Do not present recommendations as confirmed decisions or drafts as published content.
