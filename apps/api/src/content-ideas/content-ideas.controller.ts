@@ -82,6 +82,11 @@ export class ContentIdeasController {
     return this.contentIdeas.create(parseFields(body, false) as CreateContentIdea);
   }
 
+  @Post(':id/submit-for-review')
+  submitForReview(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.contentIdeas.submitForReview(id);
+  }
+
   @Patch(':id')
   updateDraft(
     @Param('id', new ParseUUIDPipe()) id: string,
