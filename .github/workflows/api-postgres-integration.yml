@@ -1,0 +1,88 @@
+name: API PostgreSQL Integration
+
+on:
+  pull_request:
+    paths:
+      - "apps/api/**"
+      - ".github/workflows/api-postgres-integration.yml"
+  push:
+    branches:
+      - main
+      - "feat/**"
+    paths:
+      - "apps/api/**"
+      - ".github/workflows/api-postgres-integration.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: api-postgres-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  postgres-integration:
+    name: Verify migrations against disposable PostgreSQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: nexus_dev
+          POSTGRES_USER: nexus
+          POSTGRES_PASSWORD: nexus_local_only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U nexus -d nexus_dev"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: apps/api
+    env:
+      DATABASE_URL: postgresql://nexus:nexus_local_only@localhost:5432/nexus_dev
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Apply database migrations
+        run: npm run migrate
+      - name: Verify migrations are repeatable
+        run: npm run migrate
+      - name: Verify schema and parameterized persistence
+        run: |
+          node <<'NODE'
+          const { Pool } = require('pg');
+          (async () => {
+            const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
+            try {
+              const migrations = await pool.query('SELECT version FROM schema_migrations ORDER BY version');
+              if (migrations.rows.length !== 2) throw new Error('Expected exactly two migrations to be recorded');
+              const title = 'CI synthetic idea ' + Date.now();
+              const inserted = await pool.query(
+                'INSERT INTO content_ideas (title, concept, objective) VALUES ($1, $2, $3) RETURNING title, status',
+                [title, 'Synthetic integration-test concept', 'grow_followers'],
+              );
+              if (inserted.rows[0]?.title !== title || inserted.rows[0]?.status !== 'draft') {
+                throw new Error('Content idea insert did not return the expected draft');
+              }
+              const fetched = await pool.query('SELECT title FROM content_ideas WHERE title = $1', [title]);
+              if (fetched.rowCount !== 1) throw new Error('Content idea could not be read back');
+              await pool.query('DELETE FROM content_ideas WHERE title = $1', [title]);
+              process.stdout.write('PostgreSQL migrations and parameterized draft persistence passed.\n');
+            } finally {
+              await pool.end();
+            }
+          })().catch((error) => {
+            process.stderr.write(error.stack || error.message);
+            process.exitCode = 1;
+          });
+          NODE
