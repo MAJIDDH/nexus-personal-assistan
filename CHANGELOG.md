@@ -9,6 +9,7 @@ This changelog records meaningful project milestones and verified deliveries. It
 - Linked product requirements, Phase 1 discovery, and AI collaboration instructions from the README.
 - Updated the README to reflect that Phase 1 discovery is in progress rather than presenting Phase 0 as the current phase.
 - Normalized the product decision register to remove duplicate and out-of-order numbering, and explicitly separated a provisional ranking recommendation from user-confirmed decisions.
+- Added an initial research note comparing documented Instagram API routes, product-reference formats, and minimal sales/expense/inventory recordkeeping. The note explicitly records what has not been tested or enabled.
 - Added the development workflow for scope, implementation, verification, and reporting.
 - Added Phase 0 scope, open decisions, and exit criteria.
 - Added the ADR workflow and initial risk register.
