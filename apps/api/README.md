@@ -17,6 +17,7 @@ cp .env.example .env
 npm install
 npm test
 npm run build
+npm run test:e2e
 ```
 
 From the repository root, start the local database:
@@ -54,7 +55,7 @@ The content-idea API only stores and lists drafts. It does not publish, schedule
 
 ## Database migrations
 
-The migration runner fails fast when `DATABASE_URL` is missing, applies ordered SQL files once, records them in `schema_migrations`, and wraps each migration in a transaction. The initial migrations create the migration ledger and content-idea table. Use synthetic test data only.
+The migration runner fails fast when `DATABASE_URL` is missing, applies ordered SQL files once, records them in `schema_migrations`, and wraps each migration in a transaction. The migrations create the ledger and content-idea table. Use synthetic test data only.
 
 The Compose credentials are disposable local-development placeholders. Never reuse them outside this local synthetic-data environment. Database queries use parameterized values (for example, `$1`) rather than interpolating request input into SQL.
 
@@ -69,4 +70,4 @@ The Compose credentials are disposable local-development placeholders. Never reu
 
 ## Verification status
 
-GitHub Actions now runs the API build and unit tests on relevant changes. End-to-end API tests are defined but are not part of that CI job yet. A passing build/test run does not verify the PostgreSQL migration against a live database; that remains a separate local check.
+GitHub Actions run #28 passed the API build, all 18 unit tests, and all 8 API end-to-end tests. The tests use mocks for the database; a real PostgreSQL migration and database-backed API run have not yet been executed.
