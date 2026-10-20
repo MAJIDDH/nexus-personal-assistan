@@ -4,7 +4,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 
 ## Current status
 
-**Phase 0 — Governance foundation; user review required.** This repository currently contains planning and governance documents. Do not assume application capabilities are implemented. Features are complete only after implementation and recorded verification evidence.
+**Phase 1 — Discovery in progress.** The repository currently contains planning and governance documents; do not assume application capabilities are implemented. Features are complete only after implementation and recorded verification evidence.
 
 ## Start here
 
@@ -13,6 +13,9 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 - [Roadmap](docs/ROADMAP.md) — phases and exit conditions.
 - [Security Baseline](docs/SECURITY.md) — security and approval requirements.
 - [Development Workflow](docs/DEVELOPMENT_WORKFLOW.md) — implementation, verification, and reporting.
+- [AI Collaboration Workflow](docs/AI_COLLABORATION.md) — shared handoffs for ChatGPT and Claude; GitHub is the source of truth, not a direct model-to-model connection.
+- [Product Requirements](docs/PRODUCT_REQUIREMENTS.md) — current user needs, confirmed decisions, and open items.
+- [Phase 1 Discovery](docs/PHASE_01_DISCOVERY.md) — discovery sequence and provisional defaults.
 - [Risk Register](docs/RISK_REGISTER.md) — open risks and evidence needed to reduce them.
 - [Changelog](CHANGELOG.md) — meaningful milestones and verification notes.
 - [Phase 0 Governance](docs/PHASE_00_GOVERNANCE.md) — current governance phase.
