@@ -27,3 +27,5 @@ This changelog records meaningful project milestones and verified deliveries. It
 - Confirmed that the new documents exist in the GitHub repository.
 - No application code, dependencies, runtime, or infrastructure were added.
 - Phase 0 governance artifacts remain available for review; Phase 1 discovery is now the active work phase. No application implementation or direct ChatGPT–Claude integration is claimed.
+
+- Added four proposed ADRs covering local-first development, private memory/data boundaries, replaceable model providers and spend controls, and server-side tool permission/approval gates. These proposals do not authorize implementation of material choices until accepted.
