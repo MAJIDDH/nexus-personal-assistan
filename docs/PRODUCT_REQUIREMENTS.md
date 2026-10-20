@@ -115,7 +115,14 @@ NEXUS must ask for explicit user permission before saving any sensitive informat
 The user must be able to inspect, correct, and request deletion of memory at any time through both the web app and Telegram. These interfaces should manage the same shared memory store. The implementation must make clear what can be removed immediately and whether copies or audit records are retained for a legitimate security reason.
 
 ### 6.4 Learning and improvement
-NEXUS should improve through explicit user feedback, measured outcomes, and reviewable changes to workflows or preferences. It should not silently treat guesses as facts, change high-impact rules without authorization, or learn sensitive details without appropriate controls. Detailed retention periods, memory categories, and technical deletion behavior remain open decisions.
+NEXUS should improve through explicit user feedback, measured outcomes, and reviewable changes to workflows or preferences. It should not silently treat guesses as facts, change high-impact rules without authorization, or learn sensitive details without appropriate controls.
+
+### 6.5 Retention and review preferences
+User-confirmed preferences:
+- If NEXUS is unsure whether older information should continue to be retained, it should ask the user rather than silently deciding to keep or discard it.
+- Conversation and activity history should be retained long-term when useful for following projects and prior decisions, with the user able to request deletion.
+- These preferences do not authorize indefinite retention of sensitive information; sensitive information still requires explicit consent, and the implementation must provide clear retention and deletion controls.
+- Exact retention periods, memory categories, backups, and technical deletion behavior remain open for design and security review.
 
 ## 7. Budget and technology priorities
 
@@ -138,7 +145,7 @@ The next budget decision should be based on a transparent comparison of options 
 
 - Minimum viable management workflow and measurable baselines/targets for the first three months.
 - Notification escalation rules beyond the confirmed `Asia/Tehran` quiet hours of 01:00–07:00.
-- Memory categories, retention periods, and detailed deletion behavior.
+- Memory categories, retention periods, backups, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
 - Feasibility, permissions, and technical approach for Instagram data access and rule-bounded automatic publishing.
 - Recommended simple initial source and workflow for sales, expenses, and inventory data.
@@ -158,7 +165,7 @@ The next budget decision should be based on a transparent comparison of options 
 9. Web-app sign-in: both Telegram-based sign-in and email/password.
 10. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
 11. Budget: use the lowest practical setup cost, accepting manual steps when appropriate; do not set a fixed monthly cap until options and realistic costs are compared. Keep recurring costs visible and controlled.
-12. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
+12. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; allow inspection, correction, and deletion requests through both Telegram and web app. When uncertain about retention of older information, ask the user. Retain useful conversation/activity history long-term for project and decision follow-up, with user-requested deletion available.
 13. Routine low-risk work: automatic execution with a report.
 14. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
 15. Financial actions or commitments: explicit confirmation every time.
