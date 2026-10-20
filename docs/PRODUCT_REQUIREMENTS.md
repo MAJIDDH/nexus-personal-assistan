@@ -60,11 +60,13 @@ User-confirmed requirements:
 
 Security design must still assess account recovery, secure session handling, protection of credentials, and how Telegram identities are linked to web-app accounts. Multi-user support is a future extensibility requirement, not a requirement to enable employee accounts in the first release.
 
-## 4. Current business context and integrations
+## 4. Current business context, data sources, and integrations
 
 - Current first business priority: Galeri Tala Yousefi.
 - Current known management tool: Instagram.
 - No other inventory, accounting, customer relationship, or sales system has been confirmed.
+- **User decision on business data sources:** first investigate the available options and recommend a simple, low-cost starting method for sales, expenses, and inventory. Do not assume an existing system is available. Compare manual entry and spreadsheet-based approaches before recommending an integration; confirm any existing tool with the user before treating it as a source of truth.
+- **Instagram access goal:** the long-term goal is automated publishing within rules explicitly approved in advance by the user. This is a target, not current authorization to publish or a claim that the required API/integration is available. First assess feasible access methods, platform restrictions, security, auditability, and cost. Publishing must remain limited to the approved scope; new, ambiguous, or out-of-scope cases require renewed approval.
 - The system must distinguish verified data from missing, estimated, or unavailable data; it must not fabricate Instagram metrics or business records.
 - Avoid hard-coupling the core assistant to Instagram or to the gallery domain.
 
@@ -123,7 +125,8 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 - Notification frequency, quiet hours, and escalation rules.
 - Memory categories, retention periods, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
-- Integration feasibility and approved automation rules for Instagram.
+- Feasibility, permissions, and technical approach for Instagram data access and rule-bounded automatic publishing.
+- Recommended simple initial source and workflow for sales, expenses, and inventory data.
 - Exact currency-denominated setup and monthly budget ceilings.
 - Technical choices and corresponding ADRs.
 
@@ -140,6 +143,7 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 9. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
 10. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
 11. Routine low-risk work: automatic execution with a report.
-12. Publishing and external communication: automatic only within rules explicitly approved in advance.
+12. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
 13. Financial actions or commitments: explicit confirmation every time.
 14. Important deletion and security changes: confirmation required.
+15. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
