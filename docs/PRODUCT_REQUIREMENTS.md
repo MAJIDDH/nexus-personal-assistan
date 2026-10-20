@@ -69,10 +69,12 @@ Implementation approach, speech recognition and synthesis providers, latency, re
 
 User-confirmed requirements:
 - The web app should support both Telegram-based sign-in and email/password sign-in.
+- **User-confirmed account-linking decision:** both sign-in methods should lead to one shared NEXUS account, not separate accounts with divergent memory or permissions.
+- Linking must verify control of both identities; knowing or entering an email address or Telegram identifier alone is not sufficient to gain access to the existing account.
 - Initially, access is for the user alone.
 - The design should allow employees or other users with differentiated permissions to be added later without requiring a fundamental redesign.
 
-Security design must still assess account recovery, secure session handling, protection of credentials, and how Telegram identities are linked to web-app accounts. Multi-user support is a future extensibility requirement, not a requirement to enable employee accounts in the first release.
+Security design must still assess account recovery, secure session handling, protection of credentials, safe linking and unlinking of Telegram and email identities, and recovery if one linked method becomes unavailable. Multi-user support is a future extensibility requirement, not a requirement to enable employee accounts in the first release.
 
 ## 4. Current business context, data sources, and integrations
 
@@ -146,7 +148,7 @@ The next budget decision should be based on a transparent comparison of options 
 - Minimum viable management workflow and measurable baselines/targets for the first three months.
 - Notification escalation rules beyond the confirmed `Asia/Tehran` quiet hours of 01:00–07:00.
 - Memory categories, retention periods, backups, and detailed deletion behavior.
-- Secure authentication details, account recovery, and account-linking behavior.
+- Secure authentication details, account recovery, safe linking/unlinking of Telegram and email identities, and recovery if a linked method becomes unavailable.
 - Feasibility, permissions, and technical approach for Instagram data access and rule-bounded automatic publishing.
 - Recommended simple initial source and workflow for sales, expenses, and inventory data.
 - Comparative estimate of setup and monthly costs; a fixed monthly cap is intentionally deferred until options are reviewed.
@@ -162,7 +164,7 @@ The next budget decision should be based on a transparent comparison of options 
 6. Telegram is for notifications, while the web app is for detail and management.
 7. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
 8. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
-9. Web-app sign-in: both Telegram-based sign-in and email/password.
+9. Web-app sign-in: both Telegram-based sign-in and email/password, linked to one shared account after verifying ownership of both methods.
 10. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
 11. Budget: use the lowest practical setup cost, accepting manual steps when appropriate; do not set a fixed monthly cap until options and realistic costs are compared. Keep recurring costs visible and controlled.
 12. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; allow inspection, correction, and deletion requests through both Telegram and web app. When uncertain about retention of older information, ask the user. Retain useful conversation/activity history long-term for project and decision follow-up, with user-requested deletion available.
