@@ -16,6 +16,7 @@ From this directory:
 cp .env.example .env
 npm install
 npm test
+npm run build
 npm run start:dev
 ```
 
@@ -42,9 +43,10 @@ Database credentials in the compose file are disposable local-development placeh
 - No real gallery/customer records or production credentials.
 - No paid model provider or external API is configured.
 - The model provider is deterministic mock behavior only.
-- Tool policy is default-deny. The only allowed capability is the harmless demo status read; caller-supplied approval objects are never trusted.
+- Tool policy is default-deny except for the exact `demo.read_status@v1` capability.
+- Caller-supplied approval objects are not trusted; no trusted approval issuer exists yet.
 - Do not expose the API publicly or deploy this prototype.
 
 ## Verification status
 
-Files and test cases have been committed to the repository. The test suite has **not** been executed in this environment, so build/runtime success is not yet verified. Run the commands above on a machine with the required tooling and record the actual results before describing the prototype as runnable.
+Unit and e2e test definitions are present, but neither the test suite nor the build has been executed in the available environment. Run the commands above on a machine with the required tooling and record the actual results before describing the prototype as runnable.
