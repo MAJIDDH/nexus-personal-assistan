@@ -1,6 +1,6 @@
 # Phase 1 — Discovery and Recommended Defaults
 
-**Status:** In progress  
+**Status:** In progress — governance baseline accepted; stack selection remains open  
 **Purpose:** Continue discovery without burdening the user with repeated preference questions. Use existing confirmed requirements and reversible, low-risk defaults. Ask the user only when a decision is consequential, costly, security-sensitive, difficult to reverse, or genuinely blocks progress.
 
 ## 1. Working principles
@@ -8,7 +8,7 @@
 - Treat `PROJECT_MANIFEST.md` and accepted governance ADRs as normative.
 - Keep NEXUS general-purpose; Galeri Tala Yousefi is the first operational priority.
 - Prefer the lowest practical total cost, simple workflows, replaceable providers, and manual fallbacks where sensible.
-- Do not start application implementation until discovery is sufficient and material ADRs are accepted.
+- Application implementation may start only after discovery is sufficient and all material ADRs, including the concrete stack, are accepted.
 - Never claim a capability, integration, publication, measurement, or test is operational without evidence.
 - Never assume private or unauthorized access. Public sources and authorized tools/APIs only, after access, cost, security, policy, and auditability checks.
 - Separate confirmed facts, observations, interpretations, hypotheses, and unavailable information.
@@ -77,15 +77,15 @@ The next handoff is [Claude Phase 1 Handoff](CLAUDE_HANDOFF_PHASE1.md). Claude s
 
 For each work item, report what was inspected or changed, evidence and links, limitations, and what remains. Do not present recommendations as confirmed decisions or drafts as published content.
 
-## 4. Proposed ADRs and next work
+## 4. ADR decisions and next work
 
-The following decisions have been drafted for user review; none is accepted yet:
+The following bounded decisions have been accepted by the user on 2026-10-20 for a local prototype only:
 - [ADR 0001 — Local-first modular monolith](adr/0001-local-first-modular-monolith.md)
 - [ADR 0002 — Private data and memory boundaries](adr/0002-private-data-and-memory.md)
 - [ADR 0003 — Replaceable model provider and spend controls](adr/0003-model-provider-and-spend-controls.md)
 - [ADR 0004 — Agent tool permissions and approval gates](adr/0004-agent-tool-permissions-and-approvals.md)
 
-Recommended path: accept or revise these bounded defaults; then implement only a local, synthetic-data foundation with a mock model provider and no real external side effects. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
+Next: select and accept the concrete app stack, then implement only a local, synthetic-data foundation with a mock model provider and no real external side effects. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
 
 ### Proposed local prototype acceptance criteria
 
