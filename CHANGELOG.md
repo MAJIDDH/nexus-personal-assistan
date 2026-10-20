@@ -16,7 +16,9 @@ This changelog records meaningful project milestones and verification evidence. 
 - Added a NestJS API with validated environment configuration, liveness and PostgreSQL-readiness endpoints.
 - Added a bounded PostgreSQL pool, parameterized query boundary, and ordered SQL migration runner.
 - Added local PostgreSQL Compose configuration and a migration for a content-idea table with constrained objectives and draft/review/approved/archived states.
-- Implemented `GET /api/content-ideas` and `POST /api/content-ideas`. Creation validates input, defaults to draft, and rejects unsupported fields/objectives. This API only stores drafts; it does not publish to Instagram or contact anyone.
+- Implemented content-idea list/create/edit and explicit draft-to-review submission, with validation and guarded transitions.
+- Added a task engine with PostgreSQL persistence, validated CRUD/status APIs, project filters, importance/urgency fields, due-date-aware priority scoring, and terminal completed/cancelled states.
+- Added API end-to-end and unit coverage for task creation, filtering, invalid fields, and explicit status transitions. Task reminders and external notifications are not enabled.
 - Added an API CI workflow for build, unit tests, and end-to-end tests.
 - Fixed the migration filename matcher so numbered SQL migrations are discovered.
 - Expanded end-to-end tests for liveness/readiness and content-idea create/list input behavior.
@@ -24,7 +26,7 @@ This changelog records meaningful project milestones and verification evidence. 
 
 ## Verification status
 
-- GitHub Actions run #28 passed the API build, all 18 unit tests, and all 8 API end-to-end tests.
-- The tests use a mocked database. A real PostgreSQL migration and database-backed API run remain unverified.
+- Latest known review-workflow CI runs #53 (API CI) and #21 (disposable PostgreSQL integration) passed before task-engine commits; the task-engine head must be verified by fresh CI before claiming it passes.
+- PostgreSQL integration uses a disposable database and synthetic records only.
 - Work remains on `feat/local-prototype-foundation`; PR #1 is open, draft, and unmerged.
 - No production database, real gallery/customer data, paid API, public server, or external integration was added.
