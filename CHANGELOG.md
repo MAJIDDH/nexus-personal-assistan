@@ -24,8 +24,7 @@ This changelog records meaningful project milestones and verification evidence. 
 
 ## Verification status
 
-- GitHub Actions run #8 completed successfully for the earlier scaffold commit: API build and unit tests passed.
-- Content-idea persistence, the latest end-to-end tests, and the updated CI workflow have not yet been confirmed by a successful run against the latest commit.
-- A real PostgreSQL migration run remains unverified.
+- GitHub Actions run #28 passed the API build, all 18 unit tests, and all 8 API end-to-end tests.
+- The tests use a mocked database. A real PostgreSQL migration and database-backed API run remain unverified.
 - Work remains on `feat/local-prototype-foundation`; PR #1 is open, draft, and unmerged.
 - No production database, real gallery/customer data, paid API, public server, or external integration was added.
