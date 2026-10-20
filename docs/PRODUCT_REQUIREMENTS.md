@@ -26,7 +26,19 @@ The user selected a **general-purpose management assistant** as the first operat
 
 The exact minimum viable workflow, measurable success criteria, and first integrations remain to be defined during discovery. Do not treat this selection as authorization to build an unbounded feature set; delivery should still be incremental and cost-aware.
 
-### 2.2 Proactive follow-up and notifications
+### 2.2 First three-month success criteria
+
+The user selected six outcomes to evaluate during the first three months:
+- Better task management and follow-up on overdue tasks.
+- Time saved and fewer repetitive manual tasks.
+- Increased sales and improved conversion of followers into customers.
+- Growth in real, relevant Instagram followers.
+- Better decisions supported by reports and analysis.
+- Reliable memory and better recognition of the user's preferences.
+
+These are user-selected outcome areas, not yet quantified targets or claims of guaranteed results. During discovery, define practical baselines and measures where data is available (for example, overdue-task follow-through, estimated time saved, sales/conversion measures, relevant follower growth, usefulness of reports, and memory corrections). Record unavailable data as unavailable rather than inventing a baseline. The user has not specified additional criteria.
+
+### 2.3 Proactive follow-up and notifications
 
 User-confirmed preferences:
 - NEXUS should be proactive: remind the user about overdue tasks and suggest appropriate follow-up, rather than only responding to direct requests.
@@ -121,7 +133,7 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 
 ## 9. Open questions
 
-- Minimum viable management workflow and its success criteria.
+- Minimum viable management workflow and measurable baselines/targets for the first three months.
 - Notification frequency, quiet hours, and escalation rules.
 - Memory categories, retention periods, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
@@ -135,15 +147,16 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 1. NEXUS is a general-purpose personal assistant; the gallery is the current priority, not its exclusive scope.
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
 3. First operational workflow: general-purpose management assistant for tasks, reminders, reports, decision support, and follow-up; exact minimum scope remains open.
-4. NEXUS should proactively remind about overdue tasks and suggest follow-up; Telegram is for notifications, while the web app is for detail and management.
-5. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
-6. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
-7. Web-app sign-in: both Telegram-based sign-in and email/password.
-8. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
-9. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
-10. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
-11. Routine low-risk work: automatic execution with a report.
-12. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
-13. Financial actions or commitments: explicit confirmation every time.
-14. Important deletion and security changes: confirmation required.
-15. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
+4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
+5. NEXUS should proactively remind about overdue tasks and suggest follow-up; Telegram is for notifications, while the web app is for detail and management.
+6. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
+7. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
+8. Web-app sign-in: both Telegram-based sign-in and email/password.
+9. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
+10. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
+11. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
+12. Routine low-risk work: automatic execution with a report.
+13. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
+14. Financial actions or commitments: explicit confirmation every time.
+15. Important deletion and security changes: confirmation required.
+16. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
