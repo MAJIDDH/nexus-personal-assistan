@@ -3,10 +3,15 @@ import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { DatabaseService } from '../src/database/database.service';
+import { ContentIdeasService } from '../src/content-ideas/content-ideas.service';
 
 describe('NEXUS API (e2e)', () => {
   let app: INestApplication;
   const database = { ping: jest.fn() };
+  const ideas = {
+    list: jest.fn(),
+    create: jest.fn(),
+  };
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -14,6 +19,8 @@ describe('NEXUS API (e2e)', () => {
     })
       .overrideProvider(DatabaseService)
       .useValue(database)
+      .overrideProvider(ContentIdeasService)
+      .useValue(ideas)
       .compile();
 
     app = moduleRef.createNestApplication();
@@ -23,6 +30,8 @@ describe('NEXUS API (e2e)', () => {
 
   beforeEach(() => {
     database.ping.mockReset();
+    ideas.list.mockReset();
+    ideas.create.mockReset();
   });
 
   afterAll(async () => {
@@ -71,5 +80,68 @@ describe('NEXUS API (e2e)', () => {
           dependencies: { database: 'unavailable' },
         },
       });
+  });
+
+  it('/api/content-ideas (GET) returns stored ideas', () => {
+    const fixture = [{
+      id: '00000000-0000-4000-8000-000000000001',
+      title: 'Three necklace styles',
+      concept: 'Compare three synthetic product concepts.',
+      objective: 'grow_followers',
+      status: 'draft',
+    }];
+    ideas.list.mockResolvedValue(fixture);
+    return request(app.getHttpServer())
+      .get('/api/content-ideas')
+      .expect(200)
+      .expect(fixture);
+  });
+
+  it('/api/content-ideas (POST) creates a valid draft idea', () => {
+    const fixture = {
+      id: '00000000-0000-4000-8000-000000000002',
+      title: 'Choose your style',
+      concept: 'Show three synthetic necklace concepts and ask viewers to choose.',
+      objective: 'grow_followers',
+      status: 'draft',
+    };
+    ideas.create.mockResolvedValue(fixture);
+    return request(app.getHttpServer())
+      .post('/api/content-ideas')
+      .send({
+        title: ' Choose your style ',
+        concept: ' Show three synthetic necklace concepts and ask viewers to choose. ',
+      })
+      .expect(201)
+      .expect(fixture)
+      .then(() => {
+        expect(ideas.create).toHaveBeenCalledWith({
+          title: 'Choose your style',
+          concept: 'Show three synthetic necklace concepts and ask viewers to choose.',
+          objective: 'grow_followers',
+        });
+      });
+  });
+
+  it('/api/content-ideas (POST) rejects unsupported fields', () => {
+    return request(app.getHttpServer())
+      .post('/api/content-ideas')
+      .send({
+        title: 'Draft',
+        concept: 'Synthetic test concept',
+        publishNow: true,
+      })
+      .expect(400);
+  });
+
+  it('/api/content-ideas (POST) rejects invalid objectives', () => {
+    return request(app.getHttpServer())
+      .post('/api/content-ideas')
+      .send({
+        title: 'Draft',
+        concept: 'Synthetic test concept',
+        objective: 'publish_to_instagram',
+      })
+      .expect(400);
   });
 });
