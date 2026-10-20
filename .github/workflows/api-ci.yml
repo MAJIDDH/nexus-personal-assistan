@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   verify:
-    name: Build and unit tests
+    name: Build, unit and API e2e tests
     runs-on: ubuntu-latest
     timeout-minutes: 10
     defaults:
@@ -41,3 +41,5 @@ jobs:
         run: npm run build
       - name: Run unit tests
         run: npm test -- --runInBand
+      - name: Run API end-to-end tests
+        run: npm run test:e2e -- --runInBand
