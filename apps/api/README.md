@@ -1,14 +1,14 @@
 # NEXUS API — Local Prototype
 
-This is an early local-only scaffold, not a production service.
+This is a local-only prototype, not a production service.
 
 ## Requirements
 
 - Node.js LTS (Node.js 20 or newer).
 - npm.
-- Docker Compose for the optional local PostgreSQL container.
+- Docker Compose for the local PostgreSQL container.
 
-## Install and test the API
+## Install and start
 
 From this directory:
 
@@ -17,36 +17,49 @@ cp .env.example .env
 npm install
 npm test
 npm run build
-npm run start:dev
 ```
 
-The API binds to `127.0.0.1` only. Routes:
-
-- `GET http://127.0.0.1:3000/api` — local prototype status.
-- `GET http://127.0.0.1:3000/api/health` — liveness check; confirms the API handler responds, not database connectivity.
-- `GET http://127.0.0.1:3000/api/health/ready` — readiness check; returns ready only when PostgreSQL responds to `SELECT 1`, otherwise returns HTTP 503 without exposing driver details.
-
-## Start PostgreSQL and apply migrations
-
-From the repository root:
+From the repository root, start the local database:
 
 ```sh
 docker compose up -d postgres
 ```
 
-Then, from this directory, ensure `.env` contains the local-only connection string shown in `.env.example`, and run:
+Then from this directory apply migrations and start the API:
 
 ```sh
 npm run migrate
+npm run start:dev
 ```
 
-The migration runner fails fast when `DATABASE_URL` is missing. It creates a `schema_migrations` ledger, applies ordered SQL files once, and wraps each migration in a transaction. The current migration only establishes the ledger table; no business tables or real data are created.
+The API binds to `127.0.0.1` only.
 
-The Compose credentials are disposable local-development placeholders. Do not reuse them outside this local synthetic-data environment. Creating a connection pool does not prove that PostgreSQL is reachable. Database queries must use parameterized values (for example, `$1`) and must not interpolate untrusted input into SQL.
+## Routes
+
+- `GET /api` — local prototype status.
+- `GET /api/health` — liveness check; confirms the API handler responds, not database connectivity.
+- `GET /api/health/ready` — readiness check; returns ready only when PostgreSQL responds to `SELECT 1`, otherwise HTTP 503 without exposing driver details.
+- `GET /api/content-ideas` — list up to 100 newest locally stored content ideas.
+- `POST /api/content-ideas` — create a draft content idea. JSON fields: `title` (1–160 characters), `concept` (1–5000 characters), optional `objective` (`grow_followers`, `increase_sales`, `increase_engagement`, or `educate`; defaults to `grow_followers`). Unsupported fields and values are rejected.
+
+Example request:
+
+```sh
+curl -i -X POST http://127.0.0.1:3000/api/content-ideas \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Choose your style","concept":"Compare three synthetic necklace concepts and invite viewers to choose.","objective":"grow_followers"}'
+```
+
+The content-idea API only stores and lists drafts. It does not publish, schedule, message customers, or call Instagram.
+
+## Database migrations
+
+The migration runner fails fast when `DATABASE_URL` is missing, applies ordered SQL files once, records them in `schema_migrations`, and wraps each migration in a transaction. The initial migrations create the migration ledger and content-idea table. Use synthetic test data only.
+
+The Compose credentials are disposable local-development placeholders. Never reuse them outside this local synthetic-data environment. Database queries use parameterized values (for example, `$1`) rather than interpolating request input into SQL.
 
 ## Safety limits
 
-- Use synthetic test data only.
 - No real gallery/customer records or production credentials.
 - No paid model provider or external API is configured.
 - The model provider is deterministic mock behavior only.
@@ -56,4 +69,4 @@ The Compose credentials are disposable local-development placeholders. Do not re
 
 ## Verification status
 
-Unit and e2e test definitions are present, but the test suite, build, and database migration have not been executed in the available environment. Run the commands above on a machine with the required tooling and record the actual results before describing the prototype as runnable.
+GitHub Actions now runs the API build and unit tests on relevant changes. End-to-end API tests are defined but are not part of that CI job yet. A passing build/test run does not verify the PostgreSQL migration against a live database; that remains a separate local check.
