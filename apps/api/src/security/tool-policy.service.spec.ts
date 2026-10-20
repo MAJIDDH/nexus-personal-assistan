@@ -7,7 +7,7 @@ describe('ToolPolicyService', () => {
     policy = new ToolPolicyService();
   });
 
-  it('allows only an explicitly listed harmless read-only capability', () => {
+  it('allows only an explicitly listed harmless read-only capability version', () => {
     expect(
       policy.authorize({
         tool: 'demo',
@@ -23,6 +23,16 @@ describe('ToolPolicyService', () => {
         tool: 'instagram',
         action: 'publish',
         actionVersion: 'v1',
+      }),
+    ).toBe(false);
+  });
+
+  it('denies an unapproved version of an otherwise allowlisted capability', () => {
+    expect(
+      policy.authorize({
+        tool: 'demo',
+        action: 'read_status',
+        actionVersion: 'v2',
       }),
     ).toBe(false);
   });
@@ -43,7 +53,7 @@ describe('ToolPolicyService', () => {
     ).toBe(false);
   });
 
-  it('denies changed action versions', () => {
+  it('denies changed action versions in supplied approval data', () => {
     expect(
       policy.authorize({
         tool: 'finance',
