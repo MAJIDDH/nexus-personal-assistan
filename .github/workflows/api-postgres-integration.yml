@@ -65,7 +65,7 @@ jobs:
             const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
             try {
               const migrations = await pool.query('SELECT version FROM schema_migrations ORDER BY version');
-              if (migrations.rows.length !== 4) throw new Error('Expected exactly four migrations to be recorded');
+              if (migrations.rows.length !== 5) throw new Error('Expected exactly five migrations to be recorded');
               const title = 'CI synthetic idea ' + Date.now();
               const inserted = await pool.query(
                 'INSERT INTO content_ideas (title, concept, objective) VALUES ($1, $2, $3) RETURNING title, status',
@@ -94,8 +94,15 @@ jobs:
               if (events.rows.length !== 1 || events.rows[0]?.action !== 'created') {
                 throw new Error('Task creation was not recorded in the audit trail');
               }
+              const taskId = task.rows[0] && (await pool.query('SELECT id FROM tasks WHERE title = $1', [taskTitle])).rows[0]?.id;
+              const feedback = await pool.query(
+                'INSERT INTO task_feedback (task_id, rating, note) VALUES ($1, $2, $3) RETURNING rating, note',
+                [taskId, 'useful', 'CI synthetic feedback'],
+              );
+              if (feedback.rows[0]?.rating !== 'useful') throw new Error('Task feedback was not persisted');
+              await pool.query('DELETE FROM task_feedback WHERE task_id = $1', [taskId]);
               await pool.query('DELETE FROM tasks WHERE title = $1', [taskTitle]);
-              process.stdout.write('PostgreSQL migrations, task persistence, and audit trigger passed.\n');
+              process.stdout.write('PostgreSQL migrations, task persistence, audit trigger, and feedback persistence passed.\n');
             } finally {
               await pool.end();
             }
