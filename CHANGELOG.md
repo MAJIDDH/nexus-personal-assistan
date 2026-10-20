@@ -39,3 +39,19 @@ This changelog records meaningful project milestones and verified deliveries. It
 - Added unit and e2e test definitions, a local-only PostgreSQL Compose service, and setup/safety documentation.
 - Work is on `feat/local-prototype-foundation`; it has not been merged into `main`.
 - Tests/build have not been executed in this environment; implementation is not yet verified as runnable.
+
+
+## 2026-10-20 — PostgreSQL access layer (ADR 0006 accepted)
+
+- Recorded explicit user acceptance of `pg`, parameterized SQL, and versioned SQL migrations for the local synthetic-data prototype.
+- Added a bounded PostgreSQL connection-pool service and application-shutdown cleanup.
+- Added a small migration runner with an applied-migration ledger and per-migration transactions.
+- Added the initial migration ledger SQL file; it creates no business tables and seeds no business data.
+- Expanded unit-test definitions for pool configuration, parameterized query forwarding, ping failure behavior, and shutdown.
+- Documented local migration setup and the remaining verification requirements.
+
+### Verification and limitations
+
+- Repository changes were committed through GitHub; build, tests, and migrations have **not** been executed in a Node/PostgreSQL runtime in this environment.
+- No application workflow currently proves these checks pass. Do not treat the code as runtime-verified.
+- No production database, real gallery/customer data, paid API, public server, or external integration was added.
