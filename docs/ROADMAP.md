@@ -2,7 +2,7 @@
 
 This roadmap records intended work, not completed capabilities. Items remain unchecked until acceptance criteria and evidence are reviewed. The roadmap is subordinate to `PROJECT_MANIFEST.md`; material choices require accepted ADRs.
 
-## Phase 0 — Governance foundation
+## Phase 0 — Governance foundation — Complete (2026-10-20)
 
 - [x] Create the initial README.
 - [x] Create initial architecture, roadmap, and security documents.
@@ -11,12 +11,11 @@ This roadmap records intended work, not completed capabilities. Items remain unc
 - [x] Record Phase 0 scope and exit criteria.
 - [x] Review cross-document consistency and local documentation links; initial repository content contains only governance files and no application code.
 - [x] Review public-repository safety for the currently tracked file set; no real environment files or application secrets are present in the current NEXUS tree.
-- [ ] Resolve governance-related open questions and confirm the baseline with the user.
-- [ ] Close Phase 0 only after review evidence and explicit user acceptance.
+- [x] Obtain explicit user acceptance of the governance baseline and ADR-0001.
 
-**Exit gate:** no application code, framework scaffolding, dependency installation, or infrastructure work until Phase 0 is reviewed and accepted.
+**Exit evidence:** 13 governance documents were retrieved/reviewed, internal Markdown links were checked with no missing local targets, the tracked tree was inspected, and the user explicitly accepted the baseline on 2026-10-20.
 
-## Phase 1 — Product discovery and technical decisions
+## Phase 1 — Product discovery and technical decisions — Ready to begin
 
 - [ ] Confirm initial use cases, non-goals, channels, and priorities.
 - [ ] Define identity, authentication, authorization, approval, and audit requirements.
