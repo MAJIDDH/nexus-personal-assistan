@@ -33,6 +33,9 @@ The server should run the API, background jobs, database, and admin web interfac
 
 OpenAI's current public API pricing page lists GPT-Live-1 voice sessions at **$0.05 per minute**, with backend model/tool use charged separately. The realtime model family has token-based rates too; for example, the page lists GPT-Realtime-2.1 audio input at $32 per million audio tokens and audio output at $64 per million, with text tokens billed separately. These are not directly interchangeable pricing units. See [official API pricing](https://developers.openai.com/api/docs/pricing).
 
+
+For a more economical first voice feature, the official pricing page lists file transcription with GPT-Transcribe at **$0.0045 per minute** (about $0.27 for 60 minutes of source audio before any separate text-model processing). This makes voice-note transcription a better initial experiment than always-on realtime voice, provided the service is accessible and the audio/data handling is acceptable. See [official transcription pricing](https://developers.openai.com/api/docs/models/gpt-transcribe) and [speech-to-text guide](https://developers.openai.com/api/docs/guides/speech-to-text).
+
 Implications:
 - Do not assume a ChatGPT subscription includes API credits; API billing is a separate cost path.
 - Do not promise a monthly AI bill before defining message volume, average context size, image analysis, audio minutes, and model choice.
