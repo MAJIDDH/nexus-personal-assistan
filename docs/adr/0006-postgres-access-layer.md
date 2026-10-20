@@ -1,6 +1,6 @@
 # ADR 0006: PostgreSQL Access Layer for the Local Prototype
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-20
 - Decision owner: User
 
@@ -63,9 +63,9 @@ Use entities, repositories, and NestJS integration.
 
 ## Decision
 
-**No option has been selected yet.** The provisional recommendation for this small, cost-conscious prototype is **Option A: pg with parameterized SQL and versioned SQL migrations**, provided the initial domain schema remains small. This minimizes framework lock-in and keeps SQL and database behavior explicit. If CRUD complexity or schema volume grows enough to justify code generation, revisit Prisma through a superseding ADR rather than adding it preemptively.
+**Accepted option A: pg with parameterized SQL and versioned SQL migrations**, provided the initial domain schema remains small. This minimizes framework lock-in and keeps SQL and database behavior explicit. If CRUD complexity or schema volume grows enough to justify code generation, revisit Prisma through a superseding ADR rather than adding it preemptively.
 
-This recommendation is not authorization to implement persistence until the user explicitly accepts this ADR or chooses another option.
+Acceptance record: the user explicitly approved Option A in ChatGPT on 2026-10-20. Scope remains local prototype with synthetic data only.
 
 ## Consequences and trade-offs
 
