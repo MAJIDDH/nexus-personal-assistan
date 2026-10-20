@@ -37,6 +37,15 @@ User-confirmed voice preferences:
 
 Implementation approach, speech recognition and synthesis providers, latency, reliability, privacy controls, and operating cost remain to be assessed during discovery and ADR review. These preferences do not imply that live voice or wake-word activation is already implemented.
 
+### 3.2 Authentication and access
+
+User-confirmed requirements:
+- The web app should support both Telegram-based sign-in and email/password sign-in.
+- Initially, access is for the user alone.
+- The design should allow employees or other users with differentiated permissions to be added later without requiring a fundamental redesign.
+
+Security design must still assess account recovery, secure session handling, protection of credentials, and how Telegram identities are linked to web-app accounts. Multi-user support is a future extensibility requirement, not a requirement to enable employee accounts in the first release.
+
 ## 4. Current business context and integrations
 
 - Current first business priority: Galeri Tala Yousefi.
@@ -86,7 +95,7 @@ NEXUS should improve through explicit user feedback, measured outcomes, and revi
 ## 8. Open questions
 
 - Memory categories, retention periods, and detailed deletion behavior.
-- Initial user authentication and secure access from Telegram and web.
+- Secure authentication details, account recovery, and account-linking behavior.
 - Exact first measurable business workflow and success metrics.
 - Integration feasibility and approved automation rules for Instagram.
 - Budget ceiling and acceptable recurring infrastructure/model costs.
@@ -98,9 +107,11 @@ NEXUS should improve through explicit user feedback, measured outcomes, and revi
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
 3. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
 4. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
-5. Routine low-risk work: automatic execution with a report.
-6. Publishing and external communication: automatic only within rules explicitly approved in advance.
-7. Financial actions or commitments: explicit confirmation every time.
-8. Important deletion and security changes: confirmation required.
-9. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
-10. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
+5. Web-app sign-in: both Telegram-based sign-in and email/password.
+6. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
+7. Routine low-risk work: automatic execution with a report.
+8. Publishing and external communication: automatic only within rules explicitly approved in advance.
+9. Financial actions or commitments: explicit confirmation every time.
+10. Important deletion and security changes: confirmation required.
+11. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
+12. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
