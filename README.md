@@ -17,6 +17,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 - [Product Requirements](docs/PRODUCT_REQUIREMENTS.md) — current user needs, confirmed decisions, and open items.
 - [Phase 1 Discovery](docs/PHASE_01_DISCOVERY.md) — discovery sequence and provisional defaults.
 - [Discovery Options 01](docs/DISCOVERY_OPTIONS_01.md) — preliminary research on Instagram API routes, product-reference formats, and recordkeeping.
+- [Discovery Options 02 — Costs](docs/DISCOVERY_OPTIONS_02_COSTS.md) — preliminary hosting, model/voice, Telegram, and Instagram cost baseline.
 - [Risk Register](docs/RISK_REGISTER.md) — open risks and evidence needed to reduce them.
 - [Changelog](CHANGELOG.md) — meaningful milestones and verification notes.
 - [Phase 0 Governance](docs/PHASE_00_GOVERNANCE.md) — current governance phase.
