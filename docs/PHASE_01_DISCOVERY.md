@@ -76,3 +76,23 @@ The next handoff is [Claude Phase 1 Handoff](CLAUDE_HANDOFF_PHASE1.md). Claude s
 ## 5. Completion reporting
 
 For each work item, report what was inspected or changed, evidence and links, limitations, and what remains. Do not present recommendations as confirmed decisions or drafts as published content.
+
+## 4. Proposed ADRs and next work
+
+The following decisions have been drafted for user review; none is accepted yet:
+- [ADR 0001 — Local-first modular monolith](adr/0001-local-first-modular-monolith.md)
+- [ADR 0002 — Private data and memory boundaries](adr/0002-private-data-and-memory.md)
+- [ADR 0003 — Replaceable model provider and spend controls](adr/0003-model-provider-and-spend-controls.md)
+- [ADR 0004 — Agent tool permissions and approval gates](adr/0004-agent-tool-permissions-and-approvals.md)
+
+Recommended path: accept or revise these bounded defaults; then implement only a local, synthetic-data foundation with a mock model provider and no real external side effects. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
+
+### Proposed local prototype acceptance criteria
+
+- The repository contains a runnable application scaffold with documented prerequisites and commands.
+- Configuration validation fails safely when required values are absent; no real credentials are committed.
+- Health endpoint returns an explicit status without exposing secrets or private data.
+- Core policy denies unlisted tools and high-impact actions without an exact valid approval.
+- Tests run locally for configuration, health, policy allow/deny, and error handling; results are recorded honestly.
+- The prototype uses synthetic fixtures and a deterministic mock model provider; no paid API calls or production data are used.
+- Setup and test instructions are verified on the actual development environment before marking the prototype runnable.
