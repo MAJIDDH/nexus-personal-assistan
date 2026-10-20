@@ -55,4 +55,40 @@ describe('ContentIdeasService', () => {
       ['Choose a style', 'Compare three synthetic concepts.', 'grow_followers'],
     );
   });
+
+  it('only updates drafts and passes all values as SQL parameters', async () => {
+    const row = {
+      id: '00000000-0000-4000-8000-000000000003',
+      title: 'Updated title',
+      concept: 'Updated synthetic concept',
+      objective: 'educate',
+      status: 'draft',
+      created_at: new Date('2026-10-20T00:00:00.000Z'),
+      updated_at: new Date('2026-10-20T00:05:00.000Z'),
+    };
+    query.mockResolvedValue({ rows: [row], rowCount: 1 });
+
+    await expect(service.updateDraft(row.id, {
+      title: 'Updated title',
+      concept: 'Updated synthetic concept',
+      objective: 'educate',
+    })).resolves.toEqual(row);
+
+    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND status = 'draft'");
+    expect(query.mock.calls[0][0]).toContain('updated_at = now()');
+    expect(query.mock.calls[0][1]).toEqual([
+      row.id,
+      'Updated title',
+      'Updated synthetic concept',
+      'educate',
+    ]);
+  });
+
+  it('does not update missing or non-draft ideas', async () => {
+    query.mockResolvedValue({ rows: [], rowCount: 0 });
+    await expect(service.updateDraft(
+      '00000000-0000-4000-8000-000000000004',
+      { title: 'Attempted change' },
+    )).rejects.toThrow('Draft content idea not found.');
+  });
 });
