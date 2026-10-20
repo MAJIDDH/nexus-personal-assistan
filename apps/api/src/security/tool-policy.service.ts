@@ -12,36 +12,17 @@ export type ToolRequest = {
   };
 };
 
-/**
- * Prototype policy: only explicitly listed harmless read-only capabilities pass.
- * No token is minted here and this class does not execute tools.
- */
+/** Local prototype policy. This service authorizes but never executes tools. */
 @Injectable()
 export class ToolPolicyService {
-  private readonly readOnlyAllowlist = new Set([
-    'demo.read_status',
-  ]);
+  private readonly readOnlyAllowlist = new Set(['demo.read_status@v1']);
 
   authorize(request: ToolRequest): boolean {
-    const capability = `${request.tool}.${request.action}`;
+    const capability = `${request.tool}.${request.action}@${request.actionVersion}`;
+    if (this.readOnlyAllowlist.has(capability)) return true;
 
-    if (this.readOnlyAllowlist.has(capability)) {
-      return true;
-    }
-
-    const approval = request.approval;
-    if (!approval || !approval.token.trim()) {
-      return false;
-    }
-
-    // The prototype deliberately supports no approval issuer yet. A supplied
-    // object is not proof of approval; fail closed until a signed, server-side
-    // approval-token mechanism is implemented and tested.
-    return (
-      approval.tool === request.tool &&
-      approval.action === request.action &&
-      approval.actionVersion === request.actionVersion &&
-      false
-    );
+    // No trusted approval issuer exists in this prototype. Caller-provided
+    // approval data is not proof of authorization, so reject it by default.
+    return false;
   }
 }
