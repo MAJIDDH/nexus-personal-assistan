@@ -91,8 +91,10 @@ Security design must still assess account recovery, secure session handling, pro
 ### 5.1 Routine reversible work
 The assistant may automatically perform ordinary, low-risk, reversible tasks and report the result. Examples include analysis of available data, drafting plans and reports, reminders, and organizing information. Actual automatic execution remains bounded by explicit permissions, available integrations, and auditability.
 
+**User-confirmed autonomy preference:** NEXUS should be proactive and relatively autonomous within rules explicitly approved in advance. It should initiate follow-up and execute permitted tasks without asking for repeated approval for each routine step. It must ask when a case is ambiguous, outside the approved rules, materially different from the expected situation, or carries significant consequences. This preference does not grant unlimited access or override the separate requirements for financial actions, important deletion, security changes, or other protected actions.
+
 ### 5.2 External communications and publishing
-The assistant may send messages or publish content automatically only within rules explicitly approved in advance by the user. Actions outside the approved scope, ambiguous cases, and materially changed circumstances require renewed approval. The system should retain a record of the applicable rule and the action taken.
+The assistant may send messages or publish content automatically only within rules explicitly approved in advance by the user. Actions outside the approved scope, ambiguous cases, and materially changed circumstances require renewed approval. The system should retain a record of the applicable rule and the action taken. The user's preference for proactive execution means the assistant should carry out in-scope tasks rather than merely recommend them, but only after the relevant rules, integrations, and permissions have been explicitly established.
 
 ### 5.3 Financial actions and commitments
 Explicit user confirmation is required before every financial action or financial commitment, including purchases, payments, orders, or accepting obligations. Analysis, calculations, recommendations, and draft transactions may be prepared without committing the user.
@@ -169,7 +171,8 @@ The next budget decision should be based on a transparent comparison of options 
 11. Budget: use the lowest practical setup cost, accepting manual steps when appropriate; do not set a fixed monthly cap until options and realistic costs are compared. Keep recurring costs visible and controlled.
 12. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; allow inspection, correction, and deletion requests through both Telegram and web app. When uncertain about retention of older information, ask the user. Retain useful conversation/activity history long-term for project and decision follow-up, with user-requested deletion available.
 13. Routine low-risk work: automatic execution with a report.
-14. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
-15. Financial actions or commitments: explicit confirmation every time.
-16. Important deletion and security changes: confirmation required.
-17. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
+14. Autonomy level: proactive execution and follow-up within rules approved in advance; ask for confirmation in ambiguous, out-of-scope, materially changed, or high-consequence cases. Financial actions, security changes, and important actions still require explicit confirmation.
+15. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
+16. Financial actions or commitments: explicit confirmation every time.
+17. Important deletion and security changes: confirmation required.
+18. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
