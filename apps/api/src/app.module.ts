@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { ContentIdeasModule } from './content-ideas/content-ideas.module';
 import { TasksModule } from './tasks/tasks.module';
 import { AuditModule } from './audit/audit.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuditModule } from './audit/audit.module';
     ContentIdeasModule,
     TasksModule,
     AuditModule,
+    FeedbackModule,
   ],
   controllers: [AppController, HealthController],
   providers: [ToolPolicyService, MockModelProvider],
