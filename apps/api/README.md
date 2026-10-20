@@ -6,9 +6,9 @@ This is an early local-only scaffold, not a production service.
 
 - Node.js LTS (Node.js 20 or newer).
 - npm.
-- Docker Compose only if you want to start the local PostgreSQL container.
+- Docker Compose for the optional local PostgreSQL container.
 
-## Run the API
+## Install and test the API
 
 From this directory:
 
@@ -27,7 +27,7 @@ The API binds to `127.0.0.1` only. Expected routes:
 
 The health route checks that the API handler responds; it does not claim PostgreSQL is connected.
 
-## Start PostgreSQL locally (optional at this milestone)
+## Start PostgreSQL and apply migrations
 
 From the repository root:
 
@@ -35,7 +35,15 @@ From the repository root:
 docker compose up -d postgres
 ```
 
-Database credentials in the compose file are disposable local-development placeholders. Do not reuse them outside the local synthetic-data environment. The API now has a small PostgreSQL pool boundary; creating the pool does not prove the database is reachable. Database queries should use parameterized values (for example, `$1`) and must not interpolate untrusted input into SQL.\n\nAfter starting PostgreSQL and setting `DATABASE_URL` in the API environment, run migrations from this directory:\n\n```sh\nnpm run migrate\n```\n\nThe migration runner creates a `schema_migrations` ledger, applies ordered SQL files once, and wraps each migration in a transaction. Current migration only establishes the ledger table; no business tables or real data are created. The runner expects `DATABASE_URL` to be present in the process environment.
+Then, from this directory, ensure `.env` contains the local-only connection string shown in `.env.example`, and run:
+
+```sh
+npm run migrate
+```
+
+The migration runner fails fast when `DATABASE_URL` is missing. It creates a `schema_migrations` ledger, applies ordered SQL files once, and wraps each migration in a transaction. The current migration only establishes the ledger table; no business tables or real data are created.
+
+The Compose credentials are disposable local-development placeholders. Do not reuse them outside this local synthetic-data environment. Creating a connection pool does not prove that PostgreSQL is reachable. Database queries must use parameterized values (for example, `$1`) and must not interpolate untrusted input into SQL.
 
 ## Safety limits
 
@@ -49,4 +57,4 @@ Database credentials in the compose file are disposable local-development placeh
 
 ## Verification status
 
-Unit and e2e test definitions are present, but neither the test suite nor the build or database migration has been executed in the available environment. Run the commands above on a machine with the required tooling and record the actual results before describing the prototype as runnable.
+Unit and e2e test definitions are present, but the test suite, build, and database migration have not been executed in the available environment. Run the commands above on a machine with the required tooling and record the actual results before describing the prototype as runnable.
