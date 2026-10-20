@@ -9,7 +9,8 @@ This roadmap records intended work, not completed capabilities. Items remain unc
 - [x] Establish the project constitution and authority boundaries.
 - [x] Establish ADR and development-workflow guidance.
 - [x] Record Phase 0 scope and exit criteria.
-- [ ] Review cross-document consistency, links, and public-repository safety.
+- [x] Review cross-document consistency and local documentation links; initial repository content contains only governance files and no application code.
+- [x] Review public-repository safety for the currently tracked file set; no real environment files or application secrets are present in the current NEXUS tree.
 - [ ] Resolve governance-related open questions and confirm the baseline with the user.
 - [ ] Close Phase 0 only after review evidence and explicit user acceptance.
 
