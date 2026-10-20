@@ -1,8 +1,9 @@
 # ADR-0001: Governance and architecture-decision workflow
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-20
 - **Decision owner:** User
+- **Acceptance recorded:** 2026-10-20, explicit user approval in conversation
 - **Related work:** Phase 0 governance foundation
 - **Supersedes / superseded by:** None
 
@@ -24,9 +25,11 @@ NEXUS needs a consistent way to record material technical decisions before imple
 2. **Adopt the previous project's workflow verbatim:** strong governance, but carries over organization- and product-specific roles and assumptions that do not fit NEXUS.
 3. **Adapt a lightweight ADR workflow to NEXUS:** retain sequential records, options, trade-offs, security/privacy, cost, rollback, and explicit acceptance while keeping ownership appropriate to a user-led project.
 
-## Proposed decision
+## Decision
 
-Adopt option 3. Use `PROJECT_MANIFEST.md` as the normative authority, `docs/adr/README.md` for workflow, and `docs/adr/TEMPLATE.md` for new records. Material, costly, security-sensitive, provider-binding, autonomy-affecting, or difficult-to-reverse decisions must be documented before implementation. An ADR remains Proposed until explicitly accepted by the user. This ADR itself remains Proposed pending user review.
+Adopt option 3. Use `PROJECT_MANIFEST.md` as the normative authority, `docs/adr/README.md` for workflow, and `docs/adr/TEMPLATE.md` for new records. Material, costly, security-sensitive, provider-binding, autonomy-affecting, or difficult-to-reverse decisions must be documented before implementation. An ADR remains Proposed until explicitly accepted by the user.
+
+The user explicitly accepted this ADR and the associated governance baseline on 2026-10-20.
 
 ## Consequences and trade-offs
 
@@ -49,8 +52,8 @@ The workflow is documentation-only and can be amended through reviewed changes. 
 
 ## Acceptance criteria
 
-- [ ] User reviews and accepts this ADR and the associated governance baseline.
-- [ ] Phase 0 exit criteria are satisfied.
+- [x] User reviews and accepts this ADR and the associated governance baseline.
+- [x] Phase 0 exit criteria are satisfied.
 - [ ] The first implementation ADR is accepted before the related implementation begins.
 
 ## References
