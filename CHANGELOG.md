@@ -28,4 +28,5 @@ This changelog records meaningful project milestones and verified deliveries. It
 - No application code, dependencies, runtime, or infrastructure were added.
 - Phase 0 governance artifacts remain available for review; Phase 1 discovery is now the active work phase. No application implementation or direct ChatGPT–Claude integration is claimed.
 
-- Added four proposed ADRs covering local-first development, private memory/data boundaries, replaceable model providers and spend controls, and server-side tool permission/approval gates. These proposals do not authorize implementation of material choices until accepted.
+- Recorded user acceptance of ADRs 0001–0004 for a local synthetic-data prototype only; no server purchase, paid API use, real business data, external integration, or production deployment is authorized.
+- Concrete application framework/database/container stack remains a separate material decision and must be accepted before framework-specific implementation.
