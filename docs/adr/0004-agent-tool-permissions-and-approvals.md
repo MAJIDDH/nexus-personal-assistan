@@ -1,6 +1,6 @@
 # ADR 0004: Agent Tool Permissions and Approval Gates
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-20
 - Decision owner: User
 
@@ -38,6 +38,10 @@ Tools can be disabled through a global kill switch and per-tool permission flags
 
 ## Verification and follow-up
 Tests must cover unauthorized calls, stale approval, changed action parameters after approval, duplicate retries, provider timeouts, cancellation, and audit record integrity.
+
+## Acceptance record
+
+Accepted by the user in ChatGPT on 2026-10-20, within the bounded scope of a local prototype using synthetic data. This acceptance does not authorize server purchase, paid API activation, real business/customer data storage, external integrations, or production deployment.
 
 ## Approval required
 User approval is required before implementing external-action permissions or enabling any real side-effecting integration.
