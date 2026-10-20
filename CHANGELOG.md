@@ -2,9 +2,12 @@
 
 This changelog records meaningful project milestones and verified deliveries. It does not replace the project constitution, ADRs, or phase records.
 
-## Unreleased — Governance foundation
+## Unreleased — Discovery and AI collaboration
 
 - Added the NEXUS project constitution and authority hierarchy.
+- Added a persistent AI collaboration workflow for ChatGPT/Claude roles, safe handoffs, verification, and repository security.
+- Linked product requirements, Phase 1 discovery, and AI collaboration instructions from the README.
+- Updated the README to reflect that Phase 1 discovery is in progress rather than presenting Phase 0 as the current phase.
 - Added the development workflow for scope, implementation, verification, and reporting.
 - Added Phase 0 scope, open decisions, and exit criteria.
 - Added the ADR workflow and initial risk register.
