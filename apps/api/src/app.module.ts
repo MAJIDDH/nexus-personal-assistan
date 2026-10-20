@@ -8,6 +8,7 @@ import { ToolPolicyService } from './security/tool-policy.service';
 import { DatabaseModule } from './database/database.module';
 import { ContentIdeasModule } from './content-ideas/content-ideas.module';
 import { TasksModule } from './tasks/tasks.module';
+import { AuditModule } from './audit/audit.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { TasksModule } from './tasks/tasks.module';
     DatabaseModule,
     ContentIdeasModule,
     TasksModule,
+    AuditModule,
   ],
   controllers: [AppController, HealthController],
   providers: [ToolPolicyService, MockModelProvider],
