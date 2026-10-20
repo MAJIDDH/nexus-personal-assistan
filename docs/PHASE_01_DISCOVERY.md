@@ -63,6 +63,10 @@ Before choosing paid services or binding the core to a provider, compare realist
 8. Propose material architecture/security/autonomy ADRs before implementation.
 9. Define an incremental first release with acceptance criteria and tests; only then begin application implementation.
 
-## 4. Completion reporting
+## 4. Initial research artifact
+
+The first desk-research note is available in [Discovery Options 01](DISCOVERY_OPTIONS_01.md). It compares the two documented Instagram API routes, initial product-reference options, and a minimal gallery recordkeeping approach. It is explicitly preliminary: no account permissions were tested, no live integration was enabled, and no product-data format was selected.
+
+## 5. Completion reporting
 
 For each work item, report what was inspected or changed, evidence and links, limitations, and what remains. Do not present recommendations as confirmed decisions or drafts as published content.
