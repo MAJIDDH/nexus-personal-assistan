@@ -38,6 +38,13 @@ The user selected six outcomes to evaluate during the first three months:
 
 These are user-selected outcome areas, not yet quantified targets or claims of guaranteed results. During discovery, define practical baselines and measures where data is available (for example, overdue-task follow-through, estimated time saved, sales/conversion measures, relevant follower growth, usefulness of reports, and memory corrections). Record unavailable data as unavailable rather than inventing a baseline. The user has not specified additional criteria.
 
+### 2.4 Automatic reports and alerts
+
+**User-confirmed reporting preferences:**
+- NEXUS should support reports about tasks and commitments, a daily summary, a weekly report, business performance, decision-making and opportunities, and personal planning.
+- **Delivery cadence:** send reports or alerts only when there is an important matter that merits the user's attention, rather than sending routine daily or weekly reports on a fixed schedule.
+- The trigger and importance threshold for a report/alert remain to be defined. NEXUS should avoid noisy notifications and must not fabricate missing business data; it should state when data is unavailable.
+
 ### 2.3 Proactive follow-up and notifications
 
 User-confirmed preferences:
@@ -171,7 +178,8 @@ The next budget decision should be based on a transparent comparison of options 
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
 3. First operational workflow: general-purpose management assistant for tasks, reminders, reports, decision support, and follow-up; exact minimum scope remains open.
 4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
-5. Proactive follow-up: prioritize tasks by combined importance, urgency, deadline, and consequences of non-completion; adapt follow-up spacing to importance and urgency; active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`. Reminder frequency and spacing should adapt to importance, deadline, and urgency without repeated nuisance notifications; the user can pause or change follow-up. Send the next day's plan at night and a short review in the morning.
+5. Proactive follow-up: prioritize tasks by combined importance, urgency, deadline, and consequences of non-completion;
+22. Automatic reporting: support task/commitment, daily summary, weekly, business performance, decision/opportunity, and personal-planning reports; notify or deliver a report only when an important matter arises. The importance threshold and triggers remain open. adapt follow-up spacing to importance and urgency; active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`. Reminder frequency and spacing should adapt to importance, deadline, and urgency without repeated nuisance notifications; the user can pause or change follow-up. Send the next day's plan at night and a short review in the morning.
 6. Telegram is for notifications, while the web app is for detail and management.
 7. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
 8. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
