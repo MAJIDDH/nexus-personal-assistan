@@ -46,6 +46,8 @@ The API binds to `127.0.0.1` only.
 - `PATCH /api/tasks/:id` — edit open or in-progress tasks.
 - `POST /api/tasks/:id/status` — explicitly transition an open task to in-progress, completed, or cancelled; in-progress tasks can return to open or become completed/cancelled. Completed and cancelled tasks are terminal.
 - `GET /api/audit-events?entity_type=task&entity_id=<uuid>&limit=50` — read-only audit history, optionally filtered by entity and bounded to 1–200 events.
+- `POST /api/feedback` — save structured user feedback for an existing task (`task_id`, `rating`: `useful` / `not_useful` / `needs_adjustment`, optional `note` up to 2,000 characters).
+- `GET /api/feedback?task_id=<uuid>&limit=50` — retrieve recent feedback, optionally for one task; limit is bounded to 1–200.
 - `POST /api/content-ideas` — create a draft content idea. JSON fields: `title` (1–160 characters), `concept` (1–5000 characters), optional `objective` (`grow_followers`, `increase_sales`, `increase_engagement`, or `educate`; defaults to `grow_followers`). Unsupported fields and values are rejected.
 
 Example request:
@@ -56,11 +58,11 @@ curl -i -X POST http://127.0.0.1:3000/api/content-ideas \
   -d '{"title":"Choose your style","concept":"Compare three synthetic necklace concepts and invite viewers to choose.","objective":"grow_followers"}'
 ```
 
-The content-idea API stores, lists, edits drafts, and supports an explicit transition from draft to in-review. The task API manages local tasks only. Task priority score is derived from importance, urgency, and approaching/overdue due dates; it is a transparent heuristic, not an AI decision. No reminders, background jobs, external notifications, approvals, publishing, scheduling, customer messaging, or Instagram calls run. Audit history currently covers task writes only; it is a local operational trail, not a tamper-proof security ledger or authenticated attribution system.
+The content-idea API stores, lists, edits drafts, and supports an explicit transition from draft to in-review. The task API manages local tasks only. Task priority score is derived from importance, urgency, and approaching/overdue due dates; it is a transparent heuristic, not an AI decision. No reminders, background jobs, external notifications, approvals, publishing, scheduling, customer messaging, or Instagram calls run. Audit history currently covers task writes only; it is a local operational trail, not a tamper-proof security ledger or authenticated attribution system. Feedback is explicitly recorded by the caller and stored for later review; it does not automatically train or change model behavior.
 
 ## Database migrations
 
-The migration runner fails fast when `DATABASE_URL` is missing, applies ordered SQL files once, records them in `schema_migrations`, and wraps each migration in a transaction. The migrations create the ledger, content-idea table, task table, and append-only audit history. A PostgreSQL trigger records task creation and updates in the same transaction as the task write; each event stores before/after snapshots and a server-defined local actor/source. Use synthetic test data only.
+The migration runner fails fast when `DATABASE_URL` is missing, applies ordered SQL files once, records them in `schema_migrations`, and wraps each migration in a transaction. The migrations create the ledger, content-idea table, task table, audit history, and structured task feedback. A PostgreSQL trigger records task creation and updates in the same transaction as the task write; each event stores before/after snapshots and a server-defined local actor/source. Use synthetic test data only.
 
 The Compose credentials are disposable local-development placeholders. Never reuse them outside this local synthetic-data environment. Database queries use parameterized values (for example, `$1`) rather than interpolating request input into SQL.
 
@@ -75,4 +77,4 @@ The Compose credentials are disposable local-development placeholders. Never reu
 
 ## Verification status
 
-GitHub Actions run #28 passed the API build, all 18 unit tests, and all 8 API end-to-end tests. The tests use mocks for the database; a real PostgreSQL migration and database-backed API run have not yet been executed.
+Latest verified GitHub Actions runs on commit `5e59f6689672385f5cab9323b2cedc3c325f20a2` passed API build, unit tests, API end-to-end tests, and disposable PostgreSQL migration/persistence checks. Feedback migration changes are newer and require fresh CI verification.
