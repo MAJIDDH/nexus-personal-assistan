@@ -30,6 +30,8 @@ The user selected **Instagram content operations for Galeri Tala Yousefi** as th
 
 **User-confirmed idea workflow:** NEXUS should rank research-backed ideas and may independently prepare low-risk ideas through the draft stage within approved rules. Publication remains subject to the previously recorded content-approval and publishing rules. NEXUS must never describe an idea as published unless publication actually occurred and was verified; ideas not selected or otherwise authorized must remain clearly labeled as proposals/drafts.
 
+**Provisional ranking default (recommended by NEXUS, not yet explicitly confirmed by the user):** use a balanced score that considers relevant-follower growth, sales/conversion potential, meaningful engagement, brand fit, production effort/cost, and evidence quality. Favor business relevance and evidence quality over raw views alone. Show the reasons and confidence level for each ranking; do not invent numeric success probabilities. Revisit the weighting only when real account outcomes provide evidence that the ranking should change.
+
 The exact minimum viable workflow, measurable success criteria, and first integrations remain to be defined during discovery. Do not treat this selection as authorization to build an unbounded feature set; delivery should still be incremental and cost-aware.
 
 ### 2.2 First three-month success criteria
@@ -176,7 +178,8 @@ The next budget decision should be based on a transparent comparison of options 
 
 ## 9. Open questions
 
-- Minimum viable management workflow and measurable baselines/targets for the first three months.
+- Minimum viable management workflow and measurable baselines/targets for the first three months. Start with available data, establish baselines where possible, and label unavailable measures rather than blocking useful work.
+- Content-idea ranking weights: use the provisional balanced default in section 2.1 until actual results justify an evidence-based adjustment; do not block discovery or low-risk drafting on this unanswered preference.
 - Detailed reminder escalation rules, including thresholds for task importance/urgency, while respecting the confirmed `Asia/Tehran` quiet hours of 01:00–07:00.
 - Memory retention periods, backups, and detailed deletion behavior. The user has approved the initial categories: preferences and habits; projects and goals; decisions and rationale; tasks and commitments; business information; and summaries of important conversations.
 - Secure authentication details, account recovery, safe linking/unlinking of Telegram and email identities, and recovery if a linked method becomes unavailable.
@@ -192,6 +195,7 @@ The next budget decision should be based on a transparent comparison of options 
 3. First-version priority: Instagram content operations for Galeri Tala Yousefi, initially focused on evidence-based research of successful competitor content in gold and jewelry and converting findings into original tailored ideas. No fabricated links, metrics, or success claims. Keep the core general-purpose; broader task-management and reporting workflows may be staged later.
 4. Competitor-research sources: public sources and authorized tools/APIs only, conditional on checking access, cost, and security. Do not assume private or unauthorized access; state observation limits and unavailable or unverified metrics explicitly.
 5. Idea workflow: rank evidence-backed ideas and independently prepare low-risk drafts within approved rules. Publishing follows existing approval/publishing rules. Never report a proposal or draft as published without verified publication.
+6. Provisional NEXUS recommendation pending explicit user confirmation: rank ideas with a balanced rubric covering relevant-follower growth, sales/conversion, meaningful engagement, brand fit, production effort/cost, and evidence quality; do not rank by raw views alone or invent numeric success probabilities.
 4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
 5. Proactive follow-up: prioritize tasks by combined importance, urgency, deadline, and consequences of non-completion;
 22. Automatic reporting: support task/commitment, daily summary, weekly, business performance, decision/opportunity, and personal-planning reports; notify or deliver a report only when an important matter arises. The importance threshold and triggers remain open. adapt follow-up spacing to importance and urgency; active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`. Reminder frequency and spacing should adapt to importance, deadline, and urgency without repeated nuisance notifications; the user can pause or change follow-up. Send the next day's plan at night and a short review in the morning.
