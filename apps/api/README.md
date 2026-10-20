@@ -20,12 +20,11 @@ npm run build
 npm run start:dev
 ```
 
-The API binds to `127.0.0.1` only. Expected routes:
+The API binds to `127.0.0.1` only. Routes:
 
 - `GET http://127.0.0.1:3000/api` — local prototype status.
-- `GET http://127.0.0.1:3000/api/health` — minimal health response.
-
-The health route checks that the API handler responds; it does not claim PostgreSQL is connected.
+- `GET http://127.0.0.1:3000/api/health` — liveness check; confirms the API handler responds, not database connectivity.
+- `GET http://127.0.0.1:3000/api/health/ready` — readiness check; returns ready only when PostgreSQL responds to `SELECT 1`, otherwise returns HTTP 503 without exposing driver details.
 
 ## Start PostgreSQL and apply migrations
 
