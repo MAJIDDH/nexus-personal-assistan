@@ -1,6 +1,7 @@
 const { readdir, readFile } = require('node:fs/promises');
 const path = require('node:path');
 const { Pool } = require('pg');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 async function main() {
   const pool = new Pool({
