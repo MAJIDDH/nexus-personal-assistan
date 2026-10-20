@@ -112,6 +112,8 @@ NEXUS must distinguish recommendations, drafts, attempted actions, successful ac
 ### 6.1 Useful information and automatic capture
 NEXUS should automatically identify and save useful, non-sensitive information across personal and professional domains, such as preferences, goals, projects, decisions, and recurring workflows. If it is uncertain whether information is sensitive or appropriate to retain, it must ask rather than save it automatically.
 
+**User-confirmed memory categories:** preferences and habits; projects and goals; decisions and their rationale; tasks and commitments; business information; and summaries of important conversations. These categories guide useful memory capture but do not override the consent requirement for sensitive information.
+
 The memory system should distinguish confirmed facts, user preferences, hypotheses, and outdated information, and should retain enough context to avoid presenting guesses as verified facts.
 
 ### 6.2 Sensitive information and consent
@@ -151,7 +153,7 @@ The next budget decision should be based on a transparent comparison of options 
 
 - Minimum viable management workflow and measurable baselines/targets for the first three months.
 - Detailed reminder escalation rules, including thresholds for task importance/urgency, while respecting the confirmed `Asia/Tehran` quiet hours of 01:00–07:00.
-- Memory categories, retention periods, backups, and detailed deletion behavior.
+- Memory retention periods, backups, and detailed deletion behavior. The user has approved the initial categories: preferences and habits; projects and goals; decisions and rationale; tasks and commitments; business information; and summaries of important conversations.
 - Secure authentication details, account recovery, safe linking/unlinking of Telegram and email identities, and recovery if a linked method becomes unavailable.
 - Feasibility, permissions, and technical approach for Instagram data access and rule-bounded automatic publishing.
 - Recommended simple initial source and workflow for sales, expenses, and inventory data.
@@ -171,7 +173,7 @@ The next budget decision should be based on a transparent comparison of options 
 9. Web-app sign-in: both Telegram-based sign-in and email/password, linked to one shared account after verifying ownership of both methods.
 10. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
 11. Budget: use the lowest practical setup cost, accepting manual steps when appropriate; do not set a fixed monthly cap until options and realistic costs are compared. Keep recurring costs visible and controlled.
-12. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; allow inspection, correction, and deletion requests through both Telegram and web app. When uncertain about retention of older information, ask the user. Retain useful conversation/activity history long-term for project and decision follow-up, with user-requested deletion available.
+12. Memory categories approved by the user: preferences and habits; projects and goals; decisions and rationale; tasks and commitments; business information; and summaries of important conversations. Automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; allow inspection, correction, and deletion requests through both Telegram and web app. When uncertain about retention of older information, ask the user. Retain useful conversation/activity history long-term for project and decision follow-up, with user-requested deletion available.
 13. Routine low-risk work: automatic execution with a report.
 14. Autonomy level: proactive execution and follow-up within rules approved in advance; ask for confirmation in ambiguous, out-of-scope, materially changed, or high-consequence cases. Financial actions, security changes, and important actions still require explicit confirmation.
 15. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
