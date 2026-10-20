@@ -51,7 +51,7 @@ curl -i -X POST http://127.0.0.1:3000/api/content-ideas \
   -d '{"title":"Choose your style","concept":"Compare three synthetic necklace concepts and invite viewers to choose.","objective":"grow_followers"}'
 ```
 
-The content-idea API stores, lists, and edits drafts only. It does not approve, publish, schedule, message customers, or call Instagram.
+The content-idea API stores, lists, edits drafts, and supports an explicit transition from draft to in-review. It does not approve, publish, schedule, message customers, or call Instagram.
 
 ## Database migrations
 
