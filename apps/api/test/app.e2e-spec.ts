@@ -122,8 +122,10 @@ describe('NEXUS API (e2e)', () => {
       .then(() => expect(tasks.transition).toHaveBeenCalledWith(id, 'in_progress'));
   });
 
-  it('/api/tasks (GET) returns 400 for unsupported status filters', () => {
-    return request(app.getHttpServer()).get('/api/tasks?status=publish').expect(400);
+  it('/api/tasks (GET) passes filters to the task service for validation', () => {
+    return request(app.getHttpServer()).get('/api/tasks?status=publish').expect(200).then(() => {
+      expect(tasks.list).toHaveBeenCalledWith(undefined, 'publish');
+    });
   });
 
   it('/api/content-ideas (GET) returns stored ideas', () => {
