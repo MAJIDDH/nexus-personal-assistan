@@ -12,6 +12,7 @@ describe('NEXUS API (e2e)', () => {
     list: jest.fn(),
     create: jest.fn(),
     updateDraft: jest.fn(),
+    submitForReview: jest.fn(),
   };
 
   beforeAll(async () => {
@@ -34,6 +35,7 @@ describe('NEXUS API (e2e)', () => {
     ideas.list.mockReset();
     ideas.create.mockReset();
     ideas.updateDraft.mockReset();
+    ideas.submitForReview.mockReset();
   });
 
   afterAll(async () => {
@@ -120,6 +122,31 @@ describe('NEXUS API (e2e)', () => {
           objective: 'grow_followers',
         });
       });
+  });
+
+  it('/api/content-ideas/:id/submit-for-review moves a draft to review', () => {
+    const id = '00000000-0000-4000-8000-000000000005';
+    const fixture = {
+      id,
+      title: 'Review this idea',
+      concept: 'Synthetic review concept',
+      objective: 'grow_followers',
+      status: 'in_review',
+    };
+    ideas.submitForReview.mockResolvedValue(fixture);
+    return request(app.getHttpServer())
+      .post(`/api/content-ideas/${id}/submit-for-review`)
+      .expect(201)
+      .expect(fixture)
+      .then(() => {
+        expect(ideas.submitForReview).toHaveBeenCalledWith(id);
+      });
+  });
+
+  it('/api/content-ideas/:id/submit-for-review rejects invalid UUIDs', () => {
+    return request(app.getHttpServer())
+      .post('/api/content-ideas/not-a-uuid/submit-for-review')
+      .expect(400);
   });
 
   it('/api/content-ideas (PATCH) updates a draft by UUID', () => {
