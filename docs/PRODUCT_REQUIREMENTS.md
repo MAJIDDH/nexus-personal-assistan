@@ -44,7 +44,7 @@ User-confirmed preferences:
 - NEXUS should be proactive and active: suggest a daily plan and follow up on tasks regularly, including reminders for overdue tasks.
 - Telegram should be used for notifications and reminders; the web app should provide detailed views and controls for managing tasks, reports, and follow-up.
 - Outside the defined quiet hours, notifications may be sent for **urgent and important** matters. Routine notifications should respect the quiet-hours setting.
-- The user selected custom quiet hours but has not yet specified the actual start and end times. Do not assume a schedule; ask the user to define it before enabling notifications.
+- **Quiet hours are 01:00–07:00 in the `Asia/Tehran` time zone.** Routine notifications should be suppressed during this interval; urgent and important notifications are permitted. The implementation must use the IANA time zone `Asia/Tehran` rather than a fixed UTC offset so that time-zone rules are applied correctly.
 
 Proactive behavior must remain bounded by the existing permission rules. Suggestions and reminders may be proactive, but external messages, financial commitments, security changes, and other protected actions still require the previously specified authorization. Notification escalation details remain open for discovery.
 
@@ -136,7 +136,7 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 ## 9. Open questions
 
 - Minimum viable management workflow and measurable baselines/targets for the first three months.
-- Exact custom quiet hours and any notification escalation rules.
+- Notification escalation rules and any additional preferences beyond the confirmed `Asia/Tehran` quiet hours of 01:00–07:00.
 - Memory categories, retention periods, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
 - Feasibility, permissions, and technical approach for Instagram data access and rule-bounded automatic publishing.
@@ -150,7 +150,7 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
 3. First operational workflow: general-purpose management assistant for tasks, reminders, reports, decision support, and follow-up; exact minimum scope remains open.
 4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
-5. Proactive follow-up: active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. The user wants custom quiet hours, but has not supplied the times yet.
+5. Proactive follow-up: active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`.
 6. Telegram is for notifications, while the web app is for detail and management.
 7. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
 8. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
