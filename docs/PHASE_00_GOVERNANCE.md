@@ -39,21 +39,17 @@ Documentation changes can be reverted through a focused commit after checking de
 
 ## Evidence and status
 
-Status: **In progress — user review required**.
+Status: **Complete — governance baseline accepted (2026-10-20)**.
 
-Evidence required for closure: document/link review, sensitive-content review, and explicit user acceptance. This file does not itself declare Phase 0 complete.
-
-
-## Review evidence (2026-10-20)
+### Review evidence (2026-10-20)
 
 - Retrieved the governance documents from the GitHub default branch and confirmed the expected files exist.
 - Checked relative Markdown links across the current governance document set; no missing local targets were found.
 - Inspected the tracked repository tree: it currently contains governance documentation and `.gitignore`, with no application source or committed real environment files.
-- Added [ADR-0001](adr/0001-governance-workflow.md) as **Proposed** to record the adapted governance process. It is not accepted yet.
+- Added [ADR-0001](adr/0001-governance-workflow.md) and recorded it as Accepted after explicit user approval.
 - The uploaded previous-project archive contains `.env.development` and `.env.production` files with populated configuration values. Their values were not reproduced here. This is an archive-handling observation, not evidence of a leak in the current NEXUS repository.
+- The user explicitly approved the constitution, security/approval baseline, and ADR-0001 on 2026-10-20.
 
-## Remaining before Phase 0 exit
+## Phase 0 closure
 
-- User review and explicit acceptance of the constitution, security/approval baseline, and Proposed ADR-0001.
-- Resolve any governance open questions that affect the Phase 1 scope.
-- Record the user's acceptance and close the phase only after the exit criteria are satisfied.
+Phase 0 is closed. This approval accepts the governance baseline and workflow only; it does not approve a specific technology stack, external provider, or application implementation. Phase 1 must resolve product requirements and material technical choices, with accepted ADRs before implementation.
