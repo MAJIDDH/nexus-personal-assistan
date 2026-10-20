@@ -21,7 +21,7 @@ ADRs 0001–0004 have been accepted for a local-only, synthetic-data prototype. 
 3. Python with FastAPI and PostgreSQL.
 
 ## Decision
-Proposed: option 1, staged so the first milestone remains usable without any external service credentials:
+**Accepted option 1**, staged so the first milestone remains usable without any external service credentials:
 - Node.js LTS and TypeScript.
 - NestJS modular monolith for the API.
 - PostgreSQL as the intended relational store, run locally through Docker Compose when Docker is available.
@@ -54,5 +54,3 @@ After acceptance, create a small scaffold with config validation, health endpoin
 
 Accepted by the user in ChatGPT on 2026-10-20 for the bounded local prototype: Node.js LTS, TypeScript, NestJS, PostgreSQL, and Docker Compose; synthetic data only; no server, paid API, real data, or external connections.
 
-## Approval required
-User approval is required before creating the framework-specific application scaffold under this proposal.
