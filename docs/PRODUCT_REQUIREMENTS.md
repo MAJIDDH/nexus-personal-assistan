@@ -120,11 +120,12 @@ NEXUS should improve through explicit user feedback, measured outcomes, and revi
 ## 7. Budget and technology priorities
 
 User-confirmed preferences:
-- Initial setup should be free wherever practical, paying only unavoidable costs.
-- Recurring costs for hosting, AI models, and essential services should be low and controlled.
+- Initial setup should use the **lowest practical cost**, even if some early workflows require manual steps.
+- Do not set a fixed monthly spending ceiling yet. First compare feasible options and estimate the actual total cost, including hosting, AI model usage, speech services, storage, and any essential integrations.
+- Prefer free tiers and simple/manual alternatives when they meet requirements, but do not compromise essential security or reliability merely to avoid every cost.
 - Technology choices should balance cost, quality, security, and extensibility rather than optimizing only one dimension.
 
-Architecture and provider decisions should make recurring costs visible, avoid unnecessary paid dependencies, and permit replaceable providers where practical. The exact currency-denominated budget ceiling and acceptable service-level trade-offs remain open; no specific price cap has yet been set.
+The next budget decision should be based on a transparent comparison of options and realistic monthly usage estimates. Do not treat an unspecified budget as permission for uncontrolled spending; paid commitments still require explicit confirmation. Prefer replaceable providers and make recurring costs visible.
 
 ## 8. Delivery approach
 
@@ -136,12 +137,12 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 ## 9. Open questions
 
 - Minimum viable management workflow and measurable baselines/targets for the first three months.
-- Notification escalation rules and any additional preferences beyond the confirmed `Asia/Tehran` quiet hours of 01:00–07:00.
+- Notification escalation rules beyond the confirmed `Asia/Tehran` quiet hours of 01:00–07:00.
 - Memory categories, retention periods, and detailed deletion behavior.
 - Secure authentication details, account recovery, and account-linking behavior.
 - Feasibility, permissions, and technical approach for Instagram data access and rule-bounded automatic publishing.
 - Recommended simple initial source and workflow for sales, expenses, and inventory data.
-- Exact currency-denominated setup and monthly budget ceilings.
+- Comparative estimate of setup and monthly costs; a fixed monthly cap is intentionally deferred until options are reviewed.
 - Technical choices and corresponding ADRs.
 
 ## 10. User-confirmed decisions to date
@@ -156,7 +157,7 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 8. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
 9. Web-app sign-in: both Telegram-based sign-in and email/password.
 10. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
-11. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
+11. Budget: use the lowest practical setup cost, accepting manual steps when appropriate; do not set a fixed monthly cap until options and realistic costs are compared. Keep recurring costs visible and controlled.
 12. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
 13. Routine low-risk work: automatic execution with a report.
 14. Publishing and external communication: future/automatic execution only within rules explicitly approved in advance; feasibility and permissions must be assessed before implementation.
