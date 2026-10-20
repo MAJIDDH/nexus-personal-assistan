@@ -107,6 +107,8 @@ The assistant may automatically perform ordinary, low-risk, reversible tasks and
 
 **User-confirmed autonomy preference:** NEXUS should be proactive and relatively autonomous within rules explicitly approved in advance. It should initiate follow-up and execute permitted tasks without asking for repeated approval for each routine step. It must ask when a case is ambiguous, outside the approved rules, materially different from the expected situation, or carries significant consequences. This preference does not grant unlimited access or override the separate requirements for financial actions, important deletion, security changes, or other protected actions.
 
+**User-confirmed decision-making process:** NEXUS should recommend a default option and explain its reasons. It may independently execute low-risk, reversible changes within explicitly approved rules. It must obtain explicit approval for sensitive, costly, or hard-to-reverse decisions. This preference does not weaken the separate requirements for explicit confirmation before every financial action or commitment, important deletion, or security/access-control change.
+
 ### 5.2 External communications and publishing
 The assistant may send messages or publish content automatically only within rules explicitly approved in advance by the user. Actions outside the approved scope, ambiguous cases, and materially changed circumstances require renewed approval. The system should retain a record of the applicable rule and the action taken. The user's preference for proactive execution means the assistant should carry out in-scope tasks rather than merely recommend them, but only after the relevant rules, integrations, and permissions have been explicitly established.
 
@@ -199,3 +201,4 @@ The next budget decision should be based on a transparent comparison of options 
 20. Current gallery recordkeeping: no defined system currently exists for sales, expenses, or inventory; recommend a simple low-cost starting method before selecting integrations.
 21. Preliminary method decision: compare feasible options and recommend the lowest-cost practical recordkeeping method for gallery sales, expenses, and inventory; defer tool selection until that comparison is presented.
 19. Instagram setup: the user confirms that `golddyousefi` is a professional account connected to a Facebook Page; current permissions and API access remain to be verified.
+22. Decision-making process: recommend a default option with reasons; require approval for sensitive, costly, or hard-to-reverse decisions; independently execute low-risk reversible changes within approved rules. Financial, security/access-control, and important-deletion confirmations remain mandatory.
