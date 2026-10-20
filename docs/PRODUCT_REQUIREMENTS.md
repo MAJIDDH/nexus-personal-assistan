@@ -42,7 +42,7 @@ These are user-selected outcome areas, not yet quantified targets or claims of g
 
 User-confirmed preferences:
 - NEXUS should be proactive and active: suggest a daily plan and follow up on tasks regularly, including reminders for overdue tasks.
-- **User-confirmed follow-up policy:** adapt reminder frequency and spacing to the task's importance, deadline, and urgency, avoiding repetitive or disruptive notifications. The user should be able to pause or change a task's follow-up.
+- **User-confirmed follow-up policy:** prioritize tasks using a combination of importance, urgency, deadline, and the consequences of not completing them. Adapt reminder frequency and spacing to importance and urgency, avoiding repetitive or disruptive notifications. The user should be able to pause or change a task's follow-up.
 - Telegram should be used for notifications and reminders; the web app should provide detailed views and controls for managing tasks, reports, and follow-up.
 - **User-confirmed daily planning cadence:** send the next day's plan the night before, followed by a short review in the morning.
 - Outside the defined quiet hours, notifications may be sent for **urgent and important** matters. Routine notifications should respect the quiet-hours setting.
@@ -171,7 +171,7 @@ The next budget decision should be based on a transparent comparison of options 
 2. The first-version outcomes include sales/conversion, real follower growth, reduced repetitive work, and improved management visibility, prioritized by impact and cost.
 3. First operational workflow: general-purpose management assistant for tasks, reminders, reports, decision support, and follow-up; exact minimum scope remains open.
 4. First three-month success areas: task management/follow-up, time saved/reduced repetitive work, sales/conversion, real relevant follower growth, report-supported decisions, and reliable preference-aware memory. Quantified targets remain open.
-5. Proactive follow-up: active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`. Reminder frequency and spacing should adapt to importance, deadline, and urgency without repeated nuisance notifications; the user can pause or change follow-up. Send the next day's plan at night and a short review in the morning.
+5. Proactive follow-up: prioritize tasks by combined importance, urgency, deadline, and consequences of non-completion; adapt follow-up spacing to importance and urgency; active daily planning and regular task follow-up; urgent and important notifications may be sent outside quiet hours. Quiet hours are 01:00–07:00, `Asia/Tehran`. Reminder frequency and spacing should adapt to importance, deadline, and urgency without repeated nuisance notifications; the user can pause or change follow-up. Send the next day's plan at night and a short review in the morning.
 6. Telegram is for notifications, while the web app is for detail and management.
 7. Initial access: Telegram and web app; text and voice from version one; mobile and desktop.
 8. Voice: both voice messages and live conversations; wake-word activation is a future capability; Persian and colloquial Persian are the initial language priority.
