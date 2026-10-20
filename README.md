@@ -13,6 +13,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 - [Roadmap](docs/ROADMAP.md) — phases and exit conditions.
 - [Security Baseline](docs/SECURITY.md) — security and approval requirements.
 - [Development Workflow](docs/DEVELOPMENT_WORKFLOW.md) — implementation, verification, and reporting.
+- [Risk Register](docs/RISK_REGISTER.md) — open risks and evidence needed to reduce them.
 - [Phase 0 Governance](docs/PHASE_00_GOVERNANCE.md) — current governance phase.
 - [Architecture Decision Records](docs/adr/README.md) — material decision process.
 
