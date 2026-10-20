@@ -1,6 +1,6 @@
 # Phase 1 — Discovery and Recommended Defaults
 
-**Status:** Local API scaffold in progress — ADRs 0001–0005 accepted within local synthetic-data scope; ADR 0006 proposed  
+**Status:** Local API scaffold in progress — ADRs 0001–0006 accepted within local synthetic-data scope  
 **Purpose:** Continue discovery without burdening the user with repeated preference questions. Use existing confirmed requirements and reversible, low-risk defaults. Ask the user only when a decision is consequential, costly, security-sensitive, difficult to reverse, or genuinely blocks progress.
 
 ## 1. Working principles
@@ -86,7 +86,7 @@ The following bounded decisions have been accepted by the user on 2026-10-20 for
 - [ADR 0004 — Agent tool permissions and approval gates](adr/0004-agent-tool-permissions-and-approvals.md)
 - [ADR 0005 — Concrete local prototype stack](adr/0005-local-prototype-stack.md)
 
-Next: review and decide ADR 0006 for the PostgreSQL access layer. Before adding persistence, verify the scaffold in an actual Node environment and record test/build results. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
+Next: verify the scaffold and PostgreSQL layer in an actual Node environment and record test/build results. ADR 0006 is accepted; database integration is implemented as a minimal pool boundary and SQL migration runner, but runtime behavior remains unverified. Keep paid API activation, server provisioning, persistent real business data, and external publishing disabled until their specific controls and authorizations are in place.
 
 ### Proposed local prototype acceptance criteria
 
