@@ -87,14 +87,16 @@ NEXUS must distinguish recommendations, drafts, attempted actions, successful ac
 
 ## 6. Memory, privacy, and improvement
 
-### 6.1 Useful information
-NEXUS should identify useful information to remember across personal and professional domains, such as preferences, goals, projects, decisions, and recurring workflows. It should preserve the distinction between confirmed facts, user preferences, hypotheses, and outdated information.
+### 6.1 Useful information and automatic capture
+NEXUS should automatically identify and save useful, non-sensitive information across personal and professional domains, such as preferences, goals, projects, decisions, and recurring workflows. If it is uncertain whether information is sensitive or appropriate to retain, it must ask rather than save it automatically.
+
+The memory system should distinguish confirmed facts, user preferences, hypotheses, and outdated information, and should retain enough context to avoid presenting guesses as verified facts.
 
 ### 6.2 Sensitive information and consent
-NEXUS must ask for explicit user permission before saving any sensitive information. It must not silently infer permission from the fact that information was shared in conversation. When uncertain whether an item is sensitive, it should ask rather than save it automatically.
+NEXUS must ask for explicit user permission before saving any sensitive information. It must not silently infer permission from the fact that information was shared in conversation.
 
 ### 6.3 User control across channels
-The user must be able to inspect, correct, and request deletion of memory through both the web app and Telegram. These interfaces should manage the same shared memory store. The implementation must make clear what can be removed immediately and whether copies or audit records are retained for a legitimate security reason.
+The user must be able to inspect, correct, and request deletion of memory at any time through both the web app and Telegram. These interfaces should manage the same shared memory store. The implementation must make clear what can be removed immediately and whether copies or audit records are retained for a legitimate security reason.
 
 ### 6.4 Learning and improvement
 NEXUS should improve through explicit user feedback, measured outcomes, and reviewable changes to workflows or preferences. It should not silently treat guesses as facts, change high-impact rules without authorization, or learn sensitive details without appropriate controls. Detailed retention periods, memory categories, and technical deletion behavior remain open decisions.
@@ -136,9 +138,8 @@ Architecture and provider decisions should make recurring costs visible, avoid u
 7. Web-app sign-in: both Telegram-based sign-in and email/password.
 8. Access: initially single-user, with architecture that can support employee accounts and differentiated permissions later.
 9. Budget: setup as free as practical, only unavoidable initial costs; low and controlled recurring costs for essentials; balance cost, quality, security, and extensibility.
-10. Routine low-risk work: automatic execution with a report.
-11. Publishing and external communication: automatic only within rules explicitly approved in advance.
-12. Financial actions or commitments: explicit confirmation every time.
-13. Important deletion and security changes: confirmation required.
-14. Useful information may be identified and saved to memory, but explicit permission is required before saving any sensitive information.
-15. Memory must be inspectable, correctable, and deletable through both the web app and Telegram, backed by a shared memory store.
+10. Memory: automatically save useful non-sensitive information; ask when sensitivity is uncertain; require explicit permission for sensitive information; always allow the user to inspect, correct, and request deletion through both Telegram and web app.
+11. Routine low-risk work: automatic execution with a report.
+12. Publishing and external communication: automatic only within rules explicitly approved in advance.
+13. Financial actions or commitments: explicit confirmation every time.
+14. Important deletion and security changes: confirmation required.
