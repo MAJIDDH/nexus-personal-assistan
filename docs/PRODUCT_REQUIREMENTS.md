@@ -82,6 +82,7 @@ Security design must still assess account recovery, secure session handling, pro
 
 - Current first business priority: Galeri Tala Yousefi.
 - Current known management tool: Instagram.
+- **User-confirmed Instagram setup:** `golddyousefi` is a professional Instagram account (Business or Creator) connected to a Facebook Page. The exact account type and current permissions/API availability should still be verified during implementation planning rather than assumed.
 - No other inventory, accounting, customer relationship, or sales system has been confirmed.
 - **User decision on business data sources:** first investigate the available options and recommend a simple, low-cost starting method for sales, expenses, and inventory. Do not assume an existing system is available. Compare manual entry and spreadsheet-based approaches before recommending an integration; confirm any existing tool with the user before treating it as a source of truth.
 - **Instagram access goal:** the long-term goal is automated publishing within rules explicitly approved in advance by the user. This is a target, not current authorization to publish or a claim that the required API/integration is available. First assess feasible access methods, platform restrictions, security, auditability, and cost. Publishing must remain limited to the approved scope; new, ambiguous, or out-of-scope cases require renewed approval.
@@ -180,3 +181,4 @@ The next budget decision should be based on a transparent comparison of options 
 16. Financial actions or commitments: explicit confirmation every time.
 17. Important deletion and security changes: confirmation required.
 18. Data sources for sales, expenses, and inventory: investigate options and recommend a simple low-cost starting method before selecting or integrating a system.
+19. Instagram setup: the user confirms that `golddyousefi` is a professional account connected to a Facebook Page; current permissions and API access remain to be verified.
