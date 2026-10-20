@@ -28,7 +28,7 @@ async function main() {
 
     const directory = path.join(__dirname, '..', 'src', 'database', 'migrations');
     const files = (await readdir(directory))
-      .filter((name) => /^\\d{3}_[a-z0-9_]+\\.sql$/.test(name))
+      .filter((name) => /^\d{3}_[a-z0-9_]+\.sql$/.test(name))
       .sort();
 
     for (const file of files) {
@@ -38,7 +38,7 @@ async function main() {
         [version],
       );
       if (exists.rowCount) {
-        process.stdout.write(`skip ${version}\\n`);
+        process.stdout.write(`skip ${version}\n`);
         continue;
       }
 
@@ -52,7 +52,7 @@ async function main() {
           [version],
         );
         await client.query('COMMIT');
-        process.stdout.write(`applied ${version}\\n`);
+        process.stdout.write(`applied ${version}\n`);
       } catch (error) {
         await client.query('ROLLBACK');
         throw error;
@@ -66,6 +66,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  process.stderr.write(`migration failed: ${error.message}\\n`);
+  process.stderr.write(`migration failed: ${error.message}\n`);
   process.exitCode = 1;
 });
