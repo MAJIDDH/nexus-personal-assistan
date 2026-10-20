@@ -5,9 +5,11 @@ import { MockModelProvider } from './ai/mock-model.provider';
 import { environmentSchema } from './config/env.validation';
 import { HealthController } from './health/health.controller';
 import { ToolPolicyService } from './security/tool-policy.service';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
+    DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: environmentSchema,
