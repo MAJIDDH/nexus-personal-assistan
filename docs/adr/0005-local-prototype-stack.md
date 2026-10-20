@@ -1,6 +1,6 @@
 # ADR 0005: Concrete Stack for the Local Prototype
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-20
 - Decision owner: User
 
@@ -49,6 +49,10 @@ Keep database access behind a module boundary and migrations versioned. Revisit 
 
 ## Verification and follow-up
 After acceptance, create a small scaffold with config validation, health endpoint, default-deny policy, mock provider, and tests. Report files created separately from tests actually executed. Run tests only in an available environment and record exact results.
+
+## Acceptance record
+
+Accepted by the user in ChatGPT on 2026-10-20 for the bounded local prototype: Node.js LTS, TypeScript, NestJS, PostgreSQL, and Docker Compose; synthetic data only; no server, paid API, real data, or external connections.
 
 ## Approval required
 User approval is required before creating the framework-specific application scaffold under this proposal.
