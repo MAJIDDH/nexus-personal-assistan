@@ -29,3 +29,11 @@
 
 .notice{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding:12px 14px;border:1px solid rgba(75,205,160,.28);border-radius:12px;background:rgba(45,170,125,.08);color:#9de7c8;font-size:13px}
 .notice button{border:0;background:transparent;color:inherit;font-size:20px;cursor:pointer}
+
+/* Task editing and scheduling */
+.task-edit{flex-shrink:0;width:27px;height:27px;display:grid;place-items:center;border:1px solid #304356;border-radius:7px;background:#152332;color:#9cc4dd;font-size:15px}
+.task-edit:hover{border-color:#55bda7;color:#72e3c8;background:#18312f}
+.task-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.task-form-grid label{min-width:0}
+.task-form-grid select,.form input[type="datetime-local"]{direction:rtl}
+@media(max-width:560px){.task-edit{width:25px;height:25px}.task-row{flex-wrap:wrap}.task-feedback{margin-inline-start:auto}}
