@@ -26,3 +26,6 @@
 .task-feedback button:hover{background:rgba(93,173,255,.12);border-color:rgba(93,173,255,.42);transform:translateY(-1px)}
 .task-feedback button:focus-visible{outline:2px solid #67cfff;outline-offset:2px}
 @media(max-width:560px){.task-feedback{gap:2px;margin-inline-start:2px}.task-feedback button{width:25px;height:25px}}
+
+.notice{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding:12px 14px;border:1px solid rgba(75,205,160,.28);border-radius:12px;background:rgba(45,170,125,.08);color:#9de7c8;font-size:13px}
+.notice button{border:0;background:transparent;color:inherit;font-size:20px;cursor:pointer}
