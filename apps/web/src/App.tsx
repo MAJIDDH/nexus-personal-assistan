@@ -12,6 +12,33 @@ async function api<T>(url:string, options?:RequestInit):Promise<T>{
  return r.json() as Promise<T>;
 }
 function Glyph({children}:{children:string}){return <span className="glyph" aria-hidden="true">{children}</span>}
+function NeuralMap({online}:{online:boolean}) {
+ const nodes = [
+  {title:'ایده‌های محتوا',sub:'تحلیل و برنامه‌ریزی',tone:'cyan',pos:'n1',icon:'✧'},
+  {title:'دستیار هوشمند',sub:'گفت‌وگو و راهنمایی',tone:'violet',pos:'n2',icon:'✳'},
+  {title:'مدیریت وظایف',sub:'اولویت‌بندی و پیگیری',tone:'teal',pos:'n3',icon:'✓'},
+  {title:'بازخوردها',sub:'بهبود مستمر',tone:'pink',pos:'n4',icon:'◌'},
+  {title:'ارتباطات',sub:'ابزارها و اتصال‌ها',tone:'amber',pos:'n5',icon:'◎'},
+  {title:'حافظه',sub:'سوابق و دانش',tone:'cyan',pos:'n6',icon:'▤'},
+  {title:'تنظیمات سیستم',sub:'پیکربندی و امنیت',tone:'blue',pos:'n7',icon:'⚙'},
+  {title:'تحلیل و گزارش',sub:'آمار و روندها',tone:'violet',pos:'n8',icon:'▥'}
+ ];
+ return <section className="neural-section">
+  <div className="neural-heading"><div><span className="eyebrow">هسته مرکزی نکسوس</span><h2>یک هسته، چندین قابلیت</h2><p>جریان نور میان هسته و ماژول‌های نکسوس</p></div><span className={online?'neural-live live':'neural-live'}><i/>{online?'هسته فعال':'در انتظار اتصال'}</span></div>
+  <div className="neural-map">
+   <svg className="neural-wires" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
+    <defs><radialGradient id="coreGlow"><stop offset="0" stopColor="#53d9ff" stopOpacity=".32"/><stop offset="1" stopColor="#2765ff" stopOpacity="0"/></radialGradient></defs>
+    <circle cx="500" cy="280" r="165" fill="url(#coreGlow)"/>
+    {['M500 280 C410 220 320 135 190 90','M500 280 C500 200 500 130 500 55','M500 280 C600 210 700 140 810 95','M500 280 C400 280 270 280 140 280','M500 280 C620 280 740 280 860 280','M500 280 C410 360 320 430 200 470','M500 280 C500 360 500 430 500 505','M500 280 C610 360 710 420 810 465'].map((d,i)=><g key={d}><path d={d} className={'wire wire-'+i}/><path d={d} className={'pulse pulse-'+i}/></g>)}
+    {Array.from({length:45},(_,i)=><circle key={i} cx={50+(i*173)%900} cy={30+(i*97)%500} r={i%5===0?1.8:1} className={'star star-'+(i%4)}/>)}
+   </svg>
+   <div className="neural-core"><div className="core-rings"/><div className="core-mark">✳</div><b>NEXUS</b><small>NEURAL CORE</small><i className={online?'core-dot':'core-dot offline'}/></div>
+   {nodes.map(n=><article className={'neural-node '+n.pos+' '+n.tone} key={n.pos}><div className="node-icon">{n.icon}</div><b>{n.title}</b><small>{n.sub}</small><span className="node-state"><i/>{online?'آماده':'محلی'}</span></article>)}
+  </div>
+  <div className="neural-caption">● این نمای گرافیکی به‌تدریج با قابلیت‌های واقعی نکسوس یکپارچه می‌شود</div>
+ </section>;
+}
+
 export default function App(){
  const [page,setPage]=useState<Page>('home'),[tasks,setTasks]=useState<Task[]>([]),[ideas,setIdeas]=useState<Idea[]>([]);
  const [online,setOnline]=useState(false),[loading,setLoading]=useState(false),[error,setError]=useState('');
@@ -38,6 +65,7 @@ export default function App(){
   <main className="main"><header className="topbar"><div>نکسوس <span className="muted">/</span> {page==='home'?'نمای کلی':page==='tasks'?'مدیریت وظایف':'ایده‌های محتوا'}</div><div className="top-right"><span className={online?'connection online':'connection'}><i/> {online?'اتصال محلی برقرار':'در انتظار اتصال'}</span><button className="icon-btn" onClick={()=>void refresh()} title="بروزرسانی">↻</button></div></header>
    <section className="welcome"><div><div className="eyebrow">— پنل کنترل شخصی شما</div><h1>{heading}</h1><p>{page==='home'?'تمرکز امروزت را مشخص کن؛ بقیه مسیر را قدم‌به‌قدم جلو می‌بریم.':page==='tasks'?'کارها را ثبت کن و روند پیشرفت را مدیریت کن.':'ایده‌ها را ثبت و برای بررسی آماده کن؛ انتشار خودکار فعال نیست.'}</p></div><div className="orbit"><div>✳</div></div></section>
    {error&&<div className="alert"><b>خطا</b><span>{error}</span><button onClick={()=>void refresh()}>تلاش مجدد</button></div>}
+   <NeuralMap online={online}/>
    <section className="stats">
     <article className="stat"><div>وظایف باز <span className="stat-icon purple">◷</span></div><strong>{counts.open.toLocaleString('fa-IR')}</strong><small>نیازمند اقدام</small></article>
     <article className="stat"><div>در حال انجام <span className="stat-icon blue">↗</span></div><strong>{counts.progress.toLocaleString('fa-IR')}</strong><small>در جریان کار</small></article>
