@@ -37,3 +37,6 @@
 .task-form-grid label{min-width:0}
 .task-form-grid select,.form input[type="datetime-local"]{direction:rtl}
 @media(max-width:560px){.task-edit{width:25px;height:25px}.task-row{flex-wrap:wrap}.task-feedback{margin-inline-start:auto}}
+
+.idea-actions{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.idea-actions .task-edit,.idea-actions .review{width:28px;height:28px;display:grid;place-items:center}
