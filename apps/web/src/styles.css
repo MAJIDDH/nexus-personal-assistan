@@ -18,3 +18,11 @@
 @media(max-width:1150px){.neural-map{height:430px}.neural-node{width:145px}.n1,.n6{left:2%}.n3,.n7{right:2%}.n4{left:0}.n5{right:0}.neural-core{width:130px;height:130px}}
 @media(max-width:760px){.neural-section{padding:15px 10px 10px}.neural-heading h2{font-size:13px}.neural-heading p{max-width:240px;line-height:1.8}.neural-map{height:490px;margin-top:8px}.neural-node{width:116px;min-height:92px;padding:8px 5px}.node-icon{width:29px;height:29px;font-size:16px;border-radius:9px}.neural-node>b{font-size:9px}.neural-node>small{font-size:8px}.node-state{font-size:7px}.n1{left:0;top:16%}.n2{left:calc(50% - 58px);top:0}.n3{right:0;top:16%}.n4{left:0;top:42%}.n5{right:0;top:42%}.n6{left:0;bottom:1%}.n7{right:0;bottom:1%}.n8{left:calc(50% - 58px);bottom:0}.neural-core{width:94px;height:94px}.core-mark{font-size:20px}.neural-core b{font-size:13px}.neural-core small{font-size:6px}.core-rings{inset:-8px}.neural-wires{opacity:.8}}
 @media(prefers-reduced-motion:reduce){.pulse,.star,.core-rings,.core-rings:before,.core-rings:after{animation:none}.neural-node{transition:none}}
+
+
+/* Explicit task feedback controls */
+.task-feedback{display:flex;align-items:center;gap:4px;margin-inline-start:6px}
+.task-feedback button{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--line,rgba(140,160,190,.18));border-radius:8px;background:rgba(255,255,255,.025);color:var(--muted,#9aa8bb);font:inherit;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.task-feedback button:hover{background:rgba(93,173,255,.12);border-color:rgba(93,173,255,.42);transform:translateY(-1px)}
+.task-feedback button:focus-visible{outline:2px solid #67cfff;outline-offset:2px}
+@media(max-width:560px){.task-feedback{gap:2px;margin-inline-start:2px}.task-feedback button{width:25px;height:25px}}
