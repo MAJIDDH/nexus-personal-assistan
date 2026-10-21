@@ -63,3 +63,9 @@
 .audit-content p{margin:6px 0 0;color:#9caec0;font-size:10px;line-height:1.9;overflow-wrap:anywhere}
 .audit-empty{color:#8497ab;font-size:10px;line-height:1.8}
 @media(max-width:560px){.task-details{margin:12px 10px;padding:12px}.task-detail-grid{gap:6px}.task-detail-grid>span{padding:8px}.audit-title{align-items:flex-start;flex-direction:column;gap:5px}}
+
+
+/* Structured content-idea production fields */
+.idea-extra{margin-top:10px;padding:10px 12px;border:1px solid rgba(111,142,190,.16);border-radius:10px;background:rgba(15,24,42,.48)}
+.idea-extra>b{display:block;margin-bottom:5px;color:#8ddff7;font-size:12px}
+.idea-extra>p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
