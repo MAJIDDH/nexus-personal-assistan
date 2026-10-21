@@ -40,3 +40,26 @@
 
 .idea-actions{display:flex;align-items:center;gap:5px;flex-shrink:0}
 .idea-actions .task-edit,.idea-actions .review{width:28px;height:28px;display:grid;place-items:center}
+
+/* Task details and audit timeline */
+.task-details{margin:14px 18px 18px;padding:16px;border:1px solid #2b4352;border-radius:11px;background:linear-gradient(145deg,#101e2a,#0b141e);color:#dce7f2}
+.task-details-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.task-details-head h3{margin:0 0 7px;font-size:13px;color:#7de2ca}
+.task-details-head b{font-size:12px;line-height:1.8}
+.task-details>p{font-size:11px;color:#9aabbd;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.task-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0 19px}
+.task-detail-grid>span{padding:10px;border:1px solid #253747;border-radius:8px;background:#101a25;color:#8497ab;font-size:10px;min-width:0;overflow-wrap:anywhere}
+.task-detail-grid strong{display:block;margin-top:6px;color:#d8e5ef;font-size:11px;font-weight:500;line-height:1.8}
+.audit-title{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #263747;padding-bottom:10px}
+.audit-title h4{margin:0;font-size:12px}
+.audit-title small{color:#7b8ea3;font-size:9px}
+.audit-list{list-style:none;margin:0;padding:13px 2px 0}
+.audit-list li{position:relative;display:flex;gap:10px;padding:0 0 16px}
+.audit-list li:last-child{padding-bottom:0}
+.audit-dot{width:8px;height:8px;border-radius:50%;background:#62d9bd;box-shadow:0 0 9px #62d9bd55;margin-top:5px;flex-shrink:0}
+.audit-content{min-width:0;flex:1}
+.audit-content>b{font-size:11px;color:#d8e6f0}
+.audit-content time{display:block;margin-top:4px;color:#7e91a6;font-size:9px}
+.audit-content p{margin:6px 0 0;color:#9caec0;font-size:10px;line-height:1.9;overflow-wrap:anywhere}
+.audit-empty{color:#8497ab;font-size:10px;line-height:1.8}
+@media(max-width:560px){.task-details{margin:12px 10px;padding:12px}.task-detail-grid{gap:6px}.task-detail-grid>span{padding:8px}.audit-title{align-items:flex-start;flex-direction:column;gap:5px}}
