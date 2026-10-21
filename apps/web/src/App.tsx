@@ -6,7 +6,7 @@ type AuditEvent = { id:string|number; entity_type:string; entity_id:string; acti
 type Page = 'home'|'tasks'|'ideas';
 type IdeaParts = { premise:string; script:string; caption:string };
 const ideaMarker='--- NEXUS CONTENT DRAFT V1 ---';
-function unpackIdeaConcept(value:string):IdeaParts{if(!value.startsWith(ideaMarker))return {premise:value,script:'',caption:''};const read=(name:string)=>{const start=value.indexOf(name+'\n');if(start<0)return '';const from=start+name.length+1;const next=value.indexOf('\n--- ',from);return value.slice(from,next<0?undefined:next).trim()};return {premise:read('IDEA'),script:read('SCRIPT'),caption:read('CAPTION')}}
+function unpackIdeaConcept(value:string):IdeaParts{if(!value.startsWith(ideaMarker))return {premise:value,script:'',caption:''};const read=(name:string)=>{const marker='--- '+name+' ---\n';const start=value.indexOf(marker);if(start<0)return '';const from=start+marker.length;const next=value.indexOf('\n--- ',from);return value.slice(from,next<0?undefined:next).trim()};return {premise:read('IDEA'),script:read('SCRIPT'),caption:read('CAPTION')}}
 function packIdeaConcept(premise:string,script:string,caption:string):string{if(!script.trim()&&!caption.trim())return premise.trim();return `${ideaMarker}\n--- IDEA ---\n${premise.trim()}\n--- SCRIPT ---\n${script.trim()}\n--- CAPTION ---\n${caption.trim()}`}
 function ideaSummary(value:string):string{return unpackIdeaConcept(value).premise}
 const statusFa:Record<string,string>={open:'باز',in_progress:'در حال انجام',completed:'انجام‌شده',cancelled:'لغوشده',draft:'پیش‌نویس',in_review:'در انتظار بررسی',approved:'تأییدشده',archived:'بایگانی'};
