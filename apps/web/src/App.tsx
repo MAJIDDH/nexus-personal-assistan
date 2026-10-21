@@ -41,7 +41,7 @@ function NeuralMap({online}:{online:boolean}) {
 
 export default function App(){
  const [page,setPage]=useState<Page>('home'),[tasks,setTasks]=useState<Task[]>([]),[ideas,setIdeas]=useState<Idea[]>([]);
- const [online,setOnline]=useState(false),[loading,setLoading]=useState(false),[error,setError]=useState('');
+ const [online,setOnline]=useState(false),[loading,setLoading]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
  const [taskForm,setTaskForm]=useState(false),[ideaForm,setIdeaForm]=useState(false);
  const [title,setTitle]=useState(''),[description,setDescription]=useState(''),[project,setProject]=useState('golddyousefi');
  const [ideaTitle,setIdeaTitle]=useState(''),[concept,setConcept]=useState(''),[objective,setObjective]=useState('grow_followers');
@@ -52,7 +52,7 @@ export default function App(){
  async function submitIdea(e:FormEvent){e.preventDefault();try{await api('/api/content-ideas',{method:'POST',body:JSON.stringify({title:ideaTitle,concept,objective})});setIdeaTitle('');setConcept('');setIdeaForm(false);await refresh()}catch(x){setError(x instanceof Error?x.message:'ثبت ایده ناموفق بود')}}
  async function transition(t:Task){const status=t.status==='open'?'in_progress':'completed';try{await api('/api/tasks/'+t.id+'/status',{method:'POST',body:JSON.stringify({status})});await refresh()}catch(x){setError(x instanceof Error?x.message:'تغییر وضعیت ناموفق بود')}}
  async function review(i:Idea){try{await api('/api/content-ideas/'+i.id+'/submit-for-review',{method:'POST'});await refresh()}catch(x){setError(x instanceof Error?x.message:'ارسال برای بررسی ناموفق بود')}}
- async function sendFeedback(t:Task,rating:'useful'|'not_useful'|'needs_adjustment'){try{await api('/api/feedback',{method:'POST',body:JSON.stringify({task_id:t.id,rating})});setError('');}catch(x){setError(x instanceof Error?x.message:'ثبت بازخورد ناموفق بود')}}
+ async function sendFeedback(t:Task,rating:'useful'|'not_useful'|'needs_adjustment'){try{await api('/api/feedback',{method:'POST',body:JSON.stringify({task_id:t.id,rating})});setError('');setNotice('بازخورد شما ذخیره شد.');}catch(x){setNotice('');setError(x instanceof Error?x.message:'ثبت بازخورد ناموفق بود')}}
  const taskRows=page==='home'?tasks.slice(0,5):tasks, ideaRows=page==='home'?ideas.slice(0,3):ideas;
  const heading=page==='home'?'صبح بخیر، آماده‌ای؟':page==='tasks'?'مدیریت وظایف':'ایده‌های محتوا';
  return <div className="shell">
@@ -65,7 +65,7 @@ export default function App(){
   </aside>
   <main className="main"><header className="topbar"><div>نکسوس <span className="muted">/</span> {page==='home'?'نمای کلی':page==='tasks'?'مدیریت وظایف':'ایده‌های محتوا'}</div><div className="top-right"><span className={online?'connection online':'connection'}><i/> {online?'اتصال محلی برقرار':'در انتظار اتصال'}</span><button className="icon-btn" onClick={()=>void refresh()} title="بروزرسانی">↻</button></div></header>
    <section className="welcome"><div><div className="eyebrow">— پنل کنترل شخصی شما</div><h1>{heading}</h1><p>{page==='home'?'تمرکز امروزت را مشخص کن؛ بقیه مسیر را قدم‌به‌قدم جلو می‌بریم.':page==='tasks'?'کارها را ثبت کن و روند پیشرفت را مدیریت کن.':'ایده‌ها را ثبت و برای بررسی آماده کن؛ انتشار خودکار فعال نیست.'}</p></div><div className="orbit"><div>✳</div></div></section>
-   {error&&<div className="alert"><b>خطا</b><span>{error}</span><button onClick={()=>void refresh()}>تلاش مجدد</button></div>}
+   {error&&<div className="alert"><b>خطا</b><span>{error}</span><button onClick={()=>void refresh()}>تلاش مجدد</button></div>}{notice&&<div className="notice" role="status">{notice}<button onClick={()=>setNotice('')} aria-label="بستن پیام">×</button></div>}
    <NeuralMap online={online}/>
    <section className="stats">
     <article className="stat"><div>وظایف باز <span className="stat-icon purple">◷</span></div><strong>{counts.open.toLocaleString('fa-IR')}</strong><small>نیازمند اقدام</small></article>
