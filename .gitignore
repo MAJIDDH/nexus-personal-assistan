@@ -27,3 +27,5 @@ temp/
 Thumbs.db
 .vscode/
 .idea/
+
+npm-audit-report.json
