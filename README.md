@@ -4,7 +4,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 
 ## Current status
 
-**Phase 1 — Local prototype scaffold in progress.** A first API scaffold is being prepared on a feature branch. It has not been runtime-verified and is not production-ready.
+**Local prototype in progress; not production-ready.** The repository contains a NestJS API, PostgreSQL-backed task/content-idea endpoints, a React dashboard, and a loopback-only n8n experiment. The dashboard build has CI coverage; the n8n service is not yet connected to the API and still requires local runtime verification. Use synthetic data only.
 
 ## Start here
 
