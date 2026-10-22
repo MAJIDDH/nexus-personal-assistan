@@ -68,7 +68,12 @@ export default function App(){
  async function transition(t:Task){const status=t.status==='open'?'in_progress':'completed';try{await api('/api/tasks/'+t.id+'/status',{method:'POST',body:JSON.stringify({status})});await refresh()}catch(x){setError(x instanceof Error?x.message:'تغییر وضعیت ناموفق بود')}}
  async function review(i:Idea){
   const parts=unpackIdeaConcept(i.concept);
-  const missing=[!i.title.trim()?'عنوان ایده':!parts.premise.trim()?'شرح ایده':!parts.script.trim()?'سناریو و متن اجرا':!parts.caption.trim()?'کپشن':null].filter(Boolean);
+  const missing=[
+   !i.title.trim()?'عنوان ایده':null,
+   !parts.premise.trim()?'شرح ایده':null,
+   !parts.script.trim()?'سناریو و متن اجرا':null,
+   !parts.caption.trim()?'کپشن':null
+  ].filter((part):part is string=>Boolean(part));
   if(missing.length){
    setError('برای ارسال «'+i.title+'» به بررسی، این بخش‌ها را کامل کن: '+missing.join('، ')+'.');
    beginIdeaEdit(i);
@@ -76,8 +81,11 @@ export default function App(){
    return;
   }
   setError('');
-  setNotice('پیش‌نویس برای بررسی ثبت می‌شود؛ پیش از انتشار، قیمت‌ها و ادعاهای حساس باید جداگانه تأیید شوند.');
-  try{await api('/api/content-ideas/'+i.id+'/submit-for-review',{method:'POST'});await refresh()}catch(x){setNotice('');setError(x instanceof Error?x.message:'ارسال برای بررسی ناموفق بود')}
+  try{
+   await api('/api/content-ideas/'+i.id+'/submit-for-review',{method:'POST'});
+   setNotice('پیش‌نویس برای بررسی ارسال شد. این کار به معنی تأیید انتشار نیست؛ قیمت‌ها و ادعاهای حساس همچنان نیازمند تأیید هستند.');
+   await refresh();
+  }catch(x){setNotice('');setError(x instanceof Error?x.message:'ارسال برای بررسی ناموفق بود')}
  }
  async function sendFeedback(t:Task,rating:'useful'|'not_useful'|'needs_adjustment'){try{await api('/api/feedback',{method:'POST',body:JSON.stringify({task_id:t.id,rating})});setError('');setNotice('بازخورد شما ذخیره شد.');}catch(x){setNotice('');setError(x instanceof Error?x.message:'ثبت بازخورد ناموفق بود')}}
  const taskRows=page==='home'?tasks.slice(0,5):tasks, ideaRows=page==='home'?ideas.slice(0,3):ideas;
