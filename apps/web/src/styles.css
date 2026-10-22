@@ -76,3 +76,8 @@
 .idea-pipeline{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
 .idea-step{font-size:9px;padding:4px 8px;border-radius:6px;border:1px solid rgba(130,150,180,.16);color:#8293a8;background:rgba(100,120,150,.05)}
 .idea-step.complete{border-color:rgba(98,217,189,.28);color:#7ce2c6;background:rgba(98,217,189,.08)}
+
+/* Content review preflight */
+.idea-readiness{margin-top:8px;padding:8px 10px;border:1px solid #2b4352;border-radius:8px;font-size:10px;line-height:1.8;overflow-wrap:anywhere}
+.idea-readiness.incomplete{color:#e8c48b;border-color:rgba(231,181,104,.25);background:rgba(231,181,104,.06)}
+.idea-readiness.ready{color:#83e2c8;border-color:rgba(98,217,189,.25);background:rgba(98,217,189,.06)}
