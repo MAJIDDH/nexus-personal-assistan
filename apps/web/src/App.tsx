@@ -66,7 +66,19 @@ export default function App(){
  function beginIdeaEdit(i:Idea){const parts=unpackIdeaConcept(i.concept);setEditingIdea(i);setIdeaTitle(i.title);setConcept(parts.premise);setIdeaScript(parts.script);setIdeaCaption(parts.caption);setObjective(i.objective);setIdeaForm(false)}
  async function saveIdeaEdit(e:FormEvent){e.preventDefault();if(!editingIdea)return;const fullConcept=packIdeaConcept(concept,ideaScript,ideaCaption);if(fullConcept.length>5000){setError('مجموع شرح ایده، سناریو و کپشن نباید بیشتر از ۵۰۰۰ نویسه باشد.');return}try{await api('/api/content-ideas/'+editingIdea.id,{method:'PATCH',body:JSON.stringify({title:ideaTitle,concept:fullConcept,objective})});setEditingIdea(null);setIdeaTitle('');setConcept('');setIdeaScript('');setIdeaCaption('');await refresh()}catch(x){setError(x instanceof Error?x.message:'ویرایش ایده ناموفق بود')}}
  async function transition(t:Task){const status=t.status==='open'?'in_progress':'completed';try{await api('/api/tasks/'+t.id+'/status',{method:'POST',body:JSON.stringify({status})});await refresh()}catch(x){setError(x instanceof Error?x.message:'تغییر وضعیت ناموفق بود')}}
- async function review(i:Idea){try{await api('/api/content-ideas/'+i.id+'/submit-for-review',{method:'POST'});await refresh()}catch(x){setError(x instanceof Error?x.message:'ارسال برای بررسی ناموفق بود')}}
+ async function review(i:Idea){
+  const parts=unpackIdeaConcept(i.concept);
+  const missing=[!i.title.trim()?'عنوان ایده':!parts.premise.trim()?'شرح ایده':!parts.script.trim()?'سناریو و متن اجرا':!parts.caption.trim()?'کپشن':null].filter(Boolean);
+  if(missing.length){
+   setError('برای ارسال «'+i.title+'» به بررسی، این بخش‌ها را کامل کن: '+missing.join('، ')+'.');
+   beginIdeaEdit(i);
+   setPage('ideas');
+   return;
+  }
+  setError('');
+  setNotice('پیش‌نویس برای بررسی ثبت می‌شود؛ پیش از انتشار، قیمت‌ها و ادعاهای حساس باید جداگانه تأیید شوند.');
+  try{await api('/api/content-ideas/'+i.id+'/submit-for-review',{method:'POST'});await refresh()}catch(x){setNotice('');setError(x instanceof Error?x.message:'ارسال برای بررسی ناموفق بود')}
+ }
  async function sendFeedback(t:Task,rating:'useful'|'not_useful'|'needs_adjustment'){try{await api('/api/feedback',{method:'POST',body:JSON.stringify({task_id:t.id,rating})});setError('');setNotice('بازخورد شما ذخیره شد.');}catch(x){setNotice('');setError(x instanceof Error?x.message:'ثبت بازخورد ناموفق بود')}}
  const taskRows=page==='home'?tasks.slice(0,5):tasks, ideaRows=page==='home'?ideas.slice(0,3):ideas;
  const heading=page==='home'?'صبح بخیر، آماده‌ای؟':page==='tasks'?'مدیریت وظایف':'ایده‌های محتوا';
