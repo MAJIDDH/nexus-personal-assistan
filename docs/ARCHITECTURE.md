@@ -9,6 +9,7 @@ NEXUS starts as a modular monolith. Keep one deployable application with clear m
 - TypeScript and NestJS for the application API and background workers.
 - PostgreSQL for durable application data.
 - Docker and Docker Compose for reproducible local and server environments.
+- n8n as an optional, replaceable workflow-automation layer for local prototyping; NEXUS remains authoritative for domain state, permissions, approvals, and outcomes. The current n8n service is loopback-only and not connected to the API.
 - Provider adapters for model APIs and external integrations.
 - Telegram as the first user-facing channel; add a web admin panel and voice after the core workflow is reliable.
 

@@ -52,5 +52,6 @@ Create an ADR for decisions that are cross-cutting, expensive to reverse, securi
 - [ADR 0004 — Agent tool permissions and approval gates](0004-agent-tool-permissions-and-approvals.md): server-side authorization and explicit approval for high-impact actions.
 - [ADR 0005 — Concrete local prototype stack](0005-local-prototype-stack.md): Node.js LTS, TypeScript, NestJS, PostgreSQL, and local Docker Compose.
 - [ADR 0006 — PostgreSQL access layer](0006-postgres-access-layer.md): accepted `pg` plus parameterized SQL and versioned migrations for the local prototype.
+- [ADR 0007 — Local n8n workflow automation](0007-local-n8n-automation.md): accepted n8n as a loopback-only, local automation experiment with synthetic data and no active external workflows.
 
-ADRs 0001–0006 are **Accepted within the local synthetic-data prototype scope**. No ADR authorizes paid services, server purchase, real-data storage, external integrations, or production deployment.
+ADRs 0001–0007 are **Accepted within their documented scopes**. ADR 0007 permits only a local n8n experiment; it does not authorize paid services, server purchase, real-data storage, external integrations, public webhooks, consequential workflows, or production deployment.

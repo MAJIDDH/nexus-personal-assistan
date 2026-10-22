@@ -4,7 +4,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 
 ## Current status
 
-**Phase 1 — Local prototype scaffold in progress.** A first API scaffold is being prepared on a feature branch. It has not been runtime-verified and is not production-ready.
+**Local prototype in progress; not production-ready.** The repository contains a NestJS API, PostgreSQL-backed task/content-idea endpoints, a React dashboard, and a loopback-only n8n experiment. The dashboard build has CI coverage; the n8n service is not yet connected to the API and still requires local runtime verification. Use synthetic data only.
 
 ## Start here
 
@@ -25,6 +25,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 - [Phase 0 Governance](docs/PHASE_00_GOVERNANCE.md) — current governance phase.
 - [Architecture Decision Records](docs/adr/README.md) — material decision process and accepted prototype ADRs.
 - [NEXUS API prototype](apps/api/README.md) — local setup, routes, tests, and safety limits.
+- [Local n8n automation](docs/N8N_LOCAL_AUTOMATION.md) — loopback-only setup, synthetic-data test, security boundaries, and rollback.
 - [Local-first ADR 0001](docs/adr/0001-local-first-modular-monolith.md)
 - [Private data and memory ADR 0002](docs/adr/0002-private-data-and-memory.md)
 - [Model provider and spend controls ADR 0003](docs/adr/0003-model-provider-and-spend-controls.md)

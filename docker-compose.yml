@@ -16,5 +16,27 @@ services:
       timeout: 3s
       retries: 10
 
+  n8n:
+    image: n8nio/n8n:2.44.5
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5678:5678"
+    environment:
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      N8N_EDITOR_BASE_URL: http://localhost:5678/
+      WEBHOOK_URL: http://localhost:5678/
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+      N8N_TEMPLATES_ENABLED: "false"
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+      N8N_SECURE_COOKIE: "false"
+      GENERIC_TIMEZONE: Asia/Tehran
+      TZ: Asia/Tehran
+    volumes:
+      - nexus_n8n_data:/home/node/.n8n
+
 volumes:
   nexus_postgres_data:
+  nexus_n8n_data:

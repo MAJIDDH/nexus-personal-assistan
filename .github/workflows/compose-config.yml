@@ -1,0 +1,23 @@
+name: Compose Configuration
+
+on:
+  push:
+    branches:
+      - feat/dashboard-ui
+      - feat/local-prototype-foundation
+  pull_request:
+    branches:
+      - feat/local-prototype-foundation
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compose-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Validate Docker Compose configuration
+        run: docker compose config --quiet
