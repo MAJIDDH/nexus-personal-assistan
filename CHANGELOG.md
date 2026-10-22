@@ -4,6 +4,8 @@ This changelog records meaningful project milestones and verification evidence. 
 
 ## Unreleased — Discovery and AI collaboration
 
+- Accepted ADR 0007 for a local-only n8n automation experiment; added a pinned n8n 2.44.5 Compose service bound to loopback with a separate persistent volume and telemetry/personalization/templates disabled.
+- Added local setup, synthetic-data smoke-test, security-boundary, and rollback documentation. n8n is not connected to the NEXUS API; no workflows or external credentials are configured. Runtime verification remains pending on the user's machine.
 - Added the NEXUS project constitution and authority hierarchy.
 - Added persistent collaboration guidance for ChatGPT/Claude handoffs, verification, and repository security.
 - Added product requirements, Phase 1 discovery, risk register, development workflow, and content-operations workflow.
