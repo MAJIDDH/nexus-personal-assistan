@@ -8,6 +8,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 
 ## Start here
 
+- [Consolidated Delivery and Documentation Status](docs/CONSOLIDATED_DELIVERY_STATUS.md) — one index of open hardening/documentation PRs, commit-specific verification evidence, dependencies, and release blockers.
 - [Project Constitution](PROJECT_MANIFEST.md) — normative rules and authority boundaries.
 - [Architecture](docs/ARCHITECTURE.md) — current direction; proposals remain provisional until accepted.
 - [Roadmap](docs/ROADMAP.md) — phases and exit conditions.
