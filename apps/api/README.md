@@ -1,6 +1,6 @@
 # NEXUS API — Local Prototype
 
-This is a local-only prototype, not a production service.
+This is a local-only prototype, not a production service. It is not yet a multi-user, authenticated personal assistant.
 
 ## Requirements
 
@@ -33,7 +33,7 @@ npm run migrate
 npm run start:dev
 ```
 
-The API binds to `127.0.0.1` only.
+The API is intended to bind to `127.0.0.1` only. Do not expose or deploy this prototype.
 
 ## Routes
 
@@ -42,7 +42,7 @@ The API binds to `127.0.0.1` only.
 - `GET /api/health/ready` — readiness check; returns ready only when PostgreSQL responds to `SELECT 1`, otherwise HTTP 503 without exposing driver details.
 - `GET /api/content-ideas` — list up to 100 newest locally stored content ideas.
 - `GET /api/tasks?project=golddyousefi&status=open` — list up to 200 tasks, optionally filtered by an allowed project and status.
-- `POST /api/tasks` — create a task with title, optional description, project (`personal`, `nexus`, `golddyousefi`, `bache-mahal`), importance/urgency from 1–5, and optional ISO `due_at`.
+- `POST /api/tasks` — create a task with title, optional description, project key (`personal`, `nexus`, or `golddyousefi`), importance/urgency from 1–5, and optional ISO `due_at`.
 - `PATCH /api/tasks/:id` — edit open or in-progress tasks.
 - `POST /api/tasks/:id/status` — explicitly transition an open task to in-progress, completed, or cancelled; in-progress tasks can return to open or become completed/cancelled. Completed and cancelled tasks are terminal.
 - `GET /api/audit-events?entity_type=task&entity_id=<uuid>&limit=50` — read-only audit history, optionally filtered by entity and bounded to 1–200 events.
@@ -58,7 +58,7 @@ curl -i -X POST http://127.0.0.1:3000/api/content-ideas \
   -d '{"title":"Choose your style","concept":"Compare three synthetic necklace concepts and invite viewers to choose.","objective":"grow_followers"}'
 ```
 
-The content-idea API stores, lists, edits drafts, and supports an explicit transition from draft to in-review. The task API manages local tasks only. Task priority score is derived from importance, urgency, and approaching/overdue due dates; it is a transparent heuristic, not an AI decision. No reminders, background jobs, external notifications, approvals, publishing, scheduling, customer messaging, or Instagram calls run. Audit history currently covers task writes only; it is a local operational trail, not a tamper-proof security ledger or authenticated attribution system. Feedback is explicitly recorded by the caller and stored for later review; it does not automatically train or change model behavior.
+The content-idea API stores, lists, edits drafts, and supports an explicit transition from draft to in-review. The task API manages local tasks only. Task priority score is derived from importance, urgency, and approaching/overdue due dates; it is a transparent heuristic, not an AI decision. No reminders, background jobs, external notifications, trusted approval issuance, publishing, scheduling, customer messaging, or Instagram calls run. Audit history currently covers task writes only; it is a local operational trail, not a tamper-proof security ledger or authenticated attribution system. Feedback is explicitly recorded by the caller and stored for later review; it does not automatically train or change model behavior.
 
 ## Database migrations
 
@@ -73,8 +73,9 @@ The Compose credentials are disposable local-development placeholders. Never reu
 - The model provider is deterministic mock behavior only.
 - Tool policy is default-deny except for the exact `demo.read_status@v1` capability.
 - Caller-supplied approval objects are not trusted; no trusted approval issuer exists yet.
+- The prototype is not authenticated and does not establish per-user ownership isolation. Do not expose it or store real personal/business data.
 - Do not expose the API publicly or deploy this prototype.
 
 ## Verification status
 
-Latest verified GitHub Actions runs on commit `5e59f6689672385f5cab9323b2cedc3c325f20a2` passed API build, unit tests, API end-to-end tests, and disposable PostgreSQL migration/persistence checks. Feedback migration changes are newer and require fresh CI verification.
+Verification is commit-specific. Older CI runs on commit `5e59f6689672385f5cab9323b2cedc3c325f20a2` passed API build, unit tests, API end-to-end tests, and disposable PostgreSQL migration/persistence checks. That result does **not** verify later feedback, task-transition, project-key, or configuration changes. Check the current pull request's linked Actions runs and [consolidated delivery status](../../docs/CONSOLIDATED_DELIVERY_STATUS.md) before asserting the current head is verified.
