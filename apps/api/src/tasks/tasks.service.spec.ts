@@ -19,6 +19,7 @@ describe('TasksService', () => {
   });
   it('rejects unsupported project filters before querying', async () => {
     await expect(service.list('other-project')).rejects.toBeInstanceOf(BadRequestException);
+    await expect(service.list('bache-mahal')).rejects.toBeInstanceOf(BadRequestException);
     expect(query).not.toHaveBeenCalled();
   });
   it('creates tasks with parameterized values', async () => {
