@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   postgres-integration:
-    name: Verify migrations against disposable PostgreSQL
+    name: Verify migrations and task transitions against disposable PostgreSQL
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
@@ -57,6 +57,8 @@ jobs:
         run: npm run migrate
       - name: Verify migrations are repeatable
         run: npm run migrate
+      - name: Run API unit and PostgreSQL concurrency integration tests
+        run: npm test -- --runInBand
       - name: Verify schema and parameterized persistence
         run: |
           node <<'NODE'
