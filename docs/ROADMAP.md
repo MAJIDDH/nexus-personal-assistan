@@ -8,11 +8,12 @@ NEXUS has progressed beyond the original governance-only stage. The active devel
 
 The following work is still proposed in open, Draft, unmerged pull requests:
 
-- [PR #16 — Authentication and API access boundary](https://github.com/MAJIDDH/nexus-personal-assistan/pull/16): threat model and proposed account/session/Telegram-linking design. Documentation only; no authentication implementation.
+- [PR #16 — Authentication and API access boundary](https://github.com/MAJIDDH/nexus-personal-assistan/pull/16): threat model, route inventory, and staged implementation plan ([plan](https://github.com/MAJIDDH/nexus-personal-assistan/blob/docs/propose-authentication-boundary/docs/AUTH_IMPLEMENTATION_PLAN.md)). Documentation only; no authentication implementation. ADR 0008 still requires explicit user acceptance.
 - [PR #17 — Require explicit database URL in production](https://github.com/MAJIDDH/nexus-personal-assistan/pull/17): production database URL validation. API CI and PostgreSQL integration checks passed for the PR head, but this guard is not in the base branch.
 - [PR #18 — Verify task update and status audit snapshots](https://github.com/MAJIDDH/nexus-personal-assistan/pull/18): PostgreSQL integration assertions passed for the PR head; tests are not yet part of the base branch.
 - [PR #19 — Local-to-VPS deployment portability](https://github.com/MAJIDDH/nexus-personal-assistan/pull/19): proposed deployment portability ADR and checklist. Documentation only; no deployment has occurred.
 - [PR #20 — Compose validation on the active branch](https://github.com/MAJIDDH/nexus-personal-assistan/pull/20): Compose Configuration checks passed for its PR head; workflow changes are not yet in the base branch.
+- [PR #22 — Reject prototype database URL in production](https://github.com/MAJIDDH/nexus-personal-assistan/pull/22): adds a negative test rejecting the exact local prototype database URL in production. API CI and PostgreSQL integration runs passed for the head commit, but a fresh run after retargeting its base to PR #17 has not been confirmed.
 
 All of these PRs must remain Draft until reviewed. No PR may be merged without the user's explicit permission. No VPS, public listener, real Telegram integration, paid service, or production data use is authorized by this roadmap.
 
