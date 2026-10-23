@@ -7,7 +7,6 @@ const integrationEnabled = Boolean(process.env.DATABASE_URL);
 
 (integrationEnabled ? describe : describe.skip)('TasksService PostgreSQL concurrency integration', () => {
   let database: DatabaseService;
-  let service: TasksService;
   const createdIds: string[] = [];
 
   beforeAll(() => {
@@ -19,7 +18,6 @@ const integrationEnabled = Boolean(process.env.DATABASE_URL);
         return process.env.DATABASE_URL;
       },
     } as unknown as ConfigService);
-    service = new TasksService(database);
   });
 
   afterEach(async () => {
@@ -33,6 +31,7 @@ const integrationEnabled = Boolean(process.env.DATABASE_URL);
   });
 
   it('allows only one of two competing terminal transitions and records one status change', async () => {
+    const service = new TasksService(database);
     const task = await service.create({
       title: `CI concurrent transition ${Date.now()} ${Math.random().toString(16).slice(2)}`,
       description: 'Synthetic integration test; safe to delete',
@@ -53,12 +52,13 @@ const integrationEnabled = Boolean(process.env.DATABASE_URL);
         sql: string,
         values: unknown[] = [],
       ) => {
+        const result = await database.query<T>(sql, values);
         if (sql.trim() === 'SELECT status FROM tasks WHERE id = $1') {
           statusReads += 1;
           if (statusReads === 2) releaseReads();
           await bothReadStatus;
         }
-        return database.query<T>(sql, values);
+        return result;
       },
     } as unknown as DatabaseService;
     const concurrentService = new TasksService(synchronizedDatabase);
@@ -70,6 +70,7 @@ const integrationEnabled = Boolean(process.env.DATABASE_URL);
     const successes = results.filter((result) => result.status === 'fulfilled');
     const failures = results.filter((result) => result.status === 'rejected');
 
+    expect(statusReads).toBe(2);
     expect(successes).toHaveLength(1);
     expect(failures).toHaveLength(1);
     if (failures[0]?.status === 'rejected') {
