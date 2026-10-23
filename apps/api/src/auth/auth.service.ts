@@ -58,12 +58,21 @@ export class AuthService {
     const password = this.password(passwordInput);
     const hash = await this.hashPassword(password);
     try {
-      const result = await this.db.query<{ id: string; email: string; created_at: Date }>(
-        'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email, created_at',
-        [email, hash],
-      );
-      return result.rows[0];
+      return await this.db.transaction(async (client) => {
+        // Serialize first-account setup so concurrent requests cannot create multiple local owners.
+        await client.query('SELECT pg_advisory_xact_lock($1)', [71420519]);
+        const existing = await client.query<{ exists: boolean }>('SELECT EXISTS (SELECT 1 FROM users) AS exists');
+        if (existing.rows[0]?.exists) {
+          throw new ConflictException('Local account setup is already complete');
+        }
+        const result = await client.query<{ id: string; email: string; created_at: Date }>(
+          'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email, created_at',
+          [email, hash],
+        );
+        return result.rows[0];
+      });
     } catch (error) {
+      if (error instanceof ConflictException) throw error;
       if ((error as { code?: string }).code === '23505') throw new ConflictException('An account with this email already exists');
       throw error;
     }
