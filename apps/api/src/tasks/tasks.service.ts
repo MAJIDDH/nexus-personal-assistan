@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 
-export const TASK_PROJECTS = ['personal', 'nexus', 'golddyousefi', 'bache-mahal'] as const;
+export const TASK_PROJECTS = ['personal', 'nexus', 'golddyousefi'] as const;
 export type TaskProject = (typeof TASK_PROJECTS)[number];
 export const TASK_STATUSES = ['open', 'in_progress', 'completed', 'cancelled'] as const;
 export type TaskStatus = (typeof TASK_STATUSES)[number];
