@@ -41,6 +41,18 @@ Before implementation, specify and test:
 - browser CSRF/session protections if cookies are used;
 - migration and rollback, including the no-auth local development mode boundary.
 
+## Mandatory implementation and exposure gate
+
+Before any non-loopback binding, reverse-proxy exposure, public tunnel, browser client from another device, or real Telegram webhook is enabled:
+
+1. Maintain a reviewed inventory of **all** private controllers and routes, including tasks, content ideas, audit, feedback, memory, and future tool/action endpoints.
+2. Add deny-anonymous tests for every private route and cross-user negative tests for every data-owning read/write operation. Changing record IDs or project keys must never cross account boundaries.
+3. Add a clean-checkout production-startup test proving that missing or invalid approved auth configuration causes startup to fail closed, with no anonymous fallback.
+4. Verify session expiry/revocation, rate limiting, Telegram linking replay/identity conflicts, approval authorization, and secret redaction.
+5. Review results and explicitly approve the deployment boundary separately. Passing CI alone does not authorize exposure.
+
+Until every gate passes, keep the API bound to `127.0.0.1`, do not enable a tunnel or public webhook, and use only synthetic local data.
+
 ## Consequences and trade-offs
 
 - The prototype remains usable locally without a new login flow.
@@ -50,7 +62,7 @@ Before implementation, specify and test:
 
 ## Security and privacy impact
 
-The largest current risk is mistaking a local prototype for a remotely safe service. The API must remain bound to loopback and must not be exposed through public tunnels or webhooks. Tests should prove unauthenticated requests are denied once private access is enabled, users cannot access another user's records, sessions can be revoked, and Telegram linking requires verified possession.
+The largest current risk is mistaking a local prototype for a remotely safe service. The API must remain bound to loopback and must not be exposed through public tunnels or webhooks. Tests must prove unauthenticated requests are denied on every private route, users cannot access another user's records, sessions can be revoked, and Telegram linking requires verified possession.
 
 ## Operations and cost impact
 
