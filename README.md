@@ -12,6 +12,7 @@ NEXUS is a personal-assistant project intended to support conversations, approve
 - [Architecture](docs/ARCHITECTURE.md) — current direction; proposals remain provisional until accepted.
 - [Roadmap](docs/ROADMAP.md) — phases and exit conditions.
 - [Security Baseline](docs/SECURITY.md) — security and approval requirements.
+- [VPS Deployment Readiness Checklist](docs/VPS_DEPLOYMENT_CHECKLIST.md) — explicit pre-production gates; planning only, not deployment authorization.
 - [Development Workflow](docs/DEVELOPMENT_WORKFLOW.md) — implementation, verification, and reporting.
 - [AI Collaboration Workflow](docs/AI_COLLABORATION.md) — shared handoffs for ChatGPT and Claude; GitHub is the source of truth, not a direct model-to-model connection.
 - [Product Requirements](docs/PRODUCT_REQUIREMENTS.md) — current user needs, confirmed decisions, and open items.
