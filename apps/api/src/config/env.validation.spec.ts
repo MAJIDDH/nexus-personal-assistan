@@ -23,6 +23,25 @@ describe('environmentSchema', () => {
     expect(value.PORT).toBe(3100);
   });
 
+  it('requires an explicit database URL in production', () => {
+    const { error } = environmentSchema.validate({
+      NODE_ENV: 'production',
+    });
+
+    expect(error).toBeDefined();
+    expect(error?.details.some((detail) => detail.path.includes('DATABASE_URL'))).toBe(true);
+  });
+
+  it('accepts an explicit PostgreSQL URL in production', () => {
+    const { error, value } = environmentSchema.validate({
+      NODE_ENV: 'production',
+      DATABASE_URL: 'postgresql://nexus:configured-secret@db.example.invalid:5432/nexus',
+    });
+
+    expect(error).toBeUndefined();
+    expect(value.NODE_ENV).toBe('production');
+  });
+
   it('rejects invalid ports', () => {
     const { error } = environmentSchema.validate({ PORT: 70000 });
 
