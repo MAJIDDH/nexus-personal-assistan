@@ -42,6 +42,17 @@ describe('environmentSchema', () => {
     expect(value.NODE_ENV).toBe('production');
   });
 
+  it('rejects the exact local prototype database URL in production', () => {
+    const { error } = environmentSchema.validate({
+      NODE_ENV: 'production',
+      DATABASE_URL:
+        'postgresql://nexus:nexus_local_only@localhost:5432/nexus_dev',
+    });
+
+    expect(error).toBeDefined();
+    expect(error?.details.some((detail) => detail.path.includes('DATABASE_URL'))).toBe(true);
+  });
+
   it('rejects a non-PostgreSQL URL in production', () => {
     const { error } = environmentSchema.validate({
       NODE_ENV: 'production',
