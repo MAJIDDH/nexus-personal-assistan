@@ -37,7 +37,7 @@ describe('ContentIdeasController validation', () => {
   });
 
   it.each([null, [], 'not an object', 4])('rejects a non-object create body: %p', async (body) => {
-    await expect(controller.create(body)).rejects.toBeInstanceOf(BadRequestException);
+    await expect(Promise.resolve().then(() => controller.create(body))).rejects.toBeInstanceOf(BadRequestException);
     expect(service.create).not.toHaveBeenCalled();
   });
 
@@ -50,7 +50,7 @@ describe('ContentIdeasController validation', () => {
     { title: 'Title', concept: 'Concept', objective: 'viral' },
     { title: 'Title', concept: 'Concept', extra: true },
   ])('rejects invalid create payload: %p', async (body) => {
-    await expect(controller.create(body)).rejects.toBeInstanceOf(BadRequestException);
+    await expect(Promise.resolve().then(() => controller.create(body))).rejects.toBeInstanceOf(BadRequestException);
     expect(service.create).not.toHaveBeenCalled();
   });
 
@@ -66,9 +66,9 @@ describe('ContentIdeasController validation', () => {
   it.each([{}, null, [], { objective: 'unsupported' }, { concept: '  ' }, { extra: 'nope' }])(
     'rejects invalid partial update: %p',
     async (body) => {
-      await expect(
+      await expect(Promise.resolve().then(() =>
         controller.updateDraft('123e4567-e89b-12d3-a456-426614174000', body),
-      ).rejects.toBeInstanceOf(BadRequestException);
+      )).rejects.toBeInstanceOf(BadRequestException);
       expect(service.updateDraft).not.toHaveBeenCalled();
     },
   );
