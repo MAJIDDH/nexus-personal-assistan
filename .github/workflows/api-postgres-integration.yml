@@ -65,7 +65,7 @@ jobs:
             const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
             try {
               const migrations = await pool.query('SELECT version FROM schema_migrations ORDER BY version');
-              if (migrations.rows.length !== 5) throw new Error('Expected exactly five migrations to be recorded');
+              if (migrations.rows.length !== 6) throw new Error('Expected exactly six migrations to be recorded');
               const title = 'CI synthetic idea ' + Date.now();
               const inserted = await pool.query(
                 'INSERT INTO content_ideas (title, concept, objective) VALUES ($1, $2, $3) RETURNING title, status',
