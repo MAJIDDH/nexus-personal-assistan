@@ -23,6 +23,44 @@ describe('environmentSchema', () => {
     expect(value.PORT).toBe(3100);
   });
 
+  it('requires an explicit database URL in production', () => {
+    const { error } = environmentSchema.validate({
+      NODE_ENV: 'production',
+    });
+
+    expect(error).toBeDefined();
+    expect(error?.details.some((detail) => detail.path.includes('DATABASE_URL'))).toBe(true);
+  });
+
+  it('accepts an explicit PostgreSQL URL in production', () => {
+    const { error, value } = environmentSchema.validate({
+      NODE_ENV: 'production',
+      DATABASE_URL: 'postgresql://nexus:configured-secret@db.example.invalid:5432/nexus',
+    });
+
+    expect(error).toBeUndefined();
+    expect(value.NODE_ENV).toBe('production');
+  });
+
+  it('rejects a non-PostgreSQL URL in production', () => {
+    const { error } = environmentSchema.validate({
+      NODE_ENV: 'production',
+      DATABASE_URL: 'https://example.invalid/database',
+    });
+
+    expect(error).toBeDefined();
+    expect(error?.details.some((detail) => detail.path.includes('DATABASE_URL'))).toBe(true);
+  });
+
+  it('keeps the local database default in test mode', () => {
+    const { error, value } = environmentSchema.validate({ NODE_ENV: 'test' });
+
+    expect(error).toBeUndefined();
+    expect(value.DATABASE_URL).toBe(
+      'postgresql://nexus:nexus_local_only@localhost:5432/nexus_dev',
+    );
+  });
+
   it('rejects invalid ports', () => {
     const { error } = environmentSchema.validate({ PORT: 70000 });
 
