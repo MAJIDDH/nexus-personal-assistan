@@ -21,7 +21,7 @@ Create an ADR for decisions that are cross-cutting, expensive to reverse, securi
 - **Proposed:** under review; implementation is not authorized.
 - **Accepted:** approved and binding within its scope.
 - **Rejected:** considered and not selected.
-- **Superseded:** replaced by a later decision.
+- **Superseded:** replaced by a later ADR.
 - **Deprecated:** no longer recommended or applicable, retained for history.
 
 ## Minimum template
@@ -53,5 +53,7 @@ Create an ADR for decisions that are cross-cutting, expensive to reverse, securi
 - [ADR 0005 — Concrete local prototype stack](0005-local-prototype-stack.md): Node.js LTS, TypeScript, NestJS, PostgreSQL, and local Docker Compose.
 - [ADR 0006 — PostgreSQL access layer](0006-postgres-access-layer.md): accepted `pg` plus parameterized SQL and versioned migrations for the local prototype.
 - [ADR 0007 — Local n8n workflow automation](0007-local-n8n-automation.md): accepted n8n as a loopback-only, local automation experiment with synthetic data and no active external workflows.
+- [ADR 0008 — Authentication boundary](0008-authentication-boundary.md): **Proposed** in PR #16. Requires explicit user acceptance before authentication implementation.
+- [ADR 0009 — Local-to-VPS deployment boundary](0009-local-to-vps-deployment.md): **Proposed** in PR #19. Documentation/checklist only; not deployment authorization.
 
-ADRs 0001–0007 are **Accepted within their documented scopes**. ADR 0007 permits only a local n8n experiment; it does not authorize paid services, server purchase, real-data storage, external integrations, public webhooks, consequential workflows, or production deployment.
+ADRs 0001–0007 are **Accepted within their documented scopes**. ADR 0007 permits only a local n8n experiment; it does not authorize paid services, server purchase, real-data storage, external integrations, public webhooks, consequential workflows, or production deployment. ADRs 0008 and 0009 remain proposals unless their explicit acceptance is recorded.
