@@ -4,10 +4,10 @@ import { DatabaseService } from '../database/database.service';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let db: { query: jest.Mock };
+  let db: { query: jest.Mock; transaction: jest.Mock };
 
   beforeEach(() => {
-    db = { query: jest.fn() };
+    db = { query: jest.fn(), transaction: jest.fn(async (work: (client: { query: jest.Mock }) => Promise<unknown>) => work({ query: db.query })) };
     service = new AuthService(db as unknown as DatabaseService);
   });
 
