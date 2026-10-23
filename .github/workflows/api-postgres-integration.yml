@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   postgres-integration:
-    name: Verify migrations against disposable PostgreSQL
+    name: Verify migrations and task transitions against disposable PostgreSQL
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
@@ -57,6 +57,8 @@ jobs:
         run: npm run migrate
       - name: Verify migrations are repeatable
         run: npm run migrate
+      - name: Run API unit and PostgreSQL concurrency integration tests
+        run: npm test -- --runInBand
       - name: Verify schema and parameterized persistence
         run: |
           node <<'NODE'
@@ -102,7 +104,7 @@ jobs:
               if (feedback.rows[0]?.rating !== 'useful') throw new Error('Task feedback was not persisted');
               await pool.query('DELETE FROM task_feedback WHERE task_id = $1', [taskId]);
               await pool.query('DELETE FROM tasks WHERE title = $1', [taskTitle]);
-              process.stdout.write('PostgreSQL migrations, task persistence, audit trigger, and feedback persistence passed.\n');
+              process.stdout.write('PostgreSQL migrations, task persistence, audit trigger, and feedback persistence passed.\\n');
             } finally {
               await pool.end();
             }
