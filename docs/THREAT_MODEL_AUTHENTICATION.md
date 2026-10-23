@@ -47,13 +47,15 @@ This is a proposed flow, not implemented behavior. The exact protocol and storag
 
 ## Release-blocking tests
 
-- Anonymous requests cannot access private API routes.
-- User A cannot list, read, update, or delete User B's records by changing IDs or project keys.
+- Maintain an explicit inventory of every private controller and route, including tasks, content ideas, audit events, feedback, memory, and future tool/action endpoints.
+- Anonymous requests cannot access any private route; test every inventoried route rather than relying on a single representative endpoint.
+- User A cannot list, read, update, or delete User B's records by changing IDs, project keys, or request payloads; cover each read/write operation and each data-owning controller.
 - Expired, malformed, rotated, and revoked sessions are rejected.
 - Password and linking endpoints are rate-limited and do not reveal whether an account exists.
 - Telegram linking rejects unverified identities, expired/replayed challenges, and already-linked conflicting identities.
 - Caller-supplied approval metadata never grants permission.
-- Production configuration refuses anonymous mode and unsafe public binding.
+- A clean-checkout production-startup test proves startup fails closed when approved authentication configuration is missing or invalid; it must not silently fall back to anonymous access.
+- Production configuration refuses anonymous mode and unsafe public binding. Verify the listener remains loopback-only until all release gates pass.
 - Logs and audit events contain no passwords, tokens, raw linking challenges, or database credentials.
 
 ## Open decisions before implementation
