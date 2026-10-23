@@ -14,7 +14,9 @@ describe('AuthService', () => {
   it('normalizes email and stores only a password hash on registration', async () => {
     db.query.mockResolvedValue({ rows: [{ id: 'u1', email: 'user@example.com', created_at: new Date() }] });
     await service.register(' User@Example.com ', 'correct-horse-battery-staple');
-    const [sql, params] = db.query.mock.calls[0];
+    const insertCall = db.query.mock.calls.find(([sql]) => String(sql).includes('INSERT INTO users'));
+    expect(insertCall).toBeDefined();
+    const [sql, params] = insertCall!;
     expect(sql).toContain('INSERT INTO users');
     expect(params[0]).toBe('user@example.com');
     expect(params[1]).toMatch(/^scrypt\$/);
