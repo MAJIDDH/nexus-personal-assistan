@@ -95,6 +95,29 @@ jobs:
                 throw new Error('Task creation was not recorded in the audit trail');
               }
               const taskId = task.rows[0] && (await pool.query('SELECT id FROM tasks WHERE title = $1', [taskTitle])).rows[0]?.id;
+              if (!taskId) throw new Error('Inserted task did not have an ID');
+
+              const updatedTitle = taskTitle + ' updated';
+              await pool.query('UPDATE tasks SET title = $2 WHERE id = $1', [taskId, updatedTitle]);
+              await pool.query("UPDATE tasks SET status = $2 WHERE id = $1", [taskId, 'in_progress']);
+
+              const changeEvents = await pool.query(
+                'SELECT action, before_data, after_data FROM audit_events WHERE entity_type = $1 AND entity_id = $2 ORDER BY id',
+                ['task', taskId],
+              );
+              const actions = changeEvents.rows.map((event) => event.action);
+              if (actions.join(',') !== 'created,updated,status_changed') {
+                throw new Error('Task updates and status transitions were not recorded in order: ' + actions.join(','));
+              }
+              if (changeEvents.rows[1]?.before_data?.title !== taskTitle ||
+                  changeEvents.rows[1]?.after_data?.title !== updatedTitle) {
+                throw new Error('Task update audit event did not preserve before/after snapshots');
+              }
+              if (changeEvents.rows[2]?.before_data?.status !== 'open' ||
+                  changeEvents.rows[2]?.after_data?.status !== 'in_progress') {
+                throw new Error('Task status audit event did not preserve before/after snapshots');
+              }
+
               const feedback = await pool.query(
                 'INSERT INTO task_feedback (task_id, rating, note) VALUES ($1, $2, $3) RETURNING rating, note',
                 [taskId, 'useful', 'CI synthetic feedback'],
@@ -102,7 +125,7 @@ jobs:
               if (feedback.rows[0]?.rating !== 'useful') throw new Error('Task feedback was not persisted');
               await pool.query('DELETE FROM task_feedback WHERE task_id = $1', [taskId]);
               await pool.query('DELETE FROM tasks WHERE title = $1', [taskTitle]);
-              process.stdout.write('PostgreSQL migrations, task persistence, audit trigger, and feedback persistence passed.\n');
+              process.stdout.write('PostgreSQL migrations, task persistence, create/update/status audit snapshots, and feedback persistence passed.\n');
             } finally {
               await pool.end();
             }
