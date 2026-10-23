@@ -12,6 +12,7 @@ export const environmentSchema = Joi.object({
     is: 'production',
     then: Joi.string()
       .uri({ scheme: ['postgres', 'postgresql'] })
+      .invalid(localDatabaseUrl)
       .required(),
     otherwise: Joi.string()
       .uri({ scheme: ['postgres', 'postgresql'] })
