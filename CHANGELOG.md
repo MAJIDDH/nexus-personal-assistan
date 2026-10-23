@@ -1,6 +1,14 @@
 # NEXUS Changelog
 
-This changelog records meaningful project milestones and verification evidence. It does not replace the project constitution, ADRs, or phase records.
+This changelog records meaningful project milestones and verification evidence. It does not replace the project constitution, ADRs, or phase records. Verification claims are tied to specific commits; a historical green run does not verify later changes.
+
+## Unreleased — Documentation reconciliation
+
+- Added a consolidated delivery-status index and reconciled the roadmap with the local prototype and open draft pull requests.
+- Clarified that the architecture is partly implemented and partly a target design; Telegram, web/voice channels, authentication, scheduling, notifications, Instagram integration, and deployment are not established as working features.
+- Corrected the API documentation's selectable project keys to exclude the retired `bache-mahal` key. This does not claim that historical database rows were deleted.
+- Tightened API verification wording so older green CI runs are not presented as evidence for newer changes.
+- Documentation changes are under review in PR #26. Do not treat the PR as adopted until it is reviewed and merged.
 
 ## Unreleased — Discovery and AI collaboration
 
@@ -21,16 +29,15 @@ This changelog records meaningful project milestones and verification evidence. 
 - Implemented content-idea list/create/edit and explicit draft-to-review submission, with validation and guarded transitions.
 - Added a task engine with PostgreSQL persistence, validated CRUD/status APIs, project filters, importance/urgency fields, due-date-aware priority scoring, and terminal completed/cancelled states.
 - Added PostgreSQL-triggered audit events for task creation and updates, capturing before/after snapshots transactionally, plus a bounded read-only audit-history endpoint.
-- Extended disposable PostgreSQL integration checks to verify task audit events and structured feedback persistence; fresh CI is required for the latest feedback migration.
+- Extended disposable PostgreSQL integration checks to verify task audit events and structured feedback persistence; later changes require their own fresh CI evidence.
 - Added API end-to-end and unit coverage for task creation, filtering, invalid fields, and explicit status transitions. Task reminders and external notifications are not enabled.
 - Added an API CI workflow for build, unit tests, and end-to-end tests.
 - Fixed the migration filename matcher so numbered SQL migrations are discovered.
 - Expanded end-to-end tests for liveness/readiness and content-idea create/list input behavior.
 - Updated setup, API, and governance documentation to match implementation.
 
-## Verification status
+## Historical verification note
 
-- Latest verified commit `5e59f6689672385f5cab9323b2cedc3c325f20a2`: API CI and disposable PostgreSQL integration both passed. The subsequent structured-feedback feature is awaiting fresh CI.
-- PostgreSQL integration uses a disposable database and synthetic records only.
-- Work remains on `feat/local-prototype-foundation`; PR #1 is open, draft, and unmerged.
-- No production database, real gallery/customer data, paid API, public server, or external integration was added.
+Commit `5e59f6689672385f5cab9323b2cedc3c325f20a2` passed API CI and disposable PostgreSQL integration checks at the time recorded. Subsequent changes must be assessed using their own commit-specific workflow results. PostgreSQL integration uses a disposable database and synthetic records only.
+
+No production database, real gallery/customer data, paid API, public server, or external integration was authorized by the local prototype work.
