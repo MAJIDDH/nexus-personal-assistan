@@ -46,6 +46,7 @@ Before implementation, specify and test:
 - The prototype remains usable locally without a new login flow.
 - Remote access and real Telegram integration remain blocked until implementation and review are complete.
 - The proposal deliberately avoids prematurely selecting a token format, session store, or dependency before a threat model and tests are reviewed.
+- See [Authentication Threat Model (Pre-Implementation)](../THREAT_MODEL_AUTHENTICATION.md) for threats, proposed Telegram linking flow, release-blocking tests, and unresolved decisions.
 
 ## Security and privacy impact
 
@@ -62,7 +63,7 @@ Implement behind a dedicated branch and feature boundary after approval. Preserv
 ## Verification and follow-up
 
 - [ ] Review and accept or reject this ADR.
-- [ ] Write a concise threat model and account-linking flow.
+- [x] Draft a threat model and account-linking flow in [THREAT_MODEL_AUTHENTICATION.md](../THREAT_MODEL_AUTHENTICATION.md); review and acceptance are still pending.
 - [ ] Select session/token handling and password-hashing implementation after dependency review.
 - [ ] Add negative tests for unauthenticated access, cross-user access, invalid/expired/revoked sessions, and unverified Telegram linking.
 - [ ] Verify production configuration refuses unsafe anonymous mode and non-loopback binding before any remote deployment.
