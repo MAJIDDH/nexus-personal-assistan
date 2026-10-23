@@ -65,7 +65,11 @@ describe('AuthService', () => {
   });
 
   it('maps duplicate email constraint to a conflict response', async () => {
-    db.query.mockRejectedValue({ code: '23505' });
+    db.query.mockImplementation(async (sql: string) => {
+      if (sql.includes('INSERT INTO users')) throw { code: '23505' };
+      if (sql.includes('SELECT EXISTS')) return { rows: [{ exists: false }] };
+      return { rows: [] };
+    });
     await expect(service.register('user@example.com', 'correct-horse-battery-staple'))
       .rejects.toBeInstanceOf(ConflictException);
   });
