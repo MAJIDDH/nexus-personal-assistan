@@ -8,11 +8,13 @@ export const environmentSchema = Joi.object({
     .valid('development', 'test', 'production')
     .default('development'),
   PORT: Joi.number().port().default(3000),
-  DATABASE_URL: Joi.string()
-    .uri({ scheme: ['postgres', 'postgresql'] })
-    .when('NODE_ENV', {
-      is: 'production',
-      then: Joi.required(),
-      otherwise: Joi.default(localDatabaseUrl),
-    }),
+  DATABASE_URL: Joi.when('NODE_ENV', {
+    is: 'production',
+    then: Joi.string()
+      .uri({ scheme: ['postgres', 'postgresql'] })
+      .required(),
+    otherwise: Joi.string()
+      .uri({ scheme: ['postgres', 'postgresql'] })
+      .default(localDatabaseUrl),
+  }),
 });
