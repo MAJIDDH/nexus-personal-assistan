@@ -5,9 +5,12 @@ on:
     branches:
       - feat/dashboard-ui
       - feat/local-prototype-foundation
+      - feat/task-priority-hardening
+      - ci/compose-config-active-branch
   pull_request:
     branches:
       - feat/local-prototype-foundation
+      - feat/task-priority-hardening
   workflow_dispatch:
 
 permissions:
