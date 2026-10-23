@@ -18,8 +18,10 @@ export type CreateTaskInput = {
 export type UpdateTaskInput = Partial<CreateTaskInput>;
 
 const TASK_SELECT = `id, title, description, project_key, importance, urgency, due_at, status,
-  (importance * 2 + urgency * 2 + CASE WHEN due_at IS NOT NULL AND due_at <= now() THEN 5
-    WHEN due_at IS NOT NULL AND due_at <= now() + interval '24 hours' THEN 3 ELSE 0 END) AS priority_score,
+  (importance * 2 + urgency * 2 + CASE
+    WHEN status IN ('open','in_progress') AND due_at IS NOT NULL AND due_at <= now() THEN 5
+    WHEN status IN ('open','in_progress') AND due_at IS NOT NULL AND due_at <= now() + interval '24 hours' THEN 3
+    ELSE 0 END) AS priority_score,
   created_at, updated_at, completed_at`;
 
 @Injectable()

@@ -14,6 +14,7 @@ describe('TasksService', () => {
     query.mockResolvedValue({ rows: [], rowCount: 0 });
     await service.list('golddyousefi', 'open');
     expect(query.mock.calls[0][0]).toContain('priority_score DESC');
+    expect(query.mock.calls[0][0]).toContain("status IN ('open','in_progress') AND due_at IS NOT NULL AND due_at <= now()");
     expect(query.mock.calls[0][1]).toEqual(['golddyousefi', 'open']);
   });
   it('rejects unsupported project filters before querying', async () => {
