@@ -37,7 +37,7 @@ export class ContentIdeasService {
       `SELECT id, title, concept, objective, status, created_at, updated_at
        FROM content_ideas WHERE user_id = $1
        ORDER BY created_at DESC, id DESC
-       LIMIT $1`,
+       LIMIT $2`,
       [userId, 100],
     );
     return result.rows;
