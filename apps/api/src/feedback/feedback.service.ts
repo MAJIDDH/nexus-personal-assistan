@@ -10,22 +10,22 @@ export type CreateFeedbackInput = { task_id: string; rating: FeedbackRating; not
 export class FeedbackService {
   constructor(private readonly database: DatabaseService) {}
 
-  async list(taskId?: string, limit = 50): Promise<FeedbackRecord[]> {
+  async list(userId: string, taskId?: string, limit = 50): Promise<FeedbackRecord[]> {
     const result = await this.database.query<FeedbackRecord>(
-      `SELECT id, task_id, rating, note, created_at FROM task_feedback
-       WHERE ($1::uuid IS NULL OR task_id = $1)
-       ORDER BY created_at DESC, id DESC LIMIT $2`,
-      [taskId ?? null, limit],
+      `SELECT id, task_id, rating, note, created_at FROM task_feedback f JOIN tasks t ON t.id = f.task_id AND t.user_id = $1
+       WHERE ($2::uuid IS NULL OR f.task_id = $2)
+       ORDER BY f.created_at DESC, f.id DESC LIMIT $3`,
+      [userId, taskId ?? null, limit],
     );
     return result.rows;
   }
 
-  async create(input: CreateFeedbackInput): Promise<FeedbackRecord> {
+  async create(userId: string, input: CreateFeedbackInput): Promise<FeedbackRecord> {
     const result = await this.database.query<FeedbackRecord>(
       `INSERT INTO task_feedback (task_id, rating, note)
-       SELECT id, $2, $3 FROM tasks WHERE id = $1
+       SELECT id, $3, $4 FROM tasks WHERE id = $1 AND user_id = $2
        RETURNING id, task_id, rating, note, created_at`,
-      [input.task_id, input.rating, input.note.trim()],
+      [input.task_id, userId, input.rating, input.note.trim()],
     );
     if (!result.rows[0]) throw new NotFoundException('Task not found.');
     return result.rows[0];
