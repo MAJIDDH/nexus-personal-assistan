@@ -69,6 +69,17 @@ export class AuthService {
           'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email, created_at',
           [email, hash],
         );
+        const ownerId = result.rows[0].id;
+        // Preserve the local prototype's pre-auth records by assigning them to its first owner.
+        await client.query('UPDATE tasks SET user_id = $1 WHERE user_id IS NULL', [ownerId]);
+        await client.query('UPDATE content_ideas SET user_id = $1 WHERE user_id IS NULL', [ownerId]);
+        await client.query(
+          `UPDATE audit_events e SET user_id = $1
+           WHERE e.user_id IS NULL
+             AND e.entity_type = 'task'
+             AND EXISTS (SELECT 1 FROM tasks t WHERE t.id = e.entity_id AND t.user_id = $1)`,
+          [ownerId],
+        );
         return result.rows[0];
       });
     } catch (error) {
