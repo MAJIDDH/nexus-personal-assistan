@@ -1,4 +1,6 @@
-import { BadRequestException, Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard, AuthenticatedUser } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/current-user.decorator';
 import { TASK_PROJECTS, TASK_STATUSES, CreateTaskInput, TaskProject, TaskStatus, TasksService, UpdateTaskInput } from './tasks.service';
 
 function record(value: unknown): Record<string, unknown> {
@@ -42,27 +44,28 @@ function parseInput(value: unknown, partial: boolean): CreateTaskInput | UpdateT
   return out as CreateTaskInput | UpdateTaskInput;
 }
 
+@UseGuards(AuthGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasks: TasksService) {}
   @Get()
-  list(@Query('project') project?: string, @Query('status') status?: string) {
-    return this.tasks.list(project, status);
+  list(@CurrentUser() user: AuthenticatedUser, @Query('project') project?: string, @Query('status') status?: string) {
+    return this.tasks.list(user.id, project, status);
   }
   @Post()
-  create(@Body() body: unknown) {
-    return this.tasks.create(parseInput(body, false) as CreateTaskInput);
+  create(@CurrentUser() user: AuthenticatedUser, @Body() body: unknown) {
+    return this.tasks.create(user.id, parseInput(body, false) as CreateTaskInput);
   }
   @Patch(':id')
-  update(@Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
-    return this.tasks.update(id, parseInput(body, true) as UpdateTaskInput);
+  update(@CurrentUser() user: AuthenticatedUser, @Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
+    return this.tasks.update(user.id, id, parseInput(body, true) as UpdateTaskInput);
   }
   @Post(':id/status')
-  transition(@Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
+  transition(@CurrentUser() user: AuthenticatedUser, @Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
     const input = record(body);
     if (Object.keys(input).length !== 1 || typeof input.status !== 'string' || !TASK_STATUSES.includes(input.status as TaskStatus)) {
       throw new BadRequestException('Provide only a supported status field.');
     }
-    return this.tasks.transition(id, input.status as TaskStatus);
+    return this.tasks.transition(user.id, id, input.status as TaskStatus);
   }
 }

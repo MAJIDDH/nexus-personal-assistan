@@ -1,4 +1,6 @@
-import { BadRequestException, Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard, AuthenticatedUser } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/current-user.decorator';
 import { FEEDBACK_RATINGS, FeedbackService, FeedbackRating } from './feedback.service';
 
 function objectBody(value: unknown): Record<string, unknown> {
@@ -8,12 +10,13 @@ function objectBody(value: unknown): Record<string, unknown> {
   return value as Record<string, unknown>;
 }
 
+@UseGuards(AuthGuard)
 @Controller('feedback')
 export class FeedbackController {
   constructor(private readonly feedback: FeedbackService) {}
 
   @Get()
-  list(@Query('task_id') taskId?: string, @Query('limit') limit?: string) {
+  list(@CurrentUser() user: AuthenticatedUser, @Query('task_id') taskId?: string, @Query('limit') limit?: string) {
     if (taskId && !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(taskId)) {
       throw new BadRequestException('task_id must be a UUID.');
     }
@@ -21,11 +24,11 @@ export class FeedbackController {
     if (!Number.isInteger(parsedLimit) || parsedLimit < 1 || parsedLimit > 200) {
       throw new BadRequestException('limit must be an integer from 1 to 200.');
     }
-    return this.feedback.list(taskId, parsedLimit);
+    return this.feedback.list(user.id, taskId, parsedLimit);
   }
 
   @Post()
-  create(@Body() value: unknown) {
+  create(@CurrentUser() user: AuthenticatedUser, @Body() value: unknown) {
     const body = objectBody(value);
     if (Object.keys(body).some((key) => !['task_id', 'rating', 'note'].includes(key))) {
       throw new BadRequestException('Request contains unsupported fields.');
@@ -40,6 +43,6 @@ export class FeedbackController {
     if (typeof note !== 'string' || note.length > 2000) {
       throw new BadRequestException('note must be a string of at most 2000 characters.');
     }
-    return this.feedback.create({ task_id: body.task_id, rating: body.rating as FeedbackRating, note });
+    return this.feedback.create(user.id, { task_id: body.task_id, rating: body.rating as FeedbackRating, note });
   }
 }

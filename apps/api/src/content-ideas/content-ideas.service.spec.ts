@@ -24,12 +24,12 @@ describe('ContentIdeasService', () => {
     }];
     query.mockResolvedValue({ rows, rowCount: 1 });
 
-    await expect(service.list()).resolves.toEqual(rows);
+    await expect(service.list('owner-id')).resolves.toEqual(rows);
     expect(query).toHaveBeenCalledWith(
       expect.stringContaining('ORDER BY created_at DESC, id DESC'),
-      [100],
+      ['owner-id', 100],
     );
-    expect(query.mock.calls[0][0]).toContain('LIMIT $1');
+    expect(query.mock.calls[0][0]).toContain('LIMIT $2');
   });
 
   it('inserts trimmed fields with parameterized values', async () => {
@@ -44,15 +44,15 @@ describe('ContentIdeasService', () => {
     };
     query.mockResolvedValue({ rows: [row], rowCount: 1 });
 
-    await expect(service.create({
+    await expect(service.create('owner-id', {
       title: ' Choose a style ',
       concept: ' Compare three synthetic concepts. ',
       objective: 'grow_followers',
     })).resolves.toEqual(row);
 
     expect(query).toHaveBeenCalledWith(
-      expect.stringContaining('VALUES ($1, $2, $3)'),
-      ['Choose a style', 'Compare three synthetic concepts.', 'grow_followers'],
+      expect.stringContaining('VALUES ($1, $2, $3, $4)'),
+      ['owner-id', 'Choose a style', 'Compare three synthetic concepts.', 'grow_followers'],
     );
   });
 
@@ -68,16 +68,16 @@ describe('ContentIdeasService', () => {
     };
     query.mockResolvedValue({ rows: [row], rowCount: 1 });
 
-    await expect(service.submitForReview(row.id)).resolves.toEqual(row);
+    await expect(service.submitForReview('owner-id', row.id)).resolves.toEqual(row);
     expect(query.mock.calls[0][0]).toContain("SET status = 'in_review'");
-    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND status = 'draft'");
-    expect(query.mock.calls[0][1]).toEqual([row.id]);
+    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND user_id = $2 AND status = 'draft'");
+    expect(query.mock.calls[0][1]).toEqual([row.id, 'owner-id']);
   });
 
   it('does not submit missing or non-draft ideas for review', async () => {
     query.mockResolvedValue({ rows: [], rowCount: 0 });
     await expect(service.submitForReview(
-      '00000000-0000-4000-8000-000000000006',
+      'owner-id', '00000000-0000-4000-8000-000000000006',
     )).rejects.toThrow('Draft content idea not found.');
   });
 
@@ -93,26 +93,27 @@ describe('ContentIdeasService', () => {
     };
     query.mockResolvedValue({ rows: [row], rowCount: 1 });
 
-    await expect(service.updateDraft(row.id, {
+    await expect(service.updateDraft('owner-id', row.id, {
       title: 'Updated title',
       concept: 'Updated synthetic concept',
       objective: 'educate',
     })).resolves.toEqual(row);
 
-    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND status = 'draft'");
+    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND user_id = $5 AND status = 'draft'");
     expect(query.mock.calls[0][0]).toContain('updated_at = now()');
     expect(query.mock.calls[0][1]).toEqual([
       row.id,
       'Updated title',
       'Updated synthetic concept',
       'educate',
+      'owner-id',
     ]);
   });
 
   it('does not update missing or non-draft ideas', async () => {
     query.mockResolvedValue({ rows: [], rowCount: 0 });
     await expect(service.updateDraft(
-      '00000000-0000-4000-8000-000000000004',
+      'owner-id', '00000000-0000-4000-8000-000000000004',
       { title: 'Attempted change' },
     )).rejects.toThrow('Draft content idea not found.');
   });

@@ -32,34 +32,34 @@ export type UpdateContentIdea = Partial<CreateContentIdea>;
 export class ContentIdeasService {
   constructor(private readonly database: DatabaseService) {}
 
-  async list(): Promise<ContentIdea[]> {
+  async list(userId: string): Promise<ContentIdea[]> {
     const result = await this.database.query<ContentIdea>(
       `SELECT id, title, concept, objective, status, created_at, updated_at
-       FROM content_ideas
+       FROM content_ideas WHERE user_id = $1
        ORDER BY created_at DESC, id DESC
-       LIMIT $1`,
-      [100],
+       LIMIT $2`,
+      [userId, 100],
     );
     return result.rows;
   }
 
-  async create(input: CreateContentIdea): Promise<ContentIdea> {
+  async create(userId: string, input: CreateContentIdea): Promise<ContentIdea> {
     const result = await this.database.query<ContentIdea>(
-      `INSERT INTO content_ideas (title, concept, objective)
-       VALUES ($1, $2, $3)
+      `INSERT INTO content_ideas (user_id, title, concept, objective)
+       VALUES ($1, $2, $3, $4)
        RETURNING id, title, concept, objective, status, created_at, updated_at`,
-      [input.title.trim(), input.concept.trim(), input.objective],
+      [userId, input.title.trim(), input.concept.trim(), input.objective],
     );
     return result.rows[0];
   }
 
-  async submitForReview(id: string): Promise<ContentIdea> {
+  async submitForReview(userId: string, id: string): Promise<ContentIdea> {
     const result = await this.database.query<ContentIdea>(
       `UPDATE content_ideas
        SET status = 'in_review', updated_at = now()
-       WHERE id = $1 AND status = 'draft'
+       WHERE id = $1 AND user_id = $2 AND status = 'draft'
        RETURNING id, title, concept, objective, status, created_at, updated_at`,
-      [id],
+      [id, userId],
     );
 
     if (!result.rows[0]) {
@@ -68,16 +68,16 @@ export class ContentIdeasService {
     return result.rows[0];
   }
 
-  async updateDraft(id: string, input: UpdateContentIdea): Promise<ContentIdea> {
+  async updateDraft(userId: string, id: string, input: UpdateContentIdea): Promise<ContentIdea> {
     const result = await this.database.query<ContentIdea>(
       `UPDATE content_ideas
        SET title = COALESCE($2, title),
            concept = COALESCE($3, concept),
            objective = COALESCE($4, objective),
            updated_at = now()
-       WHERE id = $1 AND status = 'draft'
+       WHERE id = $1 AND user_id = $5 AND status = 'draft'
        RETURNING id, title, concept, objective, status, created_at, updated_at`,
-      [id, input.title ?? null, input.concept ?? null, input.objective ?? null],
+      [id, input.title ?? null, input.concept ?? null, input.objective ?? null, userId],
     );
 
     if (!result.rows[0]) {

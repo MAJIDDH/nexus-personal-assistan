@@ -17,15 +17,15 @@ export type AuditEvent = {
 export class AuditService {
   constructor(private readonly database: DatabaseService) {}
 
-  async list(entityType?: string, entityId?: string, limit = 50): Promise<AuditEvent[]> {
+  async list(userId: string, entityType?: string, entityId?: string, limit = 50): Promise<AuditEvent[]> {
     const result = await this.database.query<AuditEvent>(
       `SELECT id, entity_type, entity_id, action, actor, source, before_data, after_data, occurred_at
-       FROM audit_events
-       WHERE ($1::text IS NULL OR entity_type = $1)
-         AND ($2::uuid IS NULL OR entity_id = $2)
-       ORDER BY occurred_at DESC, id DESC
-       LIMIT $3`,
-      [entityType ?? null, entityId ?? null, limit],
+       FROM audit_events e JOIN tasks t ON t.id = e.entity_id AND t.user_id = $1
+       WHERE e.user_id = $1 AND ($2::text IS NULL OR e.entity_type = $2)
+         AND ($3::uuid IS NULL OR e.entity_id = $3)
+       ORDER BY e.occurred_at DESC, e.id DESC
+       LIMIT $4`,
+      [userId, entityType ?? null, entityId ?? null, limit],
     );
     return result.rows;
   }
