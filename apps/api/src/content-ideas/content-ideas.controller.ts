@@ -7,7 +7,10 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard, AuthenticatedUser } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/current-user.decorator';
 import {
   CONTENT_OBJECTIVES,
   ContentObjective,
@@ -68,30 +71,32 @@ function parseFields(
   return parsed as CreateContentIdea | UpdateContentIdea;
 }
 
+@UseGuards(AuthGuard)
 @Controller('content-ideas')
 export class ContentIdeasController {
   constructor(private readonly contentIdeas: ContentIdeasService) {}
 
   @Get()
-  list() {
-    return this.contentIdeas.list();
+  list(@CurrentUser() user: AuthenticatedUser) {
+    return this.contentIdeas.list(user.id);
   }
 
   @Post()
-  create(@Body() body: unknown) {
-    return this.contentIdeas.create(parseFields(body, false) as CreateContentIdea);
+  create(@CurrentUser() user: AuthenticatedUser, @Body() body: unknown) {
+    return this.contentIdeas.create(user.id, parseFields(body, false) as CreateContentIdea);
   }
 
   @Post(':id/submit-for-review')
-  submitForReview(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.contentIdeas.submitForReview(id);
+  submitForReview(@CurrentUser() user: AuthenticatedUser, @Param('id', new ParseUUIDPipe()) id: string) {
+    return this.contentIdeas.submitForReview(user.id, id);
   }
 
   @Patch(':id')
   updateDraft(
+    @CurrentUser() user: AuthenticatedUser,
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() body: unknown,
   ) {
-    return this.contentIdeas.updateDraft(id, parseFields(body, true) as UpdateContentIdea);
+    return this.contentIdeas.updateDraft(user.id, id, parseFields(body, true) as UpdateContentIdea);
   }
 }
