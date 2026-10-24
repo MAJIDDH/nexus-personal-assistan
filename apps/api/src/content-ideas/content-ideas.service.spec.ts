@@ -99,7 +99,7 @@ describe('ContentIdeasService', () => {
       objective: 'educate',
     })).resolves.toEqual(row);
 
-    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND status = 'draft'");
+    expect(query.mock.calls[0][0]).toContain("WHERE id = $1 AND user_id = $5 AND status = 'draft'");
     expect(query.mock.calls[0][0]).toContain('updated_at = now()');
     expect(query.mock.calls[0][1]).toEqual([
       row.id,
