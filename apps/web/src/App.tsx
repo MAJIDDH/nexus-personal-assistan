@@ -55,7 +55,7 @@ function NeuralMap({online,onNavigate}:{online:boolean;onNavigate:(page:Page)=>v
  ];
  return <section className="neural-section" aria-label="هسته عصبی نکسوس">
   <div className="neural-map">
-   <div className="neural-topline"><span className="eyebrow">PERSONAL INTELLIGENCE SYSTEM</span><span className="neural-status"><i className={online?'connected':''}/>{online?'هسته محلی فعال':'در انتظار اتصال'}</span></div>
+   <div className="neural-topline"><span className="eyebrow">NEXUS · PERSONAL ASSISTANT</span><span className="neural-status"><i className={online?'connected':''}/>{online?'هسته محلی فعال':'در انتظار اتصال'}</span></div>
    <svg className="neural-wires" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
     <defs>
      <radialGradient id="nexusAura"><stop offset="0" stopColor="#a6f4ff" stopOpacity=".16"/><stop offset=".45" stopColor="#258dbb" stopOpacity=".08"/><stop offset="1" stopColor="#07101d" stopOpacity="0"/></radialGradient>
@@ -81,7 +81,7 @@ function NeuralMap({online,onNavigate}:{online:boolean;onNavigate:(page:Page)=>v
    {nodes.map(n=><button type="button" className={'neural-node '+n.pos+' '+n.tone} key={n.pos} onClick={()=>onNavigate(n.page)} aria-label={'ورود به '+n.title}>
     <span className="node-orb"><span className="node-icon">{n.icon}</span><i className="node-halo"/></span><b>{n.title}</b><small>{n.sub}</small><span className={'node-state '+(n.active?'node-active':'node-planned')}><i/>{n.active?(online?'متصل به هسته':'ماژول محلی'):'در حال توسعه'}</span>
    </button>)}
-   <div className="neural-bottomline"><span>LOCAL-FIRST · PRIVATE BY DESIGN</span><span>۸ مسیر · ۲ ماژول متصل</span></div>
+   <div className="neural-bottomline"><span>LOCAL-FIRST · PRIVATE BY DESIGN</span><span>۸ ماژول · اتصال‌های واقعی در حال توسعه</span></div>
   </div>
  </section>;
 }
