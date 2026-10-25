@@ -64,6 +64,11 @@ export function ContextPanel({ active, onClose }: { active: ModuleId; onClose: (
   const [editingIdeaId, setEditingIdeaId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editConcept, setEditConcept] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [taskImportance, setTaskImportance] = useState(3);
+  const [taskUrgency, setTaskUrgency] = useState(3);
+  const [savingTask, setSavingTask] = useState(false);
   useEffect(() => {
     if (active !== "tasks" && active !== "ideas") return;
     const controller = new AbortController(); setLoading(true); setError("");
@@ -75,6 +80,25 @@ export function ContextPanel({ active, onClose }: { active: ModuleId; onClose: (
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
   }, [active, reload]);
+
+  const createTask = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!taskTitle.trim()) return;
+    setSavingTask(true); setError("");
+    try {
+      const response = await fetch("/api/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: taskTitle.trim(), description: taskDescription.trim(), project_key: "golddyousefi", importance: taskImportance, urgency: taskUrgency }),
+      });
+      if (!response.ok) throw new Error("Task create failed");
+      const created: Task = await response.json();
+      setTasks(old => [created, ...old]);
+      setTaskTitle(""); setTaskDescription(""); setTaskImportance(3); setTaskUrgency(3);
+    } catch {
+      setError("ذخیرهٔ وظیفه انجام نشد؛ اتصال API را بررسی کن و دوباره تلاش کن.");
+    } finally { setSavingTask(false); }
+  };
 
   const createIdea = async (event: FormEvent) => {
     event.preventDefault();
@@ -140,7 +164,26 @@ export function ContextPanel({ active, onClose }: { active: ModuleId; onClose: (
       {active !== "assistant" && <button onClick={onClose} aria-label="بستن" className="rounded-md p-1 text-muted-foreground hover:bg-accent hover:text-foreground"><X className="h-4 w-4" /></button>}
     </div>
     {!m.ready ? <div className="rounded-lg border border-dashed border-warn/40 p-4 text-center"><Construction className="mx-auto mb-2 h-5 w-5 text-warn" /><p className="text-sm text-warn">در حال توسعه</p><p className="mt-1 text-xs leading-6 text-muted-foreground">این بخش هنوز ساخته نشده و به هیچ سرویسی متصل نیست.</p></div>
-    : active === "tasks" ? <div className="space-y-2">
+    : active === "tasks" ? <div className="max-h-[70vh] space-y-3 overflow-y-auto pe-1">
+      <form onSubmit={createTask} className="space-y-2 rounded-lg border border-border/70 p-3">
+        <p className="text-xs font-medium">وظیفهٔ جدید · گالری طلا یوسفی</p>
+        <label className="block text-xs text-muted-foreground">عنوان وظیفه
+          <input value={taskTitle} onChange={e => setTaskTitle(e.target.value)} maxLength={200} required placeholder="مثلاً آماده‌کردن سناریوی ریل" className="mt-1 h-9 w-full rounded-md border border-border bg-background px-2 text-sm text-foreground" />
+        </label>
+        <label className="block text-xs text-muted-foreground">توضیحات (اختیاری)
+          <textarea value={taskDescription} onChange={e => setTaskDescription(e.target.value)} maxLength={5000} rows={2} placeholder="جزئیات انجام کار…" className="mt-1 w-full rounded-md border border-border bg-background p-2 text-sm text-foreground" />
+        </label>
+        <div className="grid grid-cols-2 gap-2">
+          <label className="block text-xs text-muted-foreground">اهمیت: {taskImportance}/5
+            <input type="range" min={1} max={5} value={taskImportance} onChange={e => setTaskImportance(Number(e.target.value))} className="mt-2 block w-full accent-primary" />
+          </label>
+          <label className="block text-xs text-muted-foreground">فوریت: {taskUrgency}/5
+            <input type="range" min={1} max={5} value={taskUrgency} onChange={e => setTaskUrgency(Number(e.target.value))} className="mt-2 block w-full accent-primary" />
+          </label>
+        </div>
+        <button type="submit" disabled={savingTask || !taskTitle.trim()} className="w-full rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground disabled:opacity-50">{savingTask ? "در حال ذخیره…" : "ثبت وظیفه"}</button>
+      </form>
+      <div className="flex items-center justify-between"><p className="text-[11px] text-muted-foreground">وظایف واقعی · گالری طلا یوسفی</p><button onClick={() => setReload(v => v + 1)} aria-label="بارگذاری مجدد" className="text-muted-foreground"><RefreshCw className="h-3 w-3" /></button></div>
       <div className="flex items-center justify-between"><p className="text-[11px] text-muted-foreground">وظایف واقعی · گالری طلا یوسفی</p><button onClick={() => setReload(v => v + 1)} aria-label="بارگذاری مجدد" className="text-muted-foreground"><RefreshCw className="h-3 w-3" /></button></div>
       {loading && <p className="text-xs text-muted-foreground">در حال بارگذاری…</p>}{error && <LoadError message={error} onRetry={() => setReload(v => v + 1)} />}
       {!loading && !error && tasks.length === 0 && <p className="rounded-lg bg-secondary px-3 py-3 text-xs text-muted-foreground">وظیفه‌ای برای این پروژه ثبت نشده است.</p>}
