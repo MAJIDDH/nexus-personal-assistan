@@ -83,3 +83,7 @@
 .idea-readiness.ready{color:#83e2c8;border-color:rgba(98,217,189,.25);background:rgba(98,217,189,.06)}
 
 .idea-safety-note{margin:0;padding:10px 12px;border:1px solid rgba(231,181,104,.22);border-radius:9px;background:rgba(231,181,104,.055);color:#d9c08f;font-size:10px;line-height:1.9}
+
+/* Lovable neural-fiber field integrated without replacing live NEXUS features. */
+.shell-home .neural-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.9;z-index:0}
+.shell-home .neural-topline,.shell-home .neural-core,.shell-home .neural-node{z-index:2}
