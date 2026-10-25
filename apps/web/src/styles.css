@@ -235,3 +235,27 @@
  .shell-home .neural-wires{inset:8% -12%;width:124%;height:84%}
 }
 @media(prefers-reduced-motion:reduce){.shell-home .fiber-signal,.shell-home .dust,.shell-home .core-rings,.shell-home .core-rings:before,.shell-home .core-rings:after,.shell-home .neural-core:after,.shell-home .core-pulse{animation:none}}
+
+
+/* Approved NEXUS neural-field core: replace the circular reactor with a dense, branching axon network. */
+.shell-home .neural-core{width:min(46vw,590px);height:min(37vw,420px);border:0;border-radius:0;background:none;box-shadow:none;overflow:visible;display:block}
+.shell-home .neural-core:before,.shell-home .neural-core:after{content:none}
+.shell-home .core-neural-field{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 8px #087cb8aa)}
+.shell-home .core-axon{fill:none;stroke:#159bd5;stroke-width:1.05;stroke-linecap:round;opacity:.55}
+.shell-home .core-axon.axon-1{stroke:#16d9e1;opacity:.67}
+.shell-home .core-axon.axon-2{stroke:#7068ff;opacity:.62}
+.shell-home .core-axon.axon-3{stroke:#2b80ff;opacity:.7}
+.shell-home .core-axon-signal{fill:none;stroke:#a8faff;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1 28;filter:drop-shadow(0 0 4px #42dfff);animation:coreAxonTravel 5.8s linear infinite;opacity:.88}
+.shell-home .axon-1+.core-axon-signal{stroke:#b3fff2;animation-duration:7s}
+.shell-home .core-synapse{fill:#a9faff;opacity:.7;filter:drop-shadow(0 0 5px #23cfff);animation:coreSynapsePulse 3.8s ease-in-out infinite}
+.shell-home .core-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;min-width:150px;padding:13px 18px;border-radius:18px;background:radial-gradient(ellipse,rgba(3,16,34,.94),rgba(3,12,24,.74) 68%,transparent);text-align:center;z-index:2}
+.shell-home .core-mark{font-size:30px;line-height:1;color:#6af2ff;text-shadow:0 0 20px #19cfff;margin:0}
+.shell-home .core-title b{font-size:19px;letter-spacing:4px;font-weight:500;color:#edfbff;text-shadow:0 0 20px #32baff66}
+.shell-home .core-title small{font-size:8px;letter-spacing:2.5px;color:#7fc5e2}
+.shell-home .core-title .core-dot{position:static;display:block;width:5px;height:5px;margin-top:3px;border-radius:50%;background:#68edce;box-shadow:0 0 9px #68edce}
+.shell-home .core-title .core-dot.offline{background:#d7a66b;box-shadow:0 0 8px #d7a66b}
+@keyframes coreAxonTravel{to{stroke-dashoffset:-174}}
+@keyframes coreSynapsePulse{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.95;transform:scale(1.5)}}
+@media(max-width:900px){.shell-home .neural-core{width:min(56vw,460px);height:min(48vw,340px)}}
+@media(max-width:560px){.shell-home .neural-core{width:86vw;height:58vw;max-height:300px}.shell-home .core-title{min-width:110px;padding:8px 12px}.shell-home .core-mark{font-size:22px}.shell-home .core-title b{font-size:13px;letter-spacing:3px}.shell-home .core-title small{font-size:6px;letter-spacing:2px}}
+@media(prefers-reduced-motion:reduce){.shell-home .core-axon-signal,.shell-home .core-synapse{animation:none}}
