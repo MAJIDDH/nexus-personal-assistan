@@ -57,6 +57,13 @@ export function ContextPanel({ active, onClose }: { active: ModuleId; onClose: (
   const [tasks, setTasks] = useState<Task[]>([]); const [ideas, setIdeas] = useState<Idea[]>([]);
   const [loading, setLoading] = useState(false); const [error, setError] = useState("");
   const [reload, setReload] = useState(0);
+  const [ideaTitle, setIdeaTitle] = useState("");
+  const [ideaConcept, setIdeaConcept] = useState("");
+  const [ideaObjective, setIdeaObjective] = useState("grow_followers");
+  const [savingIdea, setSavingIdea] = useState(false);
+  const [editingIdeaId, setEditingIdeaId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editConcept, setEditConcept] = useState("");
   useEffect(() => {
     if (active !== "tasks" && active !== "ideas") return;
     const controller = new AbortController(); setLoading(true); setError("");
@@ -68,6 +75,55 @@ export function ContextPanel({ active, onClose }: { active: ModuleId; onClose: (
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
   }, [active, reload]);
+
+  const createIdea = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!ideaTitle.trim() || !ideaConcept.trim()) return;
+    setSavingIdea(true); setError("");
+    try {
+      const response = await fetch("/api/content-ideas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: ideaTitle.trim(), concept: ideaConcept.trim(), objective: ideaObjective }),
+      });
+      if (!response.ok) throw new Error("Idea create failed");
+      const created: Idea = await response.json();
+      setIdeas(old => [created, ...old]);
+      setIdeaTitle(""); setIdeaConcept(""); setIdeaObjective("grow_followers");
+    } catch {
+      setError("ذخیرهٔ ایده انجام نشد؛ اتصال API را بررسی کن و دوباره تلاش کن.");
+    } finally { setSavingIdea(false); }
+  };
+
+  const saveIdeaEdit = async (idea: Idea) => {
+    if (!editTitle.trim() || !editConcept.trim()) return;
+    setError("");
+    try {
+      const response = await fetch(`/api/content-ideas/${idea.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: editTitle.trim(), concept: editConcept.trim() }),
+      });
+      if (!response.ok) throw new Error("Idea update failed");
+      const updated: Idea = await response.json();
+      setIdeas(old => old.map(item => item.id === updated.id ? updated : item));
+      setEditingIdeaId(null);
+    } catch {
+      setError("ویرایش ذخیره نشد؛ فقط پیش‌نویس‌ها قابل ویرایش هستند.");
+    }
+  };
+
+  const submitIdeaForReview = async (idea: Idea) => {
+    setError("");
+    try {
+      const response = await fetch(`/api/content-ideas/${idea.id}/submit-for-review`, { method: "POST" });
+      if (!response.ok) throw new Error("Idea review submission failed");
+      const updated: Idea = await response.json();
+      setIdeas(old => old.map(item => item.id === updated.id ? updated : item));
+    } catch {
+      setError("ارسال برای بررسی انجام نشد؛ احتمالاً ایده دیگر در وضعیت پیش‌نویس نیست.");
+    }
+  };
 
   const changeTaskStatus = async (task: Task, checked: boolean) => {
     const status = checked ? "completed" : "open";
@@ -90,7 +146,38 @@ export function ContextPanel({ active, onClose }: { active: ModuleId; onClose: (
       {!loading && !error && tasks.length === 0 && <p className="rounded-lg bg-secondary px-3 py-3 text-xs text-muted-foreground">وظیفه‌ای برای این پروژه ثبت نشده است.</p>}
       {tasks.map(task => <label key={task.id} className="flex items-start gap-2 rounded-lg bg-secondary px-3 py-2 text-sm"><input type="checkbox" checked={task.status === "completed"} disabled={task.status === "cancelled" || task.status === "completed"} onChange={e => void changeTaskStatus(task, e.target.checked)} className="mt-1 accent-primary" /><span className={cn(task.status === "completed" && "text-muted-foreground line-through")}><span className="block">{task.title}</span><span className="mt-1 block text-[10px] text-muted-foreground">اولویت {task.priority_score} · {task.status === "in_progress" ? "در حال انجام" : task.status === "completed" ? "تکمیل‌شده" : task.status === "cancelled" ? "لغوشده" : "باز"}</span></span></label>)}
     </div>
-    : active === "ideas" ? <div className="space-y-2"><p className="text-[11px] text-muted-foreground">ایده‌های ذخیره‌شده در پایگاه داده</p>{loading && <p className="text-xs text-muted-foreground">در حال بارگذاری…</p>}{error && <LoadError message={error} onRetry={() => setReload(v => v + 1)} />}{!loading && !error && ideas.length === 0 && <p className="rounded-lg bg-secondary px-3 py-3 text-xs text-muted-foreground">هنوز ایده‌ای ثبت نشده است.</p>}{ideas.map(idea => <div key={idea.id} className="rounded-lg bg-secondary px-3 py-2"><p className="text-sm">{idea.title}</p><p className="mt-1 text-[10px] text-muted-foreground">{idea.status === "draft" ? "پیش‌نویس" : idea.status === "in_review" ? "در انتظار بررسی" : idea.status === "approved" ? "تأییدشده" : "بایگانی‌شده"}</p></div>)}</div>
+    : active === "ideas" ? <div className="max-h-[70vh] space-y-3 overflow-y-auto pe-1">
+      <p className="text-[11px] text-muted-foreground">ایده‌های محتوا · ذخیره‌شده در پایگاه داده</p>
+      <form onSubmit={createIdea} className="space-y-2 rounded-lg border border-border/70 p-3">
+        <label className="block text-xs text-muted-foreground">عنوان ایده
+          <input value={ideaTitle} onChange={e => setIdeaTitle(e.target.value)} maxLength={160} required placeholder="مثلاً معرفی زنجیرهای جدید" className="mt-1 h-9 w-full rounded-md border border-border bg-background px-2 text-sm text-foreground" />
+        </label>
+        <label className="block text-xs text-muted-foreground">سناریو یا توضیح
+          <textarea value={ideaConcept} onChange={e => setIdeaConcept(e.target.value)} maxLength={5000} required rows={3} placeholder="ایدهٔ ویدیو، پیام اصلی و نحوهٔ اجرا…" className="mt-1 w-full rounded-md border border-border bg-background p-2 text-sm text-foreground" />
+        </label>
+        <label className="block text-xs text-muted-foreground">هدف
+          <select value={ideaObjective} onChange={e => setIdeaObjective(e.target.value)} className="mt-1 h-9 w-full rounded-md border border-border bg-background px-2 text-sm text-foreground">
+            <option value="grow_followers">رشد دنبال‌کننده</option>
+            <option value="increase_sales">افزایش فروش</option>
+            <option value="increase_engagement">افزایش تعامل</option>
+            <option value="educate">آموزش مخاطب</option>
+          </select>
+        </label>
+        <button type="submit" disabled={savingIdea || !ideaTitle.trim() || !ideaConcept.trim()} className="w-full rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground disabled:opacity-50">{savingIdea ? "در حال ذخیره…" : "ذخیرهٔ پیش‌نویس"}</button>
+      </form>
+      {loading && <p className="text-xs text-muted-foreground">در حال بارگذاری…</p>}
+      {error && <LoadError message={error} onRetry={() => setReload(v => v + 1)} />}
+      {!loading && !error && ideas.length === 0 && <p className="rounded-lg bg-secondary px-3 py-3 text-xs text-muted-foreground">هنوز ایده‌ای ثبت نشده است.</p>}
+      {ideas.map(idea => <div key={idea.id} className="space-y-2 rounded-lg bg-secondary px-3 py-3">
+        {editingIdeaId === idea.id ? <div className="space-y-2">
+          <input value={editTitle} onChange={e => setEditTitle(e.target.value)} maxLength={160} aria-label="عنوان ویرایش‌شده" className="h-9 w-full rounded-md border border-border bg-background px-2 text-sm text-foreground" />
+          <textarea value={editConcept} onChange={e => setEditConcept(e.target.value)} maxLength={5000} rows={3} aria-label="توضیح ویرایش‌شده" className="w-full rounded-md border border-border bg-background p-2 text-sm text-foreground" />
+          <div className="flex gap-2"><button type="button" onClick={() => void saveIdeaEdit(idea)} className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">ذخیره</button><button type="button" onClick={() => setEditingIdeaId(null)} className="rounded-md border border-border px-3 py-1.5 text-xs">انصراف</button></div>
+        </div> : <><p className="text-sm font-medium">{idea.title}</p><p className="whitespace-pre-wrap text-xs leading-5 text-muted-foreground">{idea.concept}</p><p className="text-[10px] text-muted-foreground">{idea.status === "draft" ? "پیش‌نویس" : idea.status === "in_review" ? "در انتظار بررسی" : idea.status === "approved" ? "تأییدشده" : "بایگانی‌شده"}</p>
+          {idea.status === "draft" && <div className="flex flex-wrap gap-2"><button type="button" onClick={() => { setEditingIdeaId(idea.id); setEditTitle(idea.title); setEditConcept(idea.concept); }} className="rounded-md border border-border px-2 py-1 text-[11px]">ویرایش</button><button type="button" onClick={() => void submitIdeaForReview(idea)} className="rounded-md border border-primary/40 px-2 py-1 text-[11px] text-primary">ارسال برای بررسی</button></div>}
+        </>}
+      </div>)}
+    </div>
     : active === "memory" ? <div className="space-y-3 text-sm leading-7 text-muted-foreground"><p>حافظهٔ قابل مدیریت در مرحلهٔ بعدی پیاده‌سازی می‌شود.</p><p className="text-xs">اطلاعات نمونه به‌عنوان حافظهٔ واقعی نمایش داده نمی‌شود.</p></div>
     : <div className="space-y-3 text-sm leading-7 text-muted-foreground"><p>سلام! من نکسوس هستم. یک گره را روی شبکه انتخاب کنید یا در کادر پایین بنویسید.</p><p className="text-xs">گفت‌وگوی هوشمند هنوز به مدل AI متصل نشده است.</p></div>}
   </aside>;
