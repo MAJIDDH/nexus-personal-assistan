@@ -200,7 +200,8 @@ export function NeuralField({ className }: { className?: string }) {
         const pts = data.fibers[p.f]!.pts;
         p.t += p.v * 0.6;
         if (p.t >= pts.length) {
-          const candidates = data.fibers.map((fiber, index) => ({ index, length: fiber.pts.length })).filter((fiber) => fiber.length > 30);\n          p.f = candidates[Math.floor(Math.random() * candidates.length)]?.index ?? 0;
+          const candidates = data.fibers.map((fiber, index) => ({ index, length: fiber.pts.length })).filter((fiber) => fiber.length > 30);
+          p.f = candidates[Math.floor(Math.random() * candidates.length)]?.index ?? 0;
           p.t = 0;
           continue;
         }
