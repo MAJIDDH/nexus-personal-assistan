@@ -315,7 +315,5 @@
 }
 
 /* Lovable neural-fiber field integrated without replacing live NEXUS features. */
-.shell-home .neural-map{overflow:hidden}
 .shell-home .neural-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.9;z-index:0}
 .shell-home .neural-topline,.shell-home .neural-core,.shell-home .neural-node{z-index:2}
-@media(prefers-reduced-motion:reduce){.shell-home .neural-canvas{display:none}}
