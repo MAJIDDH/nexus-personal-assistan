@@ -1,20 +1,23 @@
-import './styles.css';
+import { useState } from 'react';
+import { NeuralField } from './components/nexus/NeuralField';
+import { ModuleNodes } from './components/nexus/ModuleNodes';
+import { NavRail, TopBar, ContextPanel, CommandBar } from './components/nexus/Shell';
+import type { ModuleId } from './lib/modules';
 
-/**
- * NEXUS main UI is the original Lovable prototype, embedded without restyling
- * or merging it with the legacy dashboard. The prototype's module data/actions
- * remain demo-only until they are wired to the API in a separate integration.
- */
 export default function App() {
+  const [active, setActive] = useState<ModuleId>('assistant');
   return (
-    <main className="lovable-root" aria-label="NEXUS Lovable interface">
-      <iframe
-        className="lovable-frame"
-        src="https://id-preview--2bf607a0-3025-421d-812b-8fa3da10b44e.lovable.app/"
-        title="NEXUS — رابط اصلی طراحی‌شده در Lovable"
-        allow="clipboard-read; clipboard-write"
-        referrerPolicy="strict-origin-when-cross-origin"
-      />
-    </main>
+    <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
+      <NavRail active={active} onSelect={setActive} />
+      <main className="relative flex flex-1 flex-col">
+        <NeuralField className="absolute inset-0 h-full w-full" />
+        <TopBar />
+        <div className="relative flex-1">
+          <ModuleNodes active={active} onOpen={setActive} />
+        </div>
+        <ContextPanel active={active} onClose={() => setActive('assistant')} />
+        <CommandBar />
+      </main>
+    </div>
   );
 }
