@@ -1,0 +1,80 @@
+{
+  "name": "NEXUS — گزارش وظایف گالری طلا یوسفی",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "nexus-manual-trigger",
+      "name": "اجرای دستی گزارش",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:3000/api/tasks?project=golddyousefi&status=open",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "nexus-fetch-open-tasks",
+      "name": "دریافت وظایف باز از NEXUS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "پیش‌نیاز: API باید از داخل کانتینر n8n قابل دسترسی باشد. API فعلی به 127.0.0.1 میزبان bind شده و به‌صورت پیش‌فرض این اتصال کار نخواهد کرد؛ راهنمای docs/n8n-task-report.md را ببینید."
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $input.first().json;\nconst tasks = Array.isArray(payload) ? payload : (Array.isArray(payload.data) ? payload.data : (Array.isArray(payload.tasks) ? payload.tasks : []));\nconst fa = (value) => new Intl.NumberFormat('fa-IR').format(value);\nconst lines = ['گزارش وظایف گالری طلا یوسفی', 'تعداد وظایف باز: ' + fa(tasks.length), ''];\nif (tasks.length === 0) {\n  lines.push('در حال حاضر وظیفه بازی در پاسخ API پیدا نشد. اگر انتظار وظیفه داشتی، ساختار پاسخ API را بررسی کن.');\n} else {\n  tasks.forEach((task, index) => {\n    lines.push((index + 1) + '. ' + (task.title || 'بدون عنوان'));\n    if (task.priority_score !== undefined && task.priority_score !== null) lines.push('   اولویت: ' + fa(task.priority_score));\n    if (task.due_at) lines.push('   موعد: ' + task.due_at);\n    else lines.push('   موعد: بدون موعد');\n    lines.push('   وضعیت: ' + (task.status || 'نامشخص'));\n    lines.push('');\n  });\n}\nreturn [{ json: { report: lines.join('\\n'), open_task_count: tasks.length, tasks } }];"
+      },
+      "id": "nexus-format-persian-report",
+      "name": "ساخت گزارش فارسی",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        760,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "اجرای دستی گزارش": {
+      "main": [
+        [
+          {
+            "node": "دریافت وظایف باز از NEXUS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "دریافت وظایف باز از NEXUS": {
+      "main": [
+        [
+          {
+            "node": "ساخت گزارش فارسی",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "nexus-task-report-v1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
