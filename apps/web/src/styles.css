@@ -138,3 +138,17 @@
  .shell-neural-home .neural-section{align-self:stretch}
  .shell-neural-home .neural-map{height:clamp(400px,55vh,520px)}
 }
+
+/* Final cleanup: remove the legacy dashboard header from the Lovable-style home. */
+.shell-neural-home .topbar{justify-content:flex-start;border-bottom:1px solid rgba(39,66,83,.55)}
+.shell-neural-home .topbar>div:first-child{display:none}
+.shell-neural-home .topbar:before{content:"N E X U S";font-weight:700;letter-spacing:.34em;font-size:19px;color:#35e0e0;text-shadow:0 0 18px #11c9d455;direction:ltr}
+.shell-neural-home .top-right{margin-inline-start:auto}
+.shell-neural-home .connection{font-size:11px}
+.shell-neural-home .icon-btn{border-radius:9px}
+.shell-neural-home .neural-heading{display:none}
+.shell-neural-home .neural-caption{margin-top:4px;text-align:center;color:#66889a;font-size:10px}
+.shell-neural-home .neural-section{margin-top:8px}
+.shell-neural-home .neural-map{height:clamp(390px,60vh,620px)}
+@media(max-width:1050px){.shell-neural-home .neural-map{height:clamp(400px,58vh,560px)}}
+@media(prefers-reduced-motion:reduce){.shell-neural-home *, .shell-neural-home *:before,.shell-neural-home *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
