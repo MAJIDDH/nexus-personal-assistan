@@ -101,3 +101,59 @@
 .module-symbol{display:grid;place-items:center;width:68px;height:68px;border:1px solid #3a9d9b;border-radius:22px;color:#7debd5;font-size:34px;background:#102a30;box-shadow:0 0 35px #42dfc51c}
 .module-placeholder h1{font-size:24px;margin:20px 0 8px}.module-placeholder p{color:#a5b7c9;line-height:1.9}.module-placeholder>span{color:#77899e;font-size:11px;margin:10px 0 20px}
 @media(max-width:760px){.shell-home .neural-map{height:100svh;min-height:620px}.shell-home .neural-node{width:116px;min-height:92px}.shell-home .neural-core{width:98px;height:98px}.shell-home .n1{left:0;top:16%}.shell-home .n2{left:calc(50% - 58px);top:0}.shell-home .n3{right:0;top:16%}.shell-home .n4{left:0;top:42%}.shell-home .n5{right:0;top:42%}.shell-home .n6{left:0;bottom:1%}.shell-home .n7{right:0;bottom:1%}.shell-home .n8{left:calc(50% - 58px);bottom:0}}
+
+
+/* NEXUS visual reset: organic neural field, no floating dashboard cards */
+.shell-home{color:#eaf6ff;background:#02050b;overflow:hidden}
+.shell-home .neural-section{background:radial-gradient(ellipse at 50% 48%,rgba(11,45,68,.55) 0%,rgba(4,12,23,.9) 36%,#02050a 75%)}
+.shell-home .neural-section:before{opacity:.08;background-size:54px 54px}
+.shell-home .neural-map{width:min(100%,1500px);min-height:600px;filter:saturate(.82)}
+.shell-home .neural-wires{inset:2% 0;width:100%;height:96%;overflow:visible}
+.shell-home .wire{stroke:#1e6e92;stroke-width:1;opacity:.45}
+.shell-home .wire-1,.shell-home .wire-6{stroke:#6d5da8}
+.shell-home .wire-2,.shell-home .wire-4{stroke:#42b9a9}
+.shell-home .wire-3{stroke:#8e4f8d}
+.shell-home .wire-5{stroke:#3986aa}
+.shell-home .wire-7{stroke:#ad8b50}
+.shell-home .pulse{stroke:#b0f8ff;stroke-width:1.5;stroke-dasharray:1 38;opacity:.85;filter:drop-shadow(0 0 5px #50dfff);animation-duration:7s}
+.shell-home .pulse-1,.shell-home .pulse-6{stroke:#c6b3ff;animation-duration:9s}
+.shell-home .pulse-2,.shell-home .pulse-4{stroke:#91ffe3;animation-duration:8s}
+.shell-home .pulse-3{stroke:#ffc2ee;animation-duration:10s}
+.shell-home .star{opacity:.24;filter:drop-shadow(0 0 3px currentColor)}
+.shell-home .neural-core{width:205px;height:205px;border:0;background:radial-gradient(circle at 50% 45%,rgba(72,198,231,.18),rgba(14,61,91,.12) 36%,rgba(3,11,22,.1) 70%);box-shadow:0 0 80px rgba(37,165,220,.12),inset 0 0 50px rgba(54,199,239,.08);backdrop-filter:blur(1px)}
+.shell-home .neural-core:before,.shell-home .neural-core:after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.shell-home .neural-core:before{inset:13px;border:1px solid rgba(90,213,246,.23);box-shadow:0 0 35px rgba(53,194,245,.1),inset 0 0 30px rgba(53,194,245,.08)}
+.shell-home .neural-core:after{inset:-12px;border:1px dashed rgba(113,189,223,.18);animation:coreDrift 38s linear infinite}
+.shell-home .core-rings{inset:-24px;border-color:rgba(69,190,225,.14);border-style:solid;animation:coreDrift 32s linear infinite}
+.shell-home .core-rings:before{inset:-15px;border-color:rgba(116,143,255,.14);transform:rotateX(65deg) rotateZ(30deg)}
+.shell-home .core-rings:after{inset:-25px;border-color:rgba(79,225,208,.12);transform:rotateX(65deg) rotateZ(-35deg)}
+@keyframes coreDrift{to{transform:rotate(360deg)}}
+.shell-home .core-mark{font-size:34px;color:#b5f5ff;text-shadow:0 0 22px rgba(62,205,255,.8);margin-bottom:4px}
+.shell-home .neural-core b{font-size:19px;letter-spacing:5px;font-weight:500;color:#f0fbff;text-shadow:0 0 20px rgba(73,202,245,.4)}
+.shell-home .neural-core small{font-size:8px;letter-spacing:3px;color:#78a8bd}
+.shell-home .core-dot{right:42px;top:40px;width:5px;height:5px}
+.shell-home .neural-node{width:160px;min-height:0;padding:0;border:0!important;border-radius:0;background:transparent!important;box-shadow:none!important;gap:6px;transition:transform .35s ease,opacity .35s ease;opacity:.8}
+.shell-home .neural-node:hover{transform:scale(1.06);opacity:1}
+.shell-home .node-icon{width:46px;height:46px;border-radius:50%;border:1px solid currentColor;background:radial-gradient(circle,rgba(23,70,95,.58),rgba(4,15,27,.75));box-shadow:0 0 0 7px rgba(50,155,195,.035),0 0 24px rgba(39,179,222,.13),inset 0 0 18px rgba(75,202,239,.09);font-size:19px;margin-bottom:5px;position:relative}
+.shell-home .node-icon:after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px solid rgba(94,189,220,.12)}
+.shell-home .neural-node.cyan,.shell-home .neural-node.violet,.shell-home .neural-node.teal,.shell-home .neural-node.pink,.shell-home .neural-node.amber,.shell-home .neural-node.blue{color:#8cd7e9}
+.shell-home .neural-node.violet .node-icon,.shell-home .neural-node.blue .node-icon{color:#b5b9ff}
+.shell-home .neural-node.teal .node-icon{color:#8debd6}
+.shell-home .neural-node.pink .node-icon{color:#d7a7df}
+.shell-home .neural-node.amber .node-icon{color:#e2c69b}
+.shell-home .neural-node>b{font-size:12px;font-weight:500;color:#e1f0f6;letter-spacing:.1px}
+.shell-home .neural-node>small{font-size:10px;color:#7797a9;font-weight:400}
+.shell-home .node-state{font-size:8px;color:#638b9b;opacity:.8;margin-top:1px}
+.shell-home .node-state i{width:4px;height:4px;background:#68cbb7;box-shadow:0 0 7px rgba(104,203,183,.6)}
+.shell-home .n1{left:13%;top:18%}.shell-home .n2{left:calc(50% - 80px);top:1%}.shell-home .n3{right:13%;top:18%}.shell-home .n4{left:3%;top:44%}.shell-home .n5{right:3%;top:44%}.shell-home .n6{left:13%;bottom:4%}.shell-home .n7{right:13%;bottom:4%}.shell-home .n8{left:calc(50% - 80px);bottom:0}
+.shell-home .neural-node:focus-visible{outline:1px solid rgba(135,229,255,.8);outline-offset:8px;border-radius:12px}
+@media(max-width:760px){
+ .shell-home .neural-map{min-height:580px;height:100svh}
+ .shell-home .neural-core{width:128px;height:128px}
+ .shell-home .core-mark{font-size:25px}.shell-home .neural-core b{font-size:14px;letter-spacing:3px}.shell-home .neural-core small{font-size:6px}
+ .shell-home .neural-node{width:104px;gap:4px}
+ .shell-home .node-icon{width:34px;height:34px;font-size:15px}
+ .shell-home .neural-node>b{font-size:9px}.shell-home .neural-node>small{font-size:7px}.shell-home .node-state{font-size:7px}
+ .shell-home .n1{left:0;top:15%}.shell-home .n2{left:calc(50% - 52px);top:0}.shell-home .n3{right:0;top:15%}.shell-home .n4{left:0;top:42%}.shell-home .n5{right:0;top:42%}.shell-home .n6{left:0;bottom:1%}.shell-home .n7{right:0;bottom:1%}.shell-home .n8{left:calc(50% - 52px);bottom:0}
+}
+@media(prefers-reduced-motion:reduce){.shell-home .neural-core:after,.shell-home .core-rings{animation:none}}
