@@ -236,7 +236,7 @@ export function NeuralField({ className }: { className?: string }) {
   return <canvas ref={ref} aria-hidden="true" className={className} />;
 }
 
-function NeuralMap({online}:{online:boolean}) {
+function NeuralMap({online,onNavigate,onNotice}:{online:boolean;onNavigate:(page:Page)=>void;onNotice:(message:string)=>void}) {
  const nodes = [
   {title:'ایده‌های محتوا',sub:'تحلیل و برنامه‌ریزی',tone:'cyan',pos:'n1',icon:'✧'},
   {title:'دستیار هوشمند',sub:'گفت‌وگو و راهنمایی',tone:'violet',pos:'n2',icon:'✳'},
@@ -258,7 +258,7 @@ function NeuralMap({online}:{online:boolean}) {
     {Array.from({length:45},(_,i)=><circle key={i} cx={50+(i*173)%900} cy={30+(i*97)%500} r={i%5===0?1.8:1} className={'star star-'+(i%4)}/>)}
    </svg>
    <div className="neural-core"><div className="core-rings"/><div className="core-mark">✳</div><b>NEXUS</b><small>NEURAL CORE</small><i className={online?'core-dot':'core-dot offline'}/></div>
-   {nodes.map(n=><button type="button" className={'neural-node '+n.pos+' '+n.tone} key={n.pos} onClick={()=>{if(n.title==='مدیریت وظایف')setPage('tasks');else if(n.title==='ایده‌های محتوا')setPage('ideas');else setNotice(n.title+' هنوز به‌عنوان بخش مستقل فعال نشده است.')}} aria-label={'باز کردن '+n.title}><span className="node-icon">{n.icon}</span><b>{n.title}</b><small>{n.sub}</small><span className="node-state"><i/>{online?'آماده':'محلی'}</span></button>)}
+   {nodes.map(n=><button type="button" className={'neural-node '+n.pos+' '+n.tone} key={n.pos} onClick={()=>{if(n.title==='مدیریت وظایف')onNavigate('tasks');else if(n.title==='ایده‌های محتوا')onNavigate('ideas');else onNotice(n.title+' هنوز به‌عنوان بخش مستقل فعال نشده است.')}} aria-label={'باز کردن '+n.title}><span className="node-icon">{n.icon}</span><b>{n.title}</b><small>{n.sub}</small><span className="node-state"><i/>{online?'آماده':'محلی'}</span></button>)}
   </div>
   <div className="neural-caption">● این نمای گرافیکی به‌تدریج با قابلیت‌های واقعی نکسوس یکپارچه می‌شود</div>
  </section>;
@@ -311,7 +311,7 @@ export default function App(){
   <main className="main"><header className="topbar"><div>نکسوس <span className="muted">/</span> {page==='home'?'نمای کلی':page==='tasks'?'مدیریت وظایف':'ایده‌های محتوا'}</div><div className="top-right"><span className={online?'connection online':'connection'}><i/> {online?'اتصال محلی برقرار':'در انتظار اتصال'}</span><button className="icon-btn" onClick={()=>void refresh()} title="بروزرسانی">↻</button></div></header>
    <section className="welcome"><div><div className="eyebrow">— پنل کنترل شخصی شما</div><h1>{heading}</h1><p>{page==='home'?'تمرکز امروزت را مشخص کن؛ بقیه مسیر را قدم‌به‌قدم جلو می‌بریم.':page==='tasks'?'کارها را ثبت کن و روند پیشرفت را مدیریت کن.':'ایده‌ها را ثبت و برای بررسی آماده کن؛ انتشار خودکار فعال نیست.'}</p></div><div className="orbit"><div>✳</div></div></section>
    {error&&<div className="alert"><b>خطا</b><span>{error}</span><button onClick={()=>void refresh()}>تلاش مجدد</button></div>}{notice&&<div className="notice" role="status">{notice}<button onClick={()=>setNotice('')} aria-label="بستن پیام">×</button></div>}
-   <NeuralMap online={online}/>
+   <NeuralMap online={online} onNavigate={setPage} onNotice={setNotice}/>
    {page==='home'&&<aside className="nexus-assistant-panel" dir="rtl"><div className="assistant-panel-head"><span className="assistant-avatar">✳</span><div><b>دستیار هوشمند</b><small>{online?'اتصال به هسته برقرار است':'در انتظار اتصال به هسته'}</small></div></div><p>سلام؛ من نکسوس هستم. از من بخواه وظایف را پیگیری کنم یا ایده‌های محتوای گالری را مدیریت کنیم.</p><div className="assistant-panel-foot"><span className={online?'assistant-status is-online':'assistant-status'}></span><span>{online?'داده‌های محلی در دسترس‌اند':'این نسخه هنوز گفت‌وگوی هوشمند زنده ندارد'}</span></div></aside>}
    {page==='home'&&<form className="nexus-command" onSubmit={e=>{e.preventDefault();setNotice('نوار فرمان آماده است، اما موتور گفت‌وگوی هوشمند هنوز پیاده‌سازی نشده. برای کارهای واقعی از بخش وظایف یا ایده‌های محتوا استفاده کن.')}}><span className="command-spark">✧</span><input aria-label="فرمان به نکسوس" placeholder="با نکسوس صحبت کن..." /><button type="submit" aria-label="ارسال فرمان">➤</button></form>}
    <section className="stats">
