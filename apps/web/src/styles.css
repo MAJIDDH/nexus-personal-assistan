@@ -125,3 +125,16 @@
 @media(max-width:1050px){.shell-neural-home .neural-section{width:100%}.nexus-assistant-panel{position:relative;top:auto;right:auto;width:100%;min-height:0;margin-top:12px}.nexus-command{width:100%}}
 @media(max-width:760px){.shell-neural-home .main{padding:0 12px 24px}.shell-neural-home .neural-section{padding:10px 7px}.shell-neural-home .neural-map{height:460px}.shell-neural-home .neural-node{width:105px;min-height:82px;padding:7px 4px}.shell-neural-home .neural-core{width:84px;height:84px}.shell-neural-home .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.shell-neural-home .columns{grid-template-columns:minmax(0,1fr)}.shell-neural-home .priority{display:none}.nexus-command{margin-top:12px}}
 @media(max-width:420px){.shell-neural-home .sidebar{width:56px;padding-inline:6px}.shell-neural-home .main{width:calc(100% - 56px);margin-right:56px;padding-inline:8px}.shell-neural-home .neural-map{height:430px}.shell-neural-home .neural-node{width:88px;min-height:75px}.shell-neural-home .neural-node>b{font-size:8px}.shell-neural-home .neural-node>small{font-size:7px}.shell-neural-home .n2,.shell-neural-home .n8{left:calc(50% - 44px)}}
+
+/* Home is the Lovable neural assistant experience: do not append the legacy dashboard cards. */
+.shell-neural-home .welcome{display:none}
+.shell-neural-home .stats,.shell-neural-home .columns{display:none}
+.shell-neural-home .main{min-height:calc(100vh - 12px);display:flex;flex-direction:column}
+.shell-neural-home .neural-section{flex:1;align-self:flex-start;margin-top:12px}
+.shell-neural-home .neural-map{min-height:330px}
+.shell-neural-home .nexus-command{flex-shrink:0}
+@media(max-width:1050px){
+ .shell-neural-home .main{display:flex}
+ .shell-neural-home .neural-section{align-self:stretch}
+ .shell-neural-home .neural-map{height:clamp(400px,55vh,520px)}
+}
