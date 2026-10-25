@@ -247,7 +247,7 @@ function NeuralMap({online}:{online:boolean}) {
   {title:'تنظیمات سیستم',sub:'پیکربندی و امنیت',tone:'blue',pos:'n7',icon:'⚙'},
   {title:'تحلیل و گزارش',sub:'آمار و روندها',tone:'violet',pos:'n8',icon:'▥'}
  ];
- return <section className="neural-section">
+ return <section className="neural-section" aria-label="هسته عصبی نکسوس">
   <div className="neural-heading"><div><span className="eyebrow">هسته مرکزی نکسوس</span><h2>یک هسته، چندین قابلیت</h2><p>جریان نور میان هسته و ماژول‌های نکسوس</p></div><span className={online?'neural-live live':'neural-live'}><i/>{online?'هسته فعال':'در انتظار اتصال'}</span></div>
   <div className="neural-map">
    <NeuralField className="neural-canvas" />
@@ -258,7 +258,7 @@ function NeuralMap({online}:{online:boolean}) {
     {Array.from({length:45},(_,i)=><circle key={i} cx={50+(i*173)%900} cy={30+(i*97)%500} r={i%5===0?1.8:1} className={'star star-'+(i%4)}/>)}
    </svg>
    <div className="neural-core"><div className="core-rings"/><div className="core-mark">✳</div><b>NEXUS</b><small>NEURAL CORE</small><i className={online?'core-dot':'core-dot offline'}/></div>
-   {nodes.map(n=><article className={'neural-node '+n.pos+' '+n.tone} key={n.pos}><div className="node-icon">{n.icon}</div><b>{n.title}</b><small>{n.sub}</small><span className="node-state"><i/>{online?'آماده':'محلی'}</span></article>)}
+   {nodes.map(n=><button type="button" className={'neural-node '+n.pos+' '+n.tone} key={n.pos} onClick={()=>{if(n.title==='مدیریت وظایف')setPage('tasks');else if(n.title==='ایده‌های محتوا')setPage('ideas');else setNotice(n.title+' هنوز به‌عنوان بخش مستقل فعال نشده است.')}} aria-label={'باز کردن '+n.title}><span className="node-icon">{n.icon}</span><b>{n.title}</b><small>{n.sub}</small><span className="node-state"><i/>{online?'آماده':'محلی'}</span></button>)}
   </div>
   <div className="neural-caption">● این نمای گرافیکی به‌تدریج با قابلیت‌های واقعی نکسوس یکپارچه می‌شود</div>
  </section>;
@@ -300,7 +300,7 @@ export default function App(){
  async function sendFeedback(t:Task,rating:'useful'|'not_useful'|'needs_adjustment'){try{await api('/api/feedback',{method:'POST',body:JSON.stringify({task_id:t.id,rating})});setError('');setNotice('بازخورد شما ذخیره شد.');}catch(x){setNotice('');setError(x instanceof Error?x.message:'ثبت بازخورد ناموفق بود')}}
  const taskRows=page==='home'?tasks.slice(0,5):tasks, ideaRows=page==='home'?ideas.slice(0,3):ideas;
  const heading=page==='home'?'صبح بخیر، آماده‌ای؟':page==='tasks'?'مدیریت وظایف':'ایده‌های محتوا';
- return <div className="shell">
+ return <div className={page==='home'?'shell shell-neural-home':'shell'}>
   <aside className="sidebar"><div className="brand"><div className="brand-mark"><Glyph>✳</Glyph></div><div><b>NEXUS</b><small>PERSONAL INTELLIGENCE</small></div></div>
    <p className="side-label">فضای کاری</p><nav>
     <button className={page==='home'?'nav active':'nav'} onClick={()=>setPage('home')}><Glyph>⌂</Glyph> نمای کلی</button>
@@ -312,6 +312,8 @@ export default function App(){
    <section className="welcome"><div><div className="eyebrow">— پنل کنترل شخصی شما</div><h1>{heading}</h1><p>{page==='home'?'تمرکز امروزت را مشخص کن؛ بقیه مسیر را قدم‌به‌قدم جلو می‌بریم.':page==='tasks'?'کارها را ثبت کن و روند پیشرفت را مدیریت کن.':'ایده‌ها را ثبت و برای بررسی آماده کن؛ انتشار خودکار فعال نیست.'}</p></div><div className="orbit"><div>✳</div></div></section>
    {error&&<div className="alert"><b>خطا</b><span>{error}</span><button onClick={()=>void refresh()}>تلاش مجدد</button></div>}{notice&&<div className="notice" role="status">{notice}<button onClick={()=>setNotice('')} aria-label="بستن پیام">×</button></div>}
    <NeuralMap online={online}/>
+   {page==='home'&&<aside className="nexus-assistant-panel" dir="rtl"><div className="assistant-panel-head"><span className="assistant-avatar">✳</span><div><b>دستیار هوشمند</b><small>{online?'اتصال به هسته برقرار است':'در انتظار اتصال به هسته'}</small></div></div><p>سلام؛ من نکسوس هستم. از من بخواه وظایف را پیگیری کنم یا ایده‌های محتوای گالری را مدیریت کنیم.</p><div className="assistant-panel-foot"><span className={online?'assistant-status is-online':'assistant-status'}></span><span>{online?'داده‌های محلی در دسترس‌اند':'این نسخه هنوز گفت‌وگوی هوشمند زنده ندارد'}</span></div></aside>}
+   {page==='home'&&<form className="nexus-command" onSubmit={e=>{e.preventDefault();setNotice('نوار فرمان آماده است، اما موتور گفت‌وگوی هوشمند هنوز پیاده‌سازی نشده. برای کارهای واقعی از بخش وظایف یا ایده‌های محتوا استفاده کن.')}}><span className="command-spark">✧</span><input aria-label="فرمان به نکسوس" placeholder="با نکسوس صحبت کن..." /><button type="submit" aria-label="ارسال فرمان">➤</button></form>}
    <section className="stats">
     <article className="stat"><div>وظایف باز <span className="stat-icon purple">◷</span></div><strong>{counts.open.toLocaleString('fa-IR')}</strong><small>نیازمند اقدام</small></article>
     <article className="stat"><div>در حال انجام <span className="stat-icon blue">↗</span></div><strong>{counts.progress.toLocaleString('fa-IR')}</strong><small>در جریان کار</small></article>
