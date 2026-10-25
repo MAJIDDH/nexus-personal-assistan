@@ -24,25 +24,54 @@ async function api<T>(url:string, options?:RequestInit):Promise<T>{
 function Glyph({children}:{children:string}){return <span className="glyph" aria-hidden="true">{children}</span>}
 function NeuralMap({online,onNavigate}:{online:boolean;onNavigate:(page:Page)=>void}) {
  const nodes = [
-  {title:'ایده‌های محتوا',sub:'تحلیل و برنامه‌ریزی',tone:'cyan',pos:'n1',icon:'✧',page:'ideas' as Page},
-  {title:'دستیار هوشمند',sub:'گفت‌وگو و راهنمایی',tone:'violet',pos:'n2',icon:'✳',page:'assistant' as Page},
-  {title:'مدیریت وظایف',sub:'اولویت‌بندی و پیگیری',tone:'teal',pos:'n3',icon:'✓',page:'tasks' as Page},
-  {title:'بازخوردها',sub:'بهبود مستمر',tone:'pink',pos:'n4',icon:'◌',page:'feedback' as Page},
-  {title:'ارتباطات',sub:'ابزارها و اتصال‌ها',tone:'amber',pos:'n5',icon:'◎',page:'connections' as Page},
-  {title:'حافظه',sub:'سوابق و دانش',tone:'cyan',pos:'n6',icon:'▤',page:'memory' as Page},
-  {title:'تنظیمات سیستم',sub:'پیکربندی و امنیت',tone:'blue',pos:'n7',icon:'⚙',page:'settings' as Page},
-  {title:'تحلیل و گزارش',sub:'آمار و روندها',tone:'violet',pos:'n8',icon:'▥',page:'analytics' as Page}
+  {title:'ایده‌های محتوا',sub:'سناریو و تقویم',tone:'cyan',pos:'n1',icon:'✧',page:'ideas' as Page,active:true},
+  {title:'دستیار هوشمند',sub:'گفت‌وگوی نکسوس',tone:'violet',pos:'n2',icon:'✳',page:'assistant' as Page,active:false},
+  {title:'وظایف',sub:'برنامه و پیگیری',tone:'teal',pos:'n3',icon:'↗',page:'tasks' as Page,active:true},
+  {title:'بازخوردها',sub:'یادگیری سیستم',tone:'pink',pos:'n4',icon:'◌',page:'feedback' as Page,active:false},
+  {title:'اتصال‌ها',sub:'n8n و سرویس‌ها',tone:'amber',pos:'n5',icon:'⌘',page:'connections' as Page,active:false},
+  {title:'حافظه',sub:'دانش و سوابق',tone:'cyan',pos:'n6',icon:'≋',page:'memory' as Page,active:false},
+  {title:'تنظیمات',sub:'کنترل و امنیت',tone:'blue',pos:'n7',icon:'⚙',page:'settings' as Page,active:false},
+  {title:'تحلیل',sub:'گزارش عملکرد',tone:'violet',pos:'n8',icon:'⌁',page:'analytics' as Page,active:false}
  ];
- return <section className="neural-section">
+ const fibers = [
+  'M500 280 C438 244 410 193 355 164 S278 127 214 93',
+  'M500 280 C495 222 500 165 500 92 S500 63 500 39',
+  'M500 280 C562 243 594 196 653 162 S730 124 790 91',
+  'M500 280 C424 280 348 280 267 280 S184 280 112 280',
+  'M500 280 C580 280 655 280 736 280 S815 280 888 280',
+  'M500 280 C434 322 407 369 348 405 S274 444 214 472',
+  'M500 280 C502 345 500 397 500 453 S500 491 500 520',
+  'M500 280 C564 321 597 368 653 402 S730 444 790 472'
+ ];
+ const branches = [
+  'M356 164 C335 148 335 126 314 111','M355 164 C379 145 381 122 402 108',
+  'M500 154 C477 136 471 118 457 105','M500 154 C521 134 531 115 546 101',
+  'M654 162 C630 142 625 120 609 107','M654 162 C679 143 691 124 713 113',
+  'M267 280 C244 258 220 256 197 244','M267 280 C242 300 221 309 195 315',
+  'M736 280 C760 258 783 252 807 239','M736 280 C759 300 786 309 811 319',
+  'M348 405 C323 387 300 385 277 370','M348 405 C326 428 304 440 281 445',
+  'M500 453 C478 433 473 414 459 399','M500 453 C521 433 530 414 545 400',
+  'M653 402 C630 383 610 381 589 366','M653 402 C675 423 697 438 721 445'
+ ];
+ return <section className="neural-section" aria-label="هسته عصبی نکسوس">
   <div className="neural-map">
-   <svg className="neural-wires" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
-    <defs><radialGradient id="coreGlow"><stop offset="0" stopColor="#53d9ff" stopOpacity=".32"/><stop offset="1" stopColor="#2765ff" stopOpacity="0"/></radialGradient></defs>
-    <circle cx="500" cy="280" r="165" fill="url(#coreGlow)"/>
-    {['M500 280 C410 220 320 135 190 90','M500 280 C500 200 500 130 500 55','M500 280 C600 210 700 140 810 95','M500 280 C400 280 270 280 140 280','M500 280 C620 280 740 280 860 280','M500 280 C410 360 320 430 200 470','M500 280 C500 360 500 430 500 505','M500 280 C610 360 710 420 810 465'].map((d,i)=><g key={d}><path d={d} className={'wire wire-'+i}/><path d={d} className={'pulse pulse-'+i}/></g>)}
-    {Array.from({length:45},(_,i)=><circle key={i} cx={50+(i*173)%900} cy={30+(i*97)%500} r={i%5===0?1.8:1} className={'star star-'+(i%4)}/>)}
+   <div className="neural-topline"><span className="eyebrow">PERSONAL INTELLIGENCE SYSTEM</span><span className="neural-status"><i className={online?'connected':''}/>{online?'هسته محلی فعال':'در انتظار اتصال'}</span></div>
+   <svg className="neural-wires" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <defs>
+     <radialGradient id="nexusAura"><stop offset="0" stopColor="#a6f4ff" stopOpacity=".16"/><stop offset=".45" stopColor="#258dbb" stopOpacity=".08"/><stop offset="1" stopColor="#07101d" stopOpacity="0"/></radialGradient>
+     <linearGradient id="fiberGlow"><stop offset="0" stopColor="#245e8a" stopOpacity=".05"/><stop offset=".5" stopColor="#75dce9" stopOpacity=".72"/><stop offset="1" stopColor="#4c83d7" stopOpacity=".1"/></linearGradient>
+     <filter id="softGlow"><feGaussianBlur stdDeviation="3"/></filter>
+    </defs>
+    <circle cx="500" cy="280" r="245" fill="url(#nexusAura)"/>
+    {fibers.map((d,i)=><g key={'f'+i}><path d={d} className="fiber-under"/><path d={d} className={'fiber fiber-'+i}/><path d={d} className={'fiber-signal signal-'+i}/></g>)}
+    {branches.map((d,i)=><g key={'b'+i}><path d={d} className="branch"/><circle cx={[314,402,457,546,609,713,197,195,807,811,277,281,459,545,589,721][i]} cy={[111,108,105,101,107,113,244,315,239,319,370,445,399,400,366,445][i]} r="2" className="synapse"/></g>)}
+    {Array.from({length:90},(_,i)=><circle key={'p'+i} cx={35+(i*137)%930} cy={18+(i*83)%520} r={i%7===0?1.5:.7} className="dust"/>)}
    </svg>
-   <div className="neural-core"><div className="core-rings"/><div className="core-mark">✳</div><b>NEXUS</b><small>NEURAL CORE</small><i className={online?'core-dot':'core-dot offline'}/></div>
-   {nodes.map(n=><button type="button" className={'neural-node '+n.pos+' '+n.tone} key={n.pos} onClick={()=>onNavigate(n.page)} aria-label={'ورود به '+n.title}><span className="node-icon">{n.icon}</span><b>{n.title}</b><small>{n.sub}</small><span className="node-state"><i/>{online?'آماده':'محلی'}</span></button>)}
+   <div className="neural-core"><div className="core-rings"/><div className="core-pulse"/><div className="core-mark">✳</div><b>NEXUS</b><small>NEURAL CORE</small><span className={online?'core-dot':'core-dot offline'}/></div>
+   {nodes.map(n=><button type="button" className={'neural-node '+n.pos+' '+n.tone} key={n.pos} onClick={()=>onNavigate(n.page)} aria-label={'ورود به '+n.title}>
+    <span className="node-orb"><span className="node-icon">{n.icon}</span><i className="node-halo"/></span><b>{n.title}</b><small>{n.sub}</small><span className={'node-state '+(n.active?'node-active':'node-planned')}><i/>{n.active?(online?'متصل به هسته':'ماژول محلی'):'در حال توسعه'}</span>
+   </button>)}
+   <div className="neural-bottomline"><span>LOCAL-FIRST · PRIVATE BY DESIGN</span><span>۸ مسیر · ۲ ماژول متصل</span></div>
   </div>
  </section>;
 }
