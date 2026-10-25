@@ -1,28 +1,101 @@
-html, body, #root {
-  width: 100%;
-  height: 100%;
-  min-width: 320px;
-  min-height: 100%;
-  margin: 0;
-  overflow: hidden;
-  background: #030812;
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-glow: var(--glow);
+  --color-violet: var(--violet);
+  --color-warn: var(--warn);
+  --font-sans: "Vazirmatn", "Sora", system-ui, sans-serif;
+  --font-display: "Sora", "Vazirmatn", sans-serif;
 }
-* { box-sizing: border-box; }
-.lovable-root {
-  width: 100%;
-  height: 100dvh;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: #030812;
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.13 0.025 255);
+  --foreground: oklch(0.94 0.02 220);
+  --card: oklch(0.18 0.03 250 / 55%);
+  --card-foreground: oklch(0.94 0.02 220);
+  --popover: oklch(0.17 0.03 250);
+  --popover-foreground: oklch(0.94 0.02 220);
+  --primary: oklch(0.84 0.14 200);
+  --primary-foreground: oklch(0.15 0.03 250);
+  --secondary: oklch(0.22 0.035 250 / 70%);
+  --secondary-foreground: oklch(0.9 0.03 220);
+  --muted: oklch(0.22 0.03 250 / 60%);
+  --muted-foreground: oklch(0.68 0.04 230);
+  --accent: oklch(0.84 0.14 200 / 12%);
+  --accent-foreground: oklch(0.9 0.1 200);
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.8 0.1 210 / 14%);
+  --input: oklch(0.8 0.1 210 / 18%);
+  --ring: oklch(0.84 0.14 200);
+  --glow: oklch(0.86 0.15 195);
+  --violet: oklch(0.7 0.2 310);
+  --warn: oklch(0.82 0.14 75);
+  --shadow-glow: 0 0 24px -4px color-mix(in oklab, var(--glow) 55%, transparent);
+  --panel-bg: linear-gradient(160deg, oklch(0.2 0.035 250 / 55%), oklch(0.14 0.03 255 / 45%));
 }
-.lovable-frame {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  background: #030812;
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { height: 100%; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+}
+
+@utility glass {
+  background: var(--panel-bg);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid var(--border);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 18px color-mix(in oklab, var(--glow) 60%, transparent);
+}
+
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility fiber-flow {
+  stroke-dasharray: 2 10;
+  animation: fiber-flow 2.4s linear infinite;
+}
+
+@keyframes fiber-flow { to { stroke-dashoffset: -48; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
