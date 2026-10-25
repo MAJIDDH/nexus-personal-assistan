@@ -24,14 +24,14 @@ async function api<T>(url:string, options?:RequestInit):Promise<T>{
 function Glyph({children}:{children:string}){return <span className="glyph" aria-hidden="true">{children}</span>}
 function NeuralMap({online,onNavigate}:{online:boolean;onNavigate:(page:Page)=>void}) {
  const nodes = [
-  {title:'ایده‌های محتوا',sub:'سناریو و تقویم',tone:'cyan',pos:'n1',icon:'✧',page:'ideas' as Page,active:true},
-  {title:'دستیار هوشمند',sub:'گفت‌وگوی نکسوس',tone:'violet',pos:'n2',icon:'✳',page:'assistant' as Page,active:false},
-  {title:'وظایف',sub:'برنامه و پیگیری',tone:'teal',pos:'n3',icon:'↗',page:'tasks' as Page,active:true},
-  {title:'بازخوردها',sub:'یادگیری سیستم',tone:'pink',pos:'n4',icon:'◌',page:'feedback' as Page,active:false},
-  {title:'اتصال‌ها',sub:'n8n و سرویس‌ها',tone:'amber',pos:'n5',icon:'⌘',page:'connections' as Page,active:false},
-  {title:'حافظه',sub:'دانش و سوابق',tone:'cyan',pos:'n6',icon:'≋',page:'memory' as Page,active:false},
-  {title:'تنظیمات',sub:'کنترل و امنیت',tone:'blue',pos:'n7',icon:'⚙',page:'settings' as Page,active:false},
-  {title:'تحلیل',sub:'گزارش عملکرد',tone:'violet',pos:'n8',icon:'⌁',page:'analytics' as Page,active:false}
+  {title:'عامل‌ها',sub:'هماهنگی دستیارها',tone:'violet',pos:'n1',icon:'♧',page:'assistant' as Page,active:false},
+  {title:'وظایف',sub:'برنامه و پیگیری',tone:'teal',pos:'n2',icon:'☷',page:'tasks' as Page,active:true},
+  {title:'ایده‌های محتوا',sub:'سناریو و تقویم',tone:'cyan',pos:'n3',icon:'✧',page:'ideas' as Page,active:true},
+  {title:'گالری طلا یوسفی',sub:'مدیریت کسب‌وکار',tone:'amber',pos:'n4',icon:'◇',page:'connections' as Page,active:false},
+  {title:'اینستاگرام',sub:'محتوا و انتشار',tone:'pink',pos:'n5',icon:'◎',page:'ideas' as Page,active:false},
+  {title:'خودکارسازی',sub:'گردش‌کارهای n8n',tone:'blue',pos:'n6',icon:'⌘',page:'connections' as Page,active:false},
+  {title:'حافظه',sub:'دانش و سوابق',tone:'cyan',pos:'n7',icon:'≋',page:'memory' as Page,active:false},
+  {title:'تحلیل و گزارش',sub:'عملکرد و آمار',tone:'violet',pos:'n8',icon:'⌁',page:'analytics' as Page,active:false}
  ];
  const fibers = [
   'M500 280 C438 244 410 193 355 164 S278 127 214 93',
