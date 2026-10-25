@@ -67,7 +67,15 @@ function NeuralMap({online,onNavigate}:{online:boolean;onNavigate:(page:Page)=>v
     {branches.map((d,i)=><g key={'b'+i}><path d={d} className="branch"/><circle cx={[314,402,457,546,609,713,197,195,807,811,277,281,459,545,589,721][i]} cy={[111,108,105,101,107,113,244,315,239,319,370,445,399,400,366,445][i]} r="2" className="synapse"/></g>)}
     {Array.from({length:90},(_,i)=><circle key={'p'+i} cx={35+(i*137)%930} cy={18+(i*83)%520} r={i%7===0?1.5:.7} className="dust"/>)}
    </svg>
-   <div className="neural-core"><div className="core-rings"/><div className="core-pulse"/><div className="core-mark">✳</div><b>NEXUS</b><small>NEURAL CORE</small><span className={online?'core-dot':'core-dot offline'}/></div>
+   <div className="neural-core" aria-label="هسته عصبی نکسوس">
+    <svg className="core-neural-field" viewBox="0 0 420 300" aria-hidden="true">
+     <defs><radialGradient id="coreFieldGlow"><stop offset="0" stopColor="#62efff" stopOpacity=".28"/><stop offset=".55" stopColor="#1769d5" stopOpacity=".12"/><stop offset="1" stopColor="#07101d" stopOpacity="0"/></radialGradient><filter id="coreFiberGlow"><feGaussianBlur stdDeviation="2.6"/></filter></defs>
+     <ellipse cx="210" cy="150" rx="190" ry="132" fill="url(#coreFieldGlow)"/>
+     {Array.from({length:34},(_,i)=>{const y=28+(i*37)%245;const bend=((i*53)%130)-65;return <g key={'axon'+i}><path d={`M ${-15+(i%5)*8} ${y} C ${85+bend} ${y-72+(i%7)*9}, ${125-bend/2} ${110+(i%9)*11}, 210 ${112+(i%5)*17} S ${300+bend/2} ${80+(i%8)*14}, ${435-(i%4)*8} ${28+(i*29)%245}`} className={'core-axon axon-'+(i%4)}/><path d={`M ${-15+(i%5)*8} ${y} C ${85+bend} ${y-72+(i%7)*9}, ${125-bend/2} ${110+(i%9)*11}, 210 ${112+(i%5)*17} S ${300+bend/2} ${80+(i%8)*14}, ${435-(i%4)*8} ${28+(i*29)%245}`} className="core-axon-signal"/></g>})}
+     {Array.from({length:46},(_,i)=><circle key={'core-synapse'+i} cx={18+(i*71)%384} cy={18+(i*47)%264} r={i%6===0?1.7:.8} className="core-synapse"/>)}
+    </svg>
+    <div className="core-title"><span className="core-mark">✳</span><b>NEXUS</b><small>NEURAL CORE</small><span className={online?'core-dot':'core-dot offline'}/></div>
+   </div>
    {nodes.map(n=><button type="button" className={'neural-node '+n.pos+' '+n.tone} key={n.pos} onClick={()=>onNavigate(n.page)} aria-label={'ورود به '+n.title}>
     <span className="node-orb"><span className="node-icon">{n.icon}</span><i className="node-halo"/></span><b>{n.title}</b><small>{n.sub}</small><span className={'node-state '+(n.active?'node-active':'node-planned')}><i/>{n.active?(online?'متصل به هسته':'ماژول محلی'):'در حال توسعه'}</span>
    </button>)}
