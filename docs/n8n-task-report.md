@@ -15,14 +15,15 @@
 1. از تغییرات این PR پس از بررسی استفاده کن؛ PR هنوز ادغام نشده است.
 2. در پوشهٔ ریشهٔ پروژه، اجرا کن:
    `docker compose config`
-3. اگر پیکربندی بدون خطا نمایش داده شد، برای ساخت و راه‌اندازی سرویس‌ها:
+3. اگر API قبلاً روی ویندوز به‌صورت `npm run start:dev` اجراست، آن را با `Ctrl+C` متوقف کن تا پورت 3000 آزاد شود.
+4. اگر پیکربندی بدون خطا نمایش داده شد، برای ساخت و راه‌اندازی سرویس‌ها:
    `docker compose up -d --build postgres api n8n`
-4. بررسی وضعیت:
+5. بررسی وضعیت:
    `docker compose ps`
    و سپس از ویندوز بررسی کن:
    `Invoke-RestMethod http://127.0.0.1:3000/api/health/ready`
-5. در n8n از منوی Workflows گزینهٔ Import from File را انتخاب و `n8n/workflows/nexus-gallery-open-tasks.json` را وارد کن.
-6. اجرای دستی را بزن و خروجی نود «ساخت گزارش فارسی» را بررسی کن؛ گزارش در فیلد `report` است.
+6. در n8n از منوی Workflows گزینهٔ Import from File را انتخاب و `n8n/workflows/nexus-gallery-open-tasks.json` را وارد کن.
+7. اجرای دستی را بزن و خروجی نود «ساخت گزارش فارسی» را بررسی کن؛ گزارش در فیلد `report` است.
 
 ## نکات مهم
 - این تغییرات هنوز روی Docker Desktop محلی کاربر اجرا یا تأیید نشده‌اند. ابتدا `docker compose config` و سپس build/health check را انجام بده.
