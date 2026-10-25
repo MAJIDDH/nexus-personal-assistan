@@ -22,8 +22,6 @@ async function api<T>(url:string, options?:RequestInit):Promise<T>{
  return r.json() as Promise<T>;
 }
 function Glyph({children}:{children:string}){return <span className="glyph" aria-hidden="true">{children}</span>}
-import { useEffect, useRef } from "react";
-
 type Pt = [number, number];
 interface Fiber { pts: Pt[]; w: number; hue: number; light: number }
 
