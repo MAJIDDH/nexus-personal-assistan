@@ -14,7 +14,7 @@
     },
     {
       "parameters": {
-        "url": "http://host.docker.internal:3000/api/tasks?project=golddyousefi&status=open",
+        "url": "http://api:3000/api/tasks?project=golddyousefi&status=open",
         "options": {
           "timeout": 10000
         }
