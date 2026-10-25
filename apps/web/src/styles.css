@@ -255,6 +255,17 @@
 .shell-home .core-title .core-dot{position:static;display:block;width:5px;height:5px;margin-top:3px;border-radius:50%;background:#68edce;box-shadow:0 0 9px #68edce}
 .shell-home .core-title .core-dot.offline{background:#d7a66b;box-shadow:0 0 8px #d7a66b}
 @keyframes coreAxonTravel{to{stroke-dashoffset:-174}}
+
+/* Home neural core refinement only: preserve the surrounding Lovable-inspired dashboard. */
+.shell-home .core-neural-field{filter:drop-shadow(0 0 10px #087cb8bb) drop-shadow(0 0 22px #174dff40)}
+.shell-home .core-axon{stroke-width:1.12;opacity:.62}
+.shell-home .core-axon.axon-1{stroke:#37f3e2;opacity:.76}
+.shell-home .core-axon.axon-2{stroke:#9b79ff;opacity:.7}
+.shell-home .core-axon.axon-3{stroke:#389cff;opacity:.78}
+.shell-home .core-axon-signal{stroke-width:1.7;stroke-dasharray:1.5 24;animation-duration:4.8s}
+.shell-home .core-synapse{filter:drop-shadow(0 0 6px #23cfff);animation-duration:3.1s}
+@media(prefers-reduced-motion:reduce){.shell-home .core-axon-signal,.shell-home .core-synapse{animation:none}}
+
 @keyframes coreSynapsePulse{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.95;transform:scale(1.5)}}
 @media(max-width:900px){.shell-home .neural-core{width:min(56vw,460px);height:min(48vw,340px)}}
 @media(max-width:560px){.shell-home .neural-core{width:86vw;height:58vw;max-height:300px}.shell-home .core-title{min-width:110px;padding:8px 12px}.shell-home .core-mark{font-size:22px}.shell-home .core-title b{font-size:13px;letter-spacing:3px}.shell-home .core-title small{font-size:6px;letter-spacing:2px}}
