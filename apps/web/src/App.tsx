@@ -51,11 +51,11 @@ function generate(w: number, h: number) {
   const sx = portrait ? 1.15 : 1.45, sy = portrait ? 1.65 : 0.95;
   // A few soma-like hubs; main axon trunks radiate unevenly from them
   const hubs = [
-    { x: -0.1, y: -0.02, trunks: 7 },
-    { x: 0.13, y: 0.05, trunks: 6 },
-    { x: -0.02, y: -0.14, trunks: 4 },
-    { x: -0.24, y: 0.1, trunks: 4 },
-    { x: 0.27, y: -0.08, trunks: 3 },
+    { x: -0.1, y: -0.02, trunks: 6 },
+    { x: 0.13, y: 0.05, trunks: 5 },
+    { x: -0.02, y: -0.14, trunks: 3 },
+    { x: -0.24, y: 0.1, trunks: 3 },
+    { x: 0.27, y: -0.08, trunks: 2 },
   ].map((c) => ({ ...c, x: cx + c.x * s * sx, y: cy + c.y * s * sy }));
   const clusters = hubs.map((c) => ({ x: c.x, y: c.y, rx: s * 0.22 * sx, ry: s * 0.2 * sy }));
   const bound = { x: cx, y: cy, rx: s * 0.4 * sx, ry: s * 0.3 * sy };
@@ -88,7 +88,7 @@ function generate(w: number, h: number) {
       }
       x += Math.cos(a) * step; y += Math.sin(a) * step;
       pts.push([x, y]);
-      const bp = depth === 0 ? 0.08 : depth === 1 ? 0.06 : 0.04;
+      const bp = depth === 0 ? 0.055 : depth === 1 ? 0.045 : 0.025;
       if (depth < 3 && i > 6 && r() < bp) {
         const side = r() < 0.5 ? -1 : 1;
         if (r() < 0.35) synapses.push({ x, y, r: (0.7 + r() * 1.1) * (depth === 0 ? 1.3 : 1), hue });
@@ -109,11 +109,11 @@ function generate(w: number, h: number) {
     synapses.push({ x: c.x, y: c.y, r: 1.8, hue: 190 });
   }
   // A handful of faint free wisps for depth
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 9; i++) {
     const c = hubs[Math.floor(r() * hubs.length)]!;
     grow(c.x + gauss() * bound.rx * 0.5, c.y + gauss() * bound.ry * 0.5, r() * Math.PI * 2, 0.35 + r() * 0.3, 40 + r() * 60, 2, pickHue(r));
   }
-  const dust = Array.from({ length: 140 }, () => ({
+  const dust = Array.from({ length: 90 }, () => ({
     x: bound.x + gauss() * bound.rx * 1.3, y: bound.y + gauss() * bound.ry * 1.4, r: r() * 0.7 + 0.2, p: r() * Math.PI * 2, hue: pickHue(r),
   }));
   return { fibers, synapses, dust, clusters };
@@ -177,7 +177,7 @@ export function NeuralField({ className }: { className?: string }) {
         s.fillRect(n.x - n.r * 3, n.y - n.r * 3, n.r * 6, n.r * 8);
       }
       const long = data.fibers.map((f, i) => ({ i, l: f.pts.length })).filter((x) => x.l > 30);
-      pulses = Array.from({ length: reduce ? 0 : 18 }, () => {
+      pulses = Array.from({ length: reduce ? 0 : 12 }, () => {
         const f = long[Math.floor(Math.random() * long.length)]!.i;
         return { f, t: Math.random() * data.fibers[f]!.pts.length, v: 0.4 + Math.random() * 0.9 };
       });
@@ -200,7 +200,7 @@ export function NeuralField({ className }: { className?: string }) {
         const pts = data.fibers[p.f]!.pts;
         p.t += p.v * 0.6;
         if (p.t >= pts.length) {
-          p.f = Math.floor(Math.random() * data.fibers.length);
+          const candidates = data.fibers.map((fiber, index) => ({ index, length: fiber.pts.length })).filter((fiber) => fiber.length > 30);\n          p.f = candidates[Math.floor(Math.random() * candidates.length)]?.index ?? 0;
           p.t = 0;
           continue;
         }
